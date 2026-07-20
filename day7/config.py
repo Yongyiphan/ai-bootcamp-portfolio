@@ -9,6 +9,7 @@ load_dotenv(DAY7_DIR.parent / ".env")
 load_dotenv(DAY7_DIR / ".env")
 
 # Ollama settings
+DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER", "ollama").lower()
 DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "llama3.2:3b")
 MODEL_NAME = os.getenv("MODEL_NAME", DEFAULT_MODEL)
 OLLAMA_API_BASE = os.getenv("OLLAMA_API_BASE", "http://localhost:11434")
