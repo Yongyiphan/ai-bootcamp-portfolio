@@ -49,7 +49,9 @@ with st.sidebar:
         model_name = st.text_input("Ollama Model", value=config.DEFAULT_MODEL)
         st.caption("Ollama requires access to your local Ollama server.")
     else:
+        model_source = config.SETTING_SOURCES.get("GEMINI_MODEL", "unknown")
         st.caption(f"Gemini model: {config.GEMINI_MODEL}")
+        st.caption(f"Model setting source: {model_source}")
 
 st.title("AI Chat")
 
