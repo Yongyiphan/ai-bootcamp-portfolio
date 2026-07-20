@@ -2,6 +2,23 @@ from google import genai
 from google.genai import types
 import config
 
+_client = None
+
+
+def _get_client():
+    global _client
+
+    if not config.GEMINI_API_KEY:
+        raise RuntimeError(
+            "GEMINI_API_KEY is missing. Add it to day7/.env locally or "
+            "to the Streamlit Community Cloud app secrets."
+        )
+
+    if _client is None:
+        _client = genai.Client(api_key=config.GEMINI_API_KEY)
+    return _client
+
+
 def _convert_to_gemini_contents(messages):
     formatted_contents = []
     for msg in messages:
@@ -14,13 +31,7 @@ def _convert_to_gemini_contents(messages):
     return formatted_contents
 
 def get_ai_response_stream(messages):
-    if not config.GEMINI_API_KEY:
-        raise RuntimeError(
-            "GEMINI_API_KEY is missing. Add it to day7/.env locally or "
-            "to the Streamlit Community Cloud app secrets."
-        )
-
-    client = genai.Client(api_key=config.GEMINI_API_KEY)
+    client = _get_client()
     gemini_payload = _convert_to_gemini_contents(messages)
     api_config = types.GenerateContentConfig(system_instruction=config.SYSTEM_PROMPT)
     return client.models.generate_content_stream(
