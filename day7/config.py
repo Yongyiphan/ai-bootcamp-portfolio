@@ -8,9 +8,6 @@ DAY7_DIR = Path(__file__).resolve().parent
 load_dotenv(DAY7_DIR.parent / ".env")
 load_dotenv(DAY7_DIR / ".env")
 
-SETTING_SOURCES = {}
-
-
 def get_setting(name, default=None):
     """Read Streamlit Cloud secrets first, then environment/.env values."""
     try:
@@ -19,7 +16,6 @@ def get_setting(name, default=None):
         if name in st.secrets:
             value = st.secrets[name]
             if value is not None and str(value).strip():
-                SETTING_SOURCES[name] = "Streamlit Secrets"
                 return str(value).strip()
     except Exception:
         # No Streamlit runtime or secrets file is expected for CLI/local usage.
@@ -27,10 +23,8 @@ def get_setting(name, default=None):
 
     value = os.getenv(name)
     if value and value.strip():
-        SETTING_SOURCES[name] = "environment/.env"
         return value.strip()
 
-    SETTING_SOURCES[name] = "Python default"
     return default
 
 

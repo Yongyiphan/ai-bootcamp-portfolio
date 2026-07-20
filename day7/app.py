@@ -1,5 +1,3 @@
-import os
-
 import streamlit as st
 
 import config
@@ -54,24 +52,7 @@ with st.sidebar:
         st.caption("Ollama requires access to your local Ollama server.")
     else:
         live_gemini_model = config.get_setting("GEMINI_MODEL", "gemini-3.5-flash")
-        model_source = config.SETTING_SOURCES.get("GEMINI_MODEL", "unknown")
         st.caption(f"Gemini model: {live_gemini_model}")
-        st.caption(f"Model setting source: {model_source}")
-
-    with st.expander("Configuration debug"):
-        secret_model = st.secrets.get("GEMINI_MODEL", "<missing>")
-        environment_model = os.getenv("GEMINI_MODEL", "<missing>")
-        st.code(
-            "\n".join(
-                [
-                    f"st.secrets GEMINI_MODEL: {secret_model}",
-                    f"os.getenv GEMINI_MODEL: {environment_model}",
-                    f"live resolved model: {config.get_setting('GEMINI_MODEL', 'gemini-3.5-flash')}",
-                    f"import-time config.GEMINI_MODEL: {config.GEMINI_MODEL}",
-                    f"config source: {config.SETTING_SOURCES.get('GEMINI_MODEL', 'unknown')}",
-                ]
-            )
-        )
 
 st.title("AI Chat")
 
