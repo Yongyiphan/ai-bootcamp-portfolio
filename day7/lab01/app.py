@@ -23,6 +23,7 @@ try:
         "OLLAMA_API_BASE",
         "OPENAI_API_KEY",
         "ANTHROPIC_API_KEY",
+        "GEMINI_API_KEY",
     ):
         if key in st.secrets and str(st.secrets[key]).strip():
             os.environ[key] = str(st.secrets[key]).strip()

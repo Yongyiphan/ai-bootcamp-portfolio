@@ -41,6 +41,9 @@ MODEL = "openai/gpt-4o-mini"
 OPENAI_API_KEY = "your-key"
 ```
 
+Gemini is also supported with `MODEL = "gemini/gemini-2.5-flash"` and
+`GEMINI_API_KEY = "your-key"` in Streamlit Cloud Secrets.
+
 Never commit `.env`, API keys, generated reports, or database files.
 
 The app performs the complete eight-stage pipeline: PDF/JD parsing, resume and
