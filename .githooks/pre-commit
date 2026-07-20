@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Reject staged files larger than 80 MiB. Inspect the staged blob rather than
+# the working-tree file so the check matches exactly what Git will commit.
+max_bytes=$((80 * 1024 * 1024))
+staged_paths=$(mktemp) || exit 1
+trap 'rm -f "$staged_paths"' EXIT HUP INT TERM
+
+if ! git diff --cached --name-only --diff-filter=ACMR -z > "$staged_paths"; then
+    printf 'ERROR: could not inspect staged files.\n' >&2
+    exit 1
+fi
+
+failed=0
+
+while IFS= read -r -d '' path; do
+    size=$(git cat-file -s ":$path" 2>/dev/null) || continue
+
+    if [ "$size" -gt "$max_bytes" ]; then
+        size_mib=$(awk "BEGIN { printf \"%.1f\", $size / 1024 / 1024 }")
+        printf 'ERROR: staged file is larger than 80 MiB (%s MiB): %s\n' "$size_mib" "$path" >&2
+        failed=1
+    fi
+done < "$staged_paths"
+
+if [ "$failed" -ne 0 ]; then
+    printf '\nCommit blocked. Remove the file from the commit or use Git LFS.\n' >&2
+    exit 1
+fi
+
+exit 0
