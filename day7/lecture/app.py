@@ -1,6 +1,6 @@
 import streamlit as st
 
-import config
+import day7.lecture.config as config
 from database.db_manager import (
     create_session,
     get_chat_history,
@@ -8,10 +8,10 @@ from database.db_manager import (
     init_db,
     save_message,
 )
-from services.gemini_service import get_ai_response_stream as get_gemini_stream
-from services.gemini_service import parse_stream_chunks as parse_gemini_chunks
-from services.llm_service import get_ollama_stream
-from services.llm_service import parse_stream_chunks as parse_ollama_chunks
+from day7.lecture.services.gemini_service import get_ai_response_stream as get_gemini_stream
+from day7.lecture.services.gemini_service import parse_stream_chunks as parse_gemini_chunks
+from day7.lecture.services.llm_service import get_ollama_stream
+from day7.lecture.services.llm_service import parse_stream_chunks as parse_ollama_chunks
 
 st.set_page_config(page_title="AI SQLite Chatbot", layout="wide")
 init_db()

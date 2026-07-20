@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import datetime
-import config
+import day7.lecture.config as config
 
 def init_db():
     conn = sqlite3.connect(config.DB_NAME)

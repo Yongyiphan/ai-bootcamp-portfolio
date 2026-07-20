@@ -1,0 +1,2799 @@
+<!DOCTYPE html>
+<!-- saved from url=(0117)https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_tutorial_track_a.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Résumé × JD Analyser — Lab Guide — Track A</title>
+  <meta name="date" content="09/05/2026">
+  <link rel="stylesheet" href="./Résumé × JD Analyser — Lab Guide — Track A_files/atom-one-light.min.css">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true,
+        tags: 'ams',
+        tagSide: 'right'
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      startup: {
+        pageReady: function() {
+          return MathJax.startup.defaultPageReady().then(function() {
+            document.dispatchEvent(new Event('mathjax-typeset-done'));
+          });
+        }
+      }
+    };
+  </script>
+  <script src="./Résumé × JD Analyser — Lab Guide — Track A_files/tex-chtml.js.download" async=""></script>
+  <style>
+
+    :root {
+      --primary: #1F4D78;
+      --accent: #2E74B5;
+      --warning-bg: #fff3cd;
+      --warning-border: #ffcc02;
+      --tip-bg: #d4edda;
+      --tip-border: #28a745;
+      --important-bg: #f8d7da;
+      --important-border: #dc3545;
+      --game-bg: #d6eaf8;
+      --game-border: #2e86c1;
+      --code-bg: #edf2f7;
+      --border: #b0c4d8;
+      --text: #404040;
+      --light-bg: #f0f4f8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      background: #FAF9F6;
+    }
+
+    h1 {
+      font-size: 2rem; color: var(--primary);
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 0.5rem; margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-size: 1.45rem; color: var(--primary);
+      margin-top: 2.5rem; margin-bottom: 0.75rem;
+      padding-bottom: 0.3rem; border-bottom: 2px solid var(--border);
+    }
+    h3 {
+      font-size: 1.15rem; color: var(--primary);
+      margin-top: 1.5rem; margin-bottom: 0.5rem;
+    }
+    h4 {
+      font-size: 1.05rem; color: var(--accent);
+      margin-top: 1.25rem; margin-bottom: 0.4rem;
+    }
+    h5 {
+      font-size: 1.0rem; color: var(--accent);
+      margin-top: 1rem; margin-bottom: 0.3rem;
+    }
+
+    p { margin-bottom: 0.75rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul, ol { margin-bottom: 0.75rem; padding-left: 1.5rem; }
+    li { margin-bottom: 0.35rem; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    table {
+      width: 100%; border-collapse: collapse;
+      margin: 1rem 0; font-size: 0.92rem;
+    }
+    th {
+      background: var(--primary); color: #fff;
+      padding: 0.6rem 0.75rem; text-align: left; font-weight: 600;
+    }
+    td {
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border); vertical-align: top;
+    }
+    tr:nth-child(even) td { background: var(--light-bg); }
+    th code { background: transparent; color: #fff; }
+
+    code {
+      background: var(--code-bg); padding: 0.15rem 0.4rem;
+      border-radius: 3px; font-size: 0.88rem;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+    pre {
+      border-radius: 6px; overflow-x: auto;
+      margin: 0.75rem 0; font-size: 0.85rem; line-height: 1.5; padding: 0;
+    }
+    pre code {
+      display: block; padding: 1rem; border-radius: 6px;
+      background: none; color: inherit;
+    }
+
+    /* Math */
+    .math-block {
+      overflow-x: auto; overflow-y: hidden;
+      padding: 0.5rem 0; text-align: center;
+    }
+
+    /* Figures */
+    figure {
+      text-align: center; margin: 1.5rem 0;
+    }
+    figure img {
+      max-width: 90%; height: auto; border-radius: 6px;
+      cursor: zoom-in;
+    }
+    figcaption {
+      font-size: 90%; font-weight: 550;
+      margin-top: 0.5rem;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      background: var(--light-bg); border-left: 4px solid var(--border);
+      padding: 0.75rem 1rem; margin: 0.75rem 0; border-radius: 4px;
+    }
+    blockquote p { margin-bottom: 0.4rem; }
+    blockquote p:last-child { margin-bottom: 0; }
+
+    /* Callouts */
+    .callout {
+      padding: 0.85rem 1rem; border-left: 4px solid;
+      border-radius: 4px; margin: 1rem 0;
+    }
+    .callout-tip { background: var(--tip-bg); border-color: var(--tip-border); }
+    .callout-warning { background: var(--warning-bg); border-color: var(--warning-border); }
+    .callout-important { background: var(--important-bg); border-color: var(--important-border); }
+    .callout-game { background: var(--game-bg); border-color: var(--game-border); }
+    .callout strong:first-child { display: block; margin-bottom: 0.25rem; }
+
+    /* Listing captions (> **Listing N.M** — ...) */
+    .listing-caption {
+      background: var(--light-bg); border-left: 4px solid var(--accent);
+      padding: 0.5rem 1rem; margin: 0.75rem 0; border-radius: 4px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      table { font-size: 0.82rem; }
+    }
+    @media print {
+      body { max-width: 100%; padding: 0; }
+      h2 { page-break-after: avoid; }
+      table, blockquote, .callout { page-break-inside: avoid; }
+    }
+
+    /* CSS token bridge — maps interactive-elements.md variable names to pipeline palette */
+    :root {
+      --color-accent: var(--accent);
+      --color-accent-hover: #1a5fa8;
+      --color-accent-light: #dce9f5;
+      --color-accent-muted: #7aade0;
+      --color-surface: #fff;
+      --color-surface-warm: var(--light-bg);
+      --color-border: var(--border);
+      --color-border-light: #cdd8e8;
+      --color-text-muted: #999;
+      --color-success: #28a745;    --color-success-light: var(--tip-bg);
+      --color-error: #dc3545;      --color-error-light: var(--important-bg);
+      --color-info: #17a2b8;       --color-info-light: #d1ecf1;
+      --color-bg-code: #282c34;
+      --color-actor-1: var(--accent); --color-actor-2: #2D8B55;
+      --color-actor-3: #7B6DAA;       --color-actor-4: #D4A843; --color-actor-5: #E06B56;
+      --radius-sm: 4px;   --radius-md: 6px;  --radius-lg: 10px; --radius-full: 9999px;
+      --space-1: .25rem;  --space-2: .5rem;  --space-3: .75rem; --space-4: 1rem;
+      --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem;
+      --font-mono: 'Consolas', 'Courier New', monospace;
+      --font-body: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
+      --font-display: 'Calibri', 'Candara', 'Segoe UI', sans-serif;
+      --text-xs: .75rem; --text-sm: .875rem; --text-base: 1rem;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,.1);
+      --duration-fast: 150ms; --duration-normal: 300ms;
+      --ease-out: cubic-bezier(.16,1,.3,1);
+    }
+
+    /* ── Translation block ──────────────────────────────────────────────── */
+    .translation-block {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: var(--radius-md); overflow: hidden;
+      box-shadow: var(--shadow-md); margin: var(--space-8) 0;
+    }
+    .translation-code {
+      background: var(--color-bg-code); color: #CDD6F4;
+      padding: var(--space-6); font-family: var(--font-mono);
+      font-size: var(--text-sm); line-height: 1.7; position: relative;
+    }
+    .translation-code pre, .translation-code code {
+      white-space: pre-wrap; word-break: break-word; overflow-x: hidden;
+      background: none; color: inherit; padding: 0; font-size: inherit;
+    }
+    .translation-english {
+      background: var(--color-surface-warm); padding: var(--space-6);
+      font-size: var(--text-sm); line-height: 1.7;
+      border-left: 3px solid var(--color-accent);
+    }
+    .translation-label {
+      position: absolute; top: var(--space-2); right: var(--space-3);
+      font-size: var(--text-xs); text-transform: uppercase;
+      letter-spacing: .1em; opacity: .5;
+    }
+    @media (max-width: 768px) {
+      .translation-block { grid-template-columns: 1fr; }
+      .translation-english { border-left: none; border-top: 3px solid var(--color-accent); }
+    }
+
+    /* ── Pattern cards ──────────────────────────────────────────────────── */
+    .pattern-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4); margin: var(--space-8) 0;
+    }
+    .pattern-card {
+      background: #fff; border-radius: var(--radius-md); padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal);
+    }
+    .pattern-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .pattern-title { font-size: 1rem; font-weight: 600; margin: .5rem 0 .25rem; }
+    .pattern-desc  { font-size: var(--text-sm); color: #555; margin: 0; }
+    .pattern-icon  {
+      width: 40px; height: 40px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+    }
+
+    /* ── Badge list ─────────────────────────────────────────────────────── */
+    .badge-list { display: flex; flex-direction: column; gap: var(--space-2); margin: var(--space-4) 0; }
+    .badge-item {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border-light); border-radius: var(--radius-sm);
+      transition: border-color var(--duration-fast);
+    }
+    .badge-item:hover { border-color: var(--color-accent-muted); }
+    .badge-code {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      background: var(--color-bg-code); color: #CBA6F7;
+      padding: .15rem .5rem; border-radius: var(--radius-sm); white-space: nowrap;
+    }
+    .badge-desc { font-size: var(--text-sm); color: #555; }
+
+    /* ── File tree ──────────────────────────────────────────────────────── */
+    .file-tree { font-family: var(--font-mono); font-size: var(--text-sm); margin: var(--space-4) 0; }
+    .ft-folder, .ft-file {
+      padding: var(--space-2) var(--space-3);
+      border-left: 2px solid var(--color-border-light); margin-left: var(--space-4);
+    }
+    .ft-folder > .ft-name { color: var(--color-accent); font-weight: 600; }
+    .ft-folder > .ft-name::before { content: '\1f4c1 '; }
+    .ft-file > .ft-name::before   { content: '\1f4c4 '; }
+    .ft-desc     { color: #888; margin-left: var(--space-2); font-size: var(--text-xs); }
+    .ft-children { margin-left: var(--space-4); }
+
+    /* ── Icon rows ──────────────────────────────────────────────────────── */
+    .icon-rows { display: flex; flex-direction: column; gap: var(--space-4); margin: var(--space-4) 0; }
+    .icon-row {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4); background: #fff;
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+    }
+    .icon-row strong { display: block; font-weight: 600; }
+    .icon-row p { margin: .15rem 0 0; color: #555; font-size: var(--text-sm); }
+    .icon-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0;
+    }
+
+    /* ── Step cards ─────────────────────────────────────────────────────── */
+    .step-cards { display: flex; flex-direction: column; gap: var(--space-3); margin: var(--space-4) 0; }
+    .step-card {
+      display: flex; align-items: flex-start; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5); background: #fff;
+      border-radius: var(--radius-md); border-left: 3px solid var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--color-accent); color: #fff; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-body strong { display: block; font-weight: 600; }
+    .step-body p { margin: .15rem 0 0; color: #555; font-size: var(--text-sm); }
+
+    /* ── Callout extensions (adds to existing .callout base in BASE_CSS) ── */
+    .callout-accent { background: var(--color-accent-light); border-color: var(--color-accent); }
+    .callout-info   { background: var(--color-info-light);   border-color: var(--color-info); }
+    .callout-icon   { font-size: 1.5rem; margin-right: .75rem; flex-shrink: 0; }
+    .callout-content { flex: 1; }
+    .callout-title  { display: block; font-weight: 700; margin-bottom: .25rem; }
+
+    /* ── Scroll-reveal ───────────────────────────────────────────────────── */
+    .animate-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+    }
+    .animate-in.visible { opacity: 1; transform: translateY(0); }
+    .stagger-children > .animate-in {
+      transition-delay: calc(var(--stagger-index, 0) * var(--duration-normal));
+    }
+
+    /* ── Glossary tooltip ────────────────────────────────────────────────── */
+    .term {
+      border-bottom: 1.5px dashed var(--color-accent-muted);
+      cursor: pointer; position: relative;
+    }
+    .term:hover, .term.active { border-bottom-color: var(--color-accent); color: var(--color-accent); }
+    .term-tooltip {
+      position: fixed; background: #282c34; color: #CDD6F4;
+      padding: .5rem .75rem; border-radius: var(--radius-sm);
+      font-size: var(--text-sm); line-height: 1.6;
+      width: clamp(200px, 320px, 80vw); box-shadow: var(--shadow-lg);
+      pointer-events: none; opacity: 0;
+      transition: opacity var(--duration-fast); z-index: 10000;
+    }
+    .term-tooltip::after {
+      content: ''; position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%); border: 6px solid transparent;
+      border-top-color: #282c34;
+    }
+    .term-tooltip.visible { opacity: 1; }
+
+    /* ── Bug challenge ───────────────────────────────────────────────────── */
+    .bug-challenge {
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: 1rem; margin: 1rem 0;
+    }
+    .bug-code { font-family: var(--font-mono); font-size: var(--text-sm); }
+    .bug-line {
+      display: flex; gap: .75rem; padding: .2rem .5rem;
+      cursor: pointer; border-radius: 4px; transition: background var(--duration-fast);
+    }
+    .bug-line:hover    { background: var(--light-bg); }
+    .bug-line.correct  { background: var(--tip-bg); }
+    .bug-line.incorrect { background: var(--important-bg); }
+    .line-num { color: #999; user-select: none; min-width: 1.5rem; text-align: right; }
+    .bug-feedback {
+      margin-top: .75rem; padding: .75rem; border-radius: 6px;
+      font-size: .92rem; display: none;
+    }
+    .bug-feedback.show.success { display: block; background: var(--tip-bg);       border-left: 4px solid #28a745; }
+    .bug-feedback.show.error   { display: block; background: var(--important-bg); border-left: 4px solid #dc3545; }
+
+    /* ── Flow steps (static) ─────────────────────────────────────────────── */
+    .flow-steps { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin: var(--space-4) 0; }
+    .flow-step {
+      background: #fff; border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); text-align: center;
+    }
+    .flow-step-num {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--color-accent);
+      color: #fff; font-weight: 700; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto .25rem; font-size: var(--text-sm);
+    }
+    .flow-arrow { color: var(--color-accent); font-size: 1.25rem; }
+    @media (max-width: 480px) {
+      .flow-steps { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+
+    /* ── Scenario block ──────────────────────────────────────────────────── */
+    .scenario-context {
+      background: var(--light-bg); border-left: 4px solid var(--color-accent);
+      padding: .75rem 1rem; border-radius: 4px; margin-bottom: .75rem;
+    }
+    .scenario-label {
+      display: block; font-size: var(--text-xs); font-weight: 600;
+      text-transform: uppercase; letter-spacing: .05em;
+      color: var(--color-accent); margin-bottom: .25rem;
+    }
+
+    /* ── Quiz container ────────────────────────────────────────────────────── */
+    .quiz-container { margin: var(--space-8) 0; }
+    .quiz-question-block {
+      margin-bottom: var(--space-6); padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .quiz-question { font-size: 1rem; font-weight: 600; margin-bottom: var(--space-3); }
+    .quiz-options { display: flex; flex-direction: column; gap: var(--space-2); }
+    .quiz-option {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: 2px solid var(--color-border); border-radius: var(--radius-sm);
+      background: var(--color-surface); cursor: pointer; width: 100%;
+      font-family: inherit; font-size: inherit; text-align: left;
+      transition: border-color var(--duration-fast), background var(--duration-fast);
+    }
+    .quiz-option:hover     { border-color: var(--color-accent-muted); }
+    .quiz-option.selected  { border-color: var(--color-accent);  background: var(--color-accent-light); }
+    .quiz-option.correct   { border-color: var(--color-success); background: var(--color-success-light); }
+    .quiz-option.incorrect { border-color: var(--color-error);   background: var(--color-error-light); }
+    .quiz-option-radio {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--color-border); flex-shrink: 0;
+      transition: all var(--duration-fast);
+    }
+    .quiz-option.selected .quiz-option-radio {
+      border-color: var(--color-accent); background: var(--color-accent);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+    .quiz-feedback {
+      max-height: 0; overflow: hidden; opacity: 0;
+      border-radius: var(--radius-sm); margin-top: var(--space-2);
+      transition: max-height var(--duration-normal), opacity var(--duration-normal);
+    }
+    .quiz-feedback.show { max-height: 200px; opacity: 1; padding: var(--space-3); }
+    .quiz-feedback.show.success { background: var(--color-success-light); color: #155724; }
+    .quiz-feedback.show.error   { background: var(--color-error-light);   color: #721c24; }
+    .quiz-feedback.show.warning { background: var(--warning-bg);          color: #856404; }
+    .quiz-check-btn, .quiz-reset-btn {
+      padding: var(--space-2) var(--space-5); border-radius: var(--radius-sm);
+      border: none; cursor: pointer; font-family: inherit; font-size: .9rem;
+      margin-top: var(--space-4); margin-right: var(--space-2);
+    }
+    .quiz-check-btn { background: var(--color-accent); color: #fff; }
+    .quiz-check-btn:hover { background: var(--color-accent-hover); }
+    .quiz-reset-btn { background: var(--color-border-light); border: 1px solid var(--color-border); }
+    .quiz-reset-btn:hover { border-color: var(--color-accent); }
+    .quiz-overall-feedback { margin-top: var(--space-4); font-weight: 600; font-size: .95rem; }
+
+    /* ── Drag-and-drop ──────────────────────────────────────────────────────── */
+    .dnd-container { margin: var(--space-8) 0; }
+    .dnd-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .dnd-chip {
+      padding: var(--space-2) var(--space-4); background: var(--color-accent);
+      color: #fff; border-radius: var(--radius-full); cursor: grab;
+      font-size: var(--text-sm); user-select: none;
+      transition: opacity var(--duration-fast);
+    }
+    .dnd-chip:active { cursor: grabbing; }
+    .dnd-chip.dragging { opacity: .4; }
+    .dnd-chip.placed   { opacity: .25; pointer-events: none; }
+    .dnd-zones { display: flex; flex-direction: column; gap: var(--space-3); }
+    .dnd-zone { border: 1px solid var(--color-border-light); border-radius: var(--radius-md); padding: var(--space-4); }
+    .dnd-zone-label { font-size: var(--text-sm); margin-bottom: var(--space-2); color: #555; }
+    .dnd-zone-target {
+      min-height: 36px; padding: var(--space-2) var(--space-3);
+      border: 2px dashed var(--color-border); border-radius: var(--radius-sm);
+      font-size: var(--text-sm); color: var(--color-text-muted); display: flex; align-items: center;
+      transition: border-color var(--duration-fast), background var(--duration-fast);
+    }
+    .dnd-zone-target.drag-over { border-color: var(--color-accent);  background: var(--color-accent-light); }
+    .dnd-zone-target.correct   { border-color: var(--color-success); background: var(--color-success-light); color: var(--color-success); border-style: solid; }
+    .dnd-zone-target.incorrect { border-color: var(--color-error);   background: var(--color-error-light);   color: var(--color-error);   border-style: solid; }
+    .dnd-container button {
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border); background: var(--color-surface);
+      cursor: pointer; font-family: inherit; font-size: var(--text-sm);
+      margin-top: var(--space-3); margin-right: var(--space-2);
+    }
+    .dnd-container button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .touch-ghost {
+      padding: var(--space-2) var(--space-4); background: var(--color-accent);
+      color: #fff; border-radius: var(--radius-full); font-size: var(--text-sm); opacity: .85;
+    }
+
+    /* ── Chat window ────────────────────────────────────────────────────────── */
+    .chat-window { border: 1px solid var(--color-border-light); border-radius: var(--radius-lg); overflow: hidden; margin: var(--space-8) 0; }
+    .chat-messages {
+      padding: var(--space-4); display: flex; flex-direction: column;
+      gap: var(--space-3); min-height: 200px; background: var(--color-surface-warm);
+    }
+    .chat-message { display: flex; gap: var(--space-3); align-items: flex-start; }
+    .chat-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: var(--text-sm); flex-shrink: 0;
+    }
+    .chat-bubble {
+      background: #fff; padding: var(--space-3) var(--space-4);
+      border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+      box-shadow: var(--shadow-sm); max-width: 80%;
+    }
+    .chat-sender { display: block; font-size: var(--text-xs); font-weight: 600; margin-bottom: .25rem; }
+    .chat-bubble p { margin: 0; font-size: var(--text-sm); }
+    .chat-typing {
+      padding: 0 var(--space-4) var(--space-3); background: var(--color-surface-warm);
+      display: flex; gap: var(--space-3); align-items: center;
+    }
+    .chat-typing-dots { display: flex; gap: 4px; padding: var(--space-3); background: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+    .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-text-muted); animation: typingBounce 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: .2s; }
+    .typing-dot:nth-child(3) { animation-delay: .4s; }
+    @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+    .chat-controls {
+      display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+      padding: var(--space-3) var(--space-4);
+      border-top: 1px solid var(--color-border-light); background: #fff;
+    }
+    .chat-controls button {
+      padding: var(--space-1) var(--space-3); border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border); background: var(--color-surface);
+      cursor: pointer; font-family: inherit; font-size: var(--text-sm);
+    }
+    .chat-controls button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .chat-progress { font-size: var(--text-sm); color: var(--color-text-muted); margin-left: auto; }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Flow animation ─────────────────────────────────────────────────────── */
+    .flow-animation {
+      border: 1px solid var(--color-border-light); border-radius: var(--radius-lg);
+      padding: var(--space-6); margin: var(--space-8) 0; background: var(--color-surface-warm);
+    }
+    .flow-actors { display: flex; justify-content: space-around; flex-wrap: wrap; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .flow-actor {
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+      padding: var(--space-3); border-radius: var(--radius-md);
+      font-size: var(--text-sm); font-weight: 600;
+      transition: box-shadow var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
+    }
+    .flow-actor.active { box-shadow: 0 0 0 3px var(--color-accent), 0 0 20px rgba(46,116,181,.2); transform: scale(1.05); }
+    .flow-actor-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--color-accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 700;
+    }
+    .flow-step-label {
+      text-align: center; font-size: var(--text-sm); color: #555; min-height: 2.5em;
+      margin: var(--space-3) 0; padding: var(--space-3);
+      background: #fff; border-radius: var(--radius-sm); border-left: 3px solid var(--color-accent);
+    }
+    .flow-controls { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-4); }
+    .flow-controls button {
+      padding: var(--space-1) var(--space-3); border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border); background: var(--color-surface);
+      cursor: pointer; font-family: inherit; font-size: var(--text-sm);
+    }
+    .flow-controls button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .flow-progress { font-size: var(--text-sm); color: var(--color-text-muted); margin-left: auto; }
+
+    /* ── Architecture diagram ───────────────────────────────────────────────── */
+    .arch-diagram { border: 1px solid var(--color-border-light); border-radius: var(--radius-lg); padding: var(--space-6); margin: var(--space-8) 0; }
+    .arch-zone {
+      border: 1px dashed var(--color-border); border-radius: var(--radius-md);
+      padding: var(--space-4); margin-bottom: var(--space-4);
+      display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--space-3);
+    }
+    .arch-zone-label {
+      width: 100%; font-size: var(--text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em; color: var(--color-text-muted);
+    }
+    .arch-component {
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border-light); border-radius: var(--radius-md);
+      background: #fff; cursor: pointer; font-size: var(--text-sm); text-align: center;
+      transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    }
+    .arch-component:hover  { border-color: var(--color-accent); box-shadow: var(--shadow-sm); }
+    .arch-component.active { border-color: var(--color-accent); background: var(--color-accent-light); }
+    .arch-icon { font-size: 1.5rem; }
+    .arch-description {
+      padding: var(--space-3) var(--space-4); background: var(--color-surface-warm);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: var(--text-sm); min-height: 3em; color: #555;
+    }
+
+    /* ── Layer toggle demo ──────────────────────────────────────────────────── */
+    .layer-demo { border: 1px solid var(--color-border-light); border-radius: var(--radius-lg); overflow: hidden; margin: var(--space-8) 0; }
+    .layer-tabs { display: flex; border-bottom: 1px solid var(--color-border-light); background: var(--color-surface-warm); }
+    .layer-tab {
+      padding: var(--space-3) var(--space-5); border: none; background: none;
+      cursor: pointer; font-family: inherit; font-size: var(--text-sm);
+      color: var(--color-text-muted); border-bottom: 2px solid transparent;
+      transition: color var(--duration-fast), border-color var(--duration-fast);
+    }
+    .layer-tab:hover  { color: var(--color-accent); }
+    .layer-tab.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+    .layer-viewport { padding: var(--space-6); min-height: 200px; }
+    .layer-description { font-size: var(--text-sm); color: #555; padding: var(--space-3) var(--space-6); margin: 0; border-top: 1px solid var(--color-border-light); background: var(--color-surface-warm); }
+
+    /* Self-check cards */
+    .sc-card {
+      border: 1px solid var(--border); border-radius: 8px;
+      margin: 1.5rem 0; padding: 1rem 1.25rem;
+      background: #fff;
+    }
+    .sc-header {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .sc-badge {
+      background: var(--accent); color: #fff;
+      padding: 0.15rem 0.6rem; border-radius: 12px;
+      font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+    }
+    .sc-id { font-size: 0.8rem; color: #999; }
+    .sc-prompt { margin-bottom: 0.75rem; line-height: 1.6; }
+    .sc-btn {
+      background: var(--accent); color: #fff; border: none;
+      padding: 0.4rem 1rem; border-radius: 4px; cursor: pointer;
+      font-size: 0.9rem; margin-top: 0.5rem;
+    }
+    .sc-btn:hover { opacity: 0.85; }
+
+    /* Multiple choice */
+    .sc-mc-choice {
+      display: block; padding: 0.5rem 0.75rem;
+      margin: 0.3rem 0; border: 1px solid #ddd; border-radius: 6px;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .sc-mc-choice:hover { background: var(--light-bg); }
+    .sc-mc-choice.sc-correct { background: #d4edda; border-color: #28a745; }
+    .sc-mc-choice.sc-wrong { background: #f8d7da; border-color: #dc3545; }
+    .sc-mc-text { margin-left: 0.5rem; }
+
+    /* Feedback */
+    .sc-feedback {
+      margin-top: 0.75rem; padding: 0.75rem; border-radius: 6px;
+      font-size: 0.92rem; line-height: 1.5;
+    }
+    .sc-feedback.sc-fb-correct { background: #d4edda; border-left: 4px solid #28a745; }
+    .sc-feedback.sc-fb-wrong { background: #f8d7da; border-left: 4px solid #dc3545; }
+
+    /* Reveal blocks */
+    .sc-reveal {
+      margin-top: 0.75rem; padding: 0.75rem;
+      background: var(--light-bg); border-radius: 6px;
+      border-left: 4px solid var(--accent);
+    }
+    .sc-answer { margin-bottom: 0.5rem; }
+    .sc-explain { font-size: 0.92rem; color: #555; }
+    .sc-rubric { font-size: 0.92rem; }
+    .sc-rubric ul { margin-top: 0.25rem; }
+
+    /* Spot-the-error */
+    .sc-code-table { width: 100%; font-size: 0.85rem; margin: 0.5rem 0; }
+    .sc-code-table td { padding: 0.1rem 0.5rem; border: none; }
+    .sc-line-num { color: #999; user-select: none; width: 2rem; text-align: right; }
+    .sc-highlight-line td { background: #f8d7da !important; }
+    .sc-code-table td code {
+      background: none; padding: 0;
+      border-radius: 0; white-space: pre; font-size: inherit;
+    }
+
+    /* Trace-the-flow */
+    .sc-trace-list { list-style: none; padding: 0; }
+    .sc-trace-item {
+      padding: 0.5rem 0.75rem; margin: 0.3rem 0;
+      border: 1px solid #ddd; border-radius: 6px;
+      cursor: grab; background: #fff;
+      transition: background 0.2s;
+    }
+    .sc-trace-item:active { cursor: grabbing; }
+    .sc-trace-item.sc-drag-over { border-color: var(--accent); background: var(--light-bg); }
+    .sc-trace-item.sc-correct { background: #d4edda; border-color: #28a745; }
+    .sc-trace-item.sc-wrong { background: #f8d7da; border-color: #dc3545; }
+
+    /* Match concepts */
+    .sc-match-grid { margin: 0.5rem 0; }
+    .sc-match-row {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.4rem 0; border-bottom: 1px solid #eee;
+    }
+    .sc-match-term { font-weight: 600; min-width: 120px; padding-top: 0.35rem; }
+    .sc-match-select {
+      flex: 1; min-width: 0; position: relative; cursor: pointer;
+      padding: 0.3rem 0.5rem; border-radius: 4px; border: 1px solid #ccc;
+      background: #f8f8f8; display: flex; align-items: center;
+      gap: 0.4rem; user-select: none; box-sizing: border-box;
+    }
+    .sc-match-sel-text {
+      flex: 1; white-space: normal; word-break: break-word;
+      color: #555; line-height: 1.3;
+    }
+    .sc-match-sel-arrow { flex-shrink: 0; font-size: 0.75rem; color: #888; }
+    .sc-match-opts {
+      position: absolute; left: 0; right: 0; top: calc(100% + 2px); z-index: 200;
+      background: #fff; border: 1px solid #aaa; border-radius: 4px;
+      list-style: none; margin: 0; padding: 0.25rem 0;
+      max-height: 220px; overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .sc-match-opt {
+      padding: 0.4rem 0.7rem; cursor: pointer;
+      white-space: normal; word-break: break-word; line-height: 1.4; font-size: 0.9rem;
+    }
+    .sc-match-opt:hover { background: #e8f0fe; }
+    .sc-match-opt[aria-selected="true"] { background: #d1e7fd; }
+    .sc-match-row.sc-correct .sc-match-select { border-color: #28a745; background: #d4edda; }
+    .sc-match-row.sc-wrong .sc-match-select { border-color: #dc3545; background: #f8d7da; }
+
+    /* Fill-in-the-blank */
+    .sc-fill-input {
+      border: none; border-bottom: 2px solid var(--accent);
+      padding: 0.2rem 0.5rem; font-size: 1rem; min-width: 120px;
+      background: transparent;
+    }
+
+    /* Short answer */
+    .sc-short-textarea {
+      width: 100%; border: 1px solid #ccc; border-radius: 6px;
+      padding: 0.5rem; font-family: inherit; font-size: 0.95rem;
+      resize: vertical;
+    }
+
+    /* Hover preview */
+    .ref-hover { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); }
+    .ref-hover:hover { border-bottom-style: solid; }
+    .ref-hover-tooltip {
+      position: fixed; z-index: 1000;
+      max-width: 420px; max-height: 320px;
+      padding: 0.75rem; background: #fff;
+      border: 1px solid var(--border); border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      overflow: hidden; pointer-events: none;
+      font-size: 0.9rem; line-height: 1.5;
+    }
+    .ref-hover-tooltip img { max-width: 100%; max-height: 200px; border-radius: 4px; }
+    .ref-hover-tooltip .math-block { font-size: 0.85rem; }
+    a[href^="#mjx-eqn"] { cursor: pointer; }
+
+    /* Lightbox */
+    .img-lightbox {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0, 0, 0, 0.88);
+      display: none; align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    .img-lightbox.active { display: flex; }
+    .img-lightbox img {
+      max-width: 95vw; max-height: 95vh; object-fit: contain;
+      border-radius: 4px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      cursor: default;
+    }
+    .img-lightbox-close {
+      position: absolute; top: 1rem; right: 1.25rem;
+      color: #fff; font-size: 2rem; line-height: 1;
+      background: none; border: none; cursor: pointer;
+      opacity: 0.7; padding: 0.25rem;
+    }
+    .img-lightbox-close:hover { opacity: 1; }
+
+  </style>
+<style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+</style></head>
+<body>
+
+<h1>Résumé × JD Analyser — Lab Guide</h1>
+<h2>Note to the Reader</h2>
+<blockquote>
+<p>This lab is the practical companion to the <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html">study material</a>. You are not
+starting from scratch — you have a starter scaffold with the boilerplate already in place.
+Your job is to build the four files that contain the conceptual weight:
+<code>parse.py</code>, <code>prompts.py</code>, <code>analyzer.py</code>, and <code>main.py</code>.</p>
+<p>Every task ends with a <strong>Checkpoint</strong> — a runnable command that confirms only that layer
+works before you continue. You should never be building blind.</p>
+</blockquote>
+<hr>
+<h2 id="what-youll-build">What You'll Build</h2>
+<p>This lab produces a Python command-line tool: the <strong>Résumé × JD Analyser</strong> — a small-scale model of the applicant-screening pipeline a company's recruiting team might run. You supply a candidate's PDF résumé and a job description; the tool runs a multi-stage LLM pipeline and produces a structured screening report with a 0–100 score against a 60% pass threshold, indicating whether the résumé merits advancing to interview. The tool is <strong>feedback-only</strong> — its job is evaluation, not ghostwriting: it scores and explains, but it never rewrites the candidate's résumé.</p>
+<p><strong>The four pipeline stages:</strong></p>
+<div class="pattern-cards stagger-children">
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-1); --stagger-index: 0;">
+    <div class="pattern-icon" style="background: var(--color-accent-light)">📄</div>
+    <h4 class="pattern-title" id="task-1">Parse</h4>
+    <p class="pattern-desc"><code>parse.py</code> — extract clean plain text from the résumé PDF using <code>pypdf</code>. Zero LLM calls; pure document I/O with validation.</p>
+  </div>
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-2); --stagger-index: 1;">
+    <div class="pattern-icon" style="background: #d4edda">🔍</div>
+    <h4 class="pattern-title">Extract</h4>
+    <p class="pattern-desc"><code>analyzer.py</code> — two LLM calls produce structured JSON profiles of both the résumé and the job description.</p>
+  </div>
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-3); --stagger-index: 2;">
+    <div class="pattern-icon" style="background: #ede7f6">📊</div>
+    <h4 class="pattern-title">Analyse</h4>
+    <p class="pattern-desc"><code>analyzer.py</code> — five more LLM evaluation passes: keyword match, bullet quality, terminology audit, structure check, background fit.</p>
+  </div>
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-4); --stagger-index: 3;">
+    <div class="pattern-icon" style="background: #fff8e1">📋</div>
+    <h4 class="pattern-title">Report</h4>
+    <p class="pattern-desc"><code>main.py</code> — aggregate sub-scores into a 0–100 score; write JSON and Markdown reports to <code>outputs/</code>.</p>
+  </div>
+</div>
+
+<p><strong>Step through what a complete successful run looks like:</strong></p>
+<div class="chat-window">
+  <div class="chat-messages">
+    <div class="chat-message" data-sender="actor-a" style="display: flex; animation: fadeSlideUp .3s var(--ease-out);">
+      <div class="chat-avatar" style="background: var(--color-actor-1)">U</div>
+      <div class="chat-bubble">
+        <span class="chat-sender" style="color: var(--color-actor-1)">Terminal</span>
+        <p><code>python main.py inputs/strong_resume.pdf inputs/job_rtis_systems_engineer.txt</code></p>
+      </div>
+    </div>
+    <div class="chat-message" data-sender="actor-b" style="display: flex; animation: fadeSlideUp .3s var(--ease-out);">
+      <div class="chat-avatar" style="background: var(--color-actor-2)">P</div>
+      <div class="chat-bubble">
+        <span class="chat-sender" style="color: var(--color-actor-2)">parse.py</span>
+        <p><code>[1/8] Parsing résumé: inputs/strong_resume.pdf</code><br><code>[2/8] Reading JD: inputs/job_rtis_systems_engineer.txt</code></p>
+      </div>
+    </div>
+    <div class="chat-message" data-sender="actor-c" style="display: flex; animation: fadeSlideUp .3s var(--ease-out);">
+      <div class="chat-avatar" style="background: var(--color-actor-3)">A</div>
+      <div class="chat-bubble">
+        <span class="chat-sender" style="color: var(--color-actor-3)">analyzer.py (7 LLM calls)</span>
+        <p><code>[3/8] Extracting résumé profile (LLM)...</code><br><code>[4/8] Extracting JD profile (LLM)...</code><br><code>[5/8] Keyword match (LLM)...</code><br><code>[6/8] Bullet audit (LLM)...</code><br><code>[7/8] Jargon, structure, background fit (LLM ×3)...</code><br><code>[8/8] Final summary (LLM)...</code></p>
+      </div>
+    </div>
+    <div class="chat-message" data-sender="actor-d" style="display: flex; animation: fadeSlideUp .3s var(--ease-out);">
+      <div class="chat-avatar" style="background: var(--color-actor-4)">R</div>
+      <div class="chat-bubble">
+        <span class="chat-sender" style="color: var(--color-actor-4)">main.py — report written</span>
+        <p><code>Score: 74/100  (PASS 60% ATS threshold)</code><br><code>JSON:  outputs/match_report_20260510_143022.json</code><br><code>MD:    outputs/match_report_20260510_143022.md</code></p>
+      </div>
+    </div>
+    <div class="chat-message" data-sender="actor-a" style="display: flex; animation: fadeSlideUp .3s var(--ease-out);">
+      <div class="chat-avatar" style="background: var(--color-actor-1)">U</div>
+      <div class="chat-bubble">
+        <span class="chat-sender" style="color: var(--color-actor-1)">Terminal — executive summary</span>
+        <p>• Strong keyword match on core systems skills: C++, Python, networking protocols<br>• Bullet quality above L2 average — two bullets still lack measurable impact<br>• Two terminology mismatches flagged: "shipped a build" → "deployed a release", "netcode" → "networked multiplayer protocol handling"</p>
+      </div>
+    </div>
+  </div>
+  <div class="chat-typing" style="display: none;">
+    <div class="chat-avatar" style="background: var(--color-actor-1);">A</div>
+    <div class="chat-typing-dots">
+      <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+    </div>
+  </div>
+  <div class="chat-controls">
+    <button>Next Message</button>
+    <button>Play All</button>
+    <button>Replay</button>
+    <span class="chat-progress">5 / 5 messages</span>
+  </div>
+</div>
+
+<hr>
+<h2>Companion Reading</h2>
+<p>Keep the <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html">study material</a> open alongside this tutorial. Each task links to the relevant section.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Study material section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task 1: <code>parse.py</code></td>
+<td><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-document-parsing">§5 Document Parsing</a></td>
+</tr>
+<tr>
+<td>Task 2: <code>llm.py</code></td>
+<td><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-imperfect-output">§8 Handling Imperfect AI Output</a></td>
+</tr>
+<tr>
+<td>Task 3: <code>prompts.py</code></td>
+<td><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-schema-first">§3.3 Schema-First Prompt Design</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-extraction-prompts">§6.1 Extraction Prompts</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-evaluation-prompts">§6.2 Evaluation Prompts</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-feedback-only">§6.3 Feedback-Only Principle</a></td>
+</tr>
+<tr>
+<td>Task 4: <code>analyzer.py</code></td>
+<td><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-pipeline">§4 The Multi-Stage Pipeline</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-weighted-aggregation">§7.2 Weighted Aggregation</a></td>
+</tr>
+<tr>
+<td>Task 5: <code>main.py</code></td>
+<td><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-data-flow">§4.3 Data Flow Between Stages</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Prerequisites</h2>
+<ul>
+<li>Comfort with LLM completion calls (e.g. via LiteLLM or an equivalent SDK), the <code>messages</code> array, <code>json.loads</code>/<code>json.dumps</code>, <code>.env</code> secrets management, and the ICCO prompt-design framework (Instruction, Context, Constraints, Output).</li>
+<li>Python 3.11 or later installed.</li>
+<li>An API key for OpenAI <strong>or</strong> Anthropic <strong>or</strong> a locally running Ollama model.</li>
+</ul>
+<hr>
+<h2 id="task-0">Task 0: Setup</h2>
+<blockquote>
+<p><strong>Duration: ~15 minutes</strong></p>
+</blockquote>
+<p><strong>Five steps to get the project running before you write a single line of analysis code:</strong></p>
+<div class="step-cards">
+  <div class="step-card animate-in visible">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <strong>Copy the starter</strong>
+      <p>Copy the pre-built scaffold folder to your working location.</p>
+    </div>
+  </div>
+  <div class="step-card animate-in visible">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <strong>Create a virtual environment</strong>
+      <p>Isolate this project's Python packages from your system Python.</p>
+    </div>
+  </div>
+  <div class="step-card animate-in visible">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <strong>Install dependencies</strong>
+      <p>Three packages: <code>litellm</code>, <code>python-dotenv</code>, <code>pypdf</code>.</p>
+    </div>
+  </div>
+  <div class="step-card animate-in visible">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <strong>Configure your API key</strong>
+      <p>Copy <code>.env.example</code> → <code>.env</code> and fill in your key.</p>
+    </div>
+  </div>
+  <div class="step-card animate-in visible">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <strong>Verify sample inputs</strong>
+      <p>Confirm the <code>inputs/</code> folder contains the pre-included résumé PDFs and job description files.</p>
+    </div>
+  </div>
+</div>
+
+<h3>Step 1 — Copy the starter</h3>
+<p>Copy the <code>day4_starter_track_a/</code> folder to a new folder named <code>day4_project/</code>, then open that folder in your terminal:</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>How to copy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File manager (any OS)</td>
+<td>Right-click <code>day4_starter_track_a/</code> → Copy, paste alongside it, rename the copy to <code>day4_project</code></td>
+</tr>
+<tr>
+<td>macOS / Linux terminal</td>
+<td><code>cp -r day4_starter_track_a day4_project</code></td>
+</tr>
+<tr>
+<td>Windows terminal</td>
+<td><code>xcopy /E /I day4_starter_track_a day4_project</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>What you'll find in your project folder:</strong></p>
+<div class="file-tree">
+  <div class="ft-folder">
+    <span class="ft-name">day4_project/</span>
+    <span class="ft-desc">Root — your working copy of the project</span>
+    <div class="ft-children">
+      <div class="ft-file">
+        <span class="ft-name">.env.example</span>
+        <span class="ft-desc">Template — copy to .env and add your API key (Step 4)</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">.gitignore</span>
+        <span class="ft-desc">Keeps .env and outputs/ out of git</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">requirements.txt</span>
+        <span class="ft-desc">Three packages: litellm, python-dotenv, pypdf</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">llm.py</span>
+        <span class="ft-desc">Pre-provided — the LLM abstraction layer (Task 2: read it, do not modify)</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">report.py</span>
+        <span class="ft-desc">Pre-provided — renders the analysis results dict into a Markdown report file</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">parse.py</span>
+        <span class="ft-desc">You build this — Task 1</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">prompts.py</span>
+        <span class="ft-desc">You build this — Task 3</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">analyzer.py</span>
+        <span class="ft-desc">You build this — Task 4</span>
+      </div>
+      <div class="ft-file">
+        <span class="ft-name">main.py</span>
+        <span class="ft-desc">You build this — Task 5 (Track A) / Pre-provided (Track B)</span>
+      </div>
+      <div class="ft-folder">
+        <span class="ft-name">inputs/</span>
+        <span class="ft-desc">Pre-provided sample inputs — all files already present in the starter</span>
+        <div class="ft-children">
+          <div class="ft-file">
+            <span class="ft-name">strong_resume.pdf</span>
+            <span class="ft-desc">Pre-provided — strong résumé sample; primary input for Tasks 1–5</span>
+          </div>
+          <div class="ft-file">
+            <span class="ft-name">weak_resume.pdf</span>
+            <span class="ft-desc">Pre-provided — weak résumé sample; used in Final Verification contrast runs</span>
+          </div>
+          <div class="ft-file">
+            <span class="ft-name">job_rtis_systems_engineer.txt</span>
+            <span class="ft-desc">Pre-provided — the primary RTIS job description fixture</span>
+          </div>
+          <div class="ft-file">
+            <span class="ft-name">job_unrelated.txt</span>
+            <span class="ft-desc">Pre-provided — unrelated job for Final Verification contrast runs</span>
+          </div>
+        </div>
+      </div>
+      <div class="ft-folder">
+        <span class="ft-name">outputs/</span>
+        <span class="ft-desc">Reports land here — one .json and one .md per run</span>
+        <div class="ft-children">
+          <div class="ft-file">
+            <span class="ft-name">(empty until Task 5)</span>
+            <span class="ft-desc"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Step 2 — Create a virtual environment</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -m venv venv
+<span class="hljs-built_in">source</span> venv/bin/activate          <span class="hljs-comment"># Windows: venv\Scripts\activate</span>
+</code></pre>
+<h3>Step 3 — Install dependencies</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">pip install -r requirements.txt
+</code></pre>
+<p>This installs three packages: <code>litellm</code>, <code>python-dotenv</code>, and <code>pypdf</code>.</p>
+<h3>Step 4 — Configure your API key</h3>
+<p>Duplicate <code>.env.example</code> and name the copy <code>.env</code> (both files sit in the same <code>day4_project/</code> folder). Then open <code>.env</code> in a text editor and fill in your key. The defaults work with a local Ollama model — no API key needed:</p>
+<pre><code class="language-env">MODEL=ollama/gemma4:e2b
+OLLAMA_API_BASE=http://localhost:11434
+</code></pre>
+<p>Run <code>ollama serve</code> in a separate terminal and pull the model first with
+<code>ollama pull gemma4:e2b</code>.</p>
+<p>To use OpenAI instead:</p>
+<pre><code class="language-env">MODEL=openai/gpt-4o-mini
+OPENAI_API_KEY=sk-...
+</code></pre>
+<p>To use Anthropic Claude instead:</p>
+<pre><code class="language-env">MODEL=anthropic/claude-3-5-sonnet-20241022
+ANTHROPIC_API_KEY=sk-ant-...
+</code></pre>
+<h3>Step 5 — Verify sample inputs</h3>
+<p>The starter pack already includes all résumé and job description files. Open the <code>inputs/</code> folder and confirm these four files are present:</p>
+<ul>
+<li><code>strong_resume.pdf</code> — strong résumé sample (primary input for Tasks 1–5)</li>
+<li><code>weak_resume.pdf</code> — weak résumé sample (used in Final Verification)</li>
+<li><code>job_rtis_systems_engineer.txt</code> — RTIS job description fixture</li>
+<li><code>job_unrelated.txt</code> — unrelated job description fixture</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Both PDFs are text-based exports — <code>pypdf</code> can extract their content directly. You do not need to supply your own résumé PDF to complete this lab.</p>
+</blockquote>
+<h3>✅ Checkpoint</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"from llm import ask_json; print('LLM layer ready')"</span>
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li>The shell prints <code>LLM layer ready</code> with no traceback</li>
+<li>No <code>ModuleNotFoundError</code> — if one appears, re-run <code>pip install -r requirements.txt</code> inside the active virtualenv</li>
+</ul>
+<hr>
+<h2 id="task-1">Task 1: Parse the Résumé</h2>
+<blockquote>
+<p><strong>Study material:</strong> <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-document-parsing">§5 Document Parsing</a></p>
+</blockquote>
+<p><strong>What this module does:</strong> <code>parse.py</code> reads a PDF résumé file and returns clean plain text.
+It also reads plain-text job description files. This stage contains <strong>no LLM calls</strong> —
+it is pure document I/O with validation. The study material explains why we validate
+inputs <em>before</em> passing them to the LLM (<a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-document-parsing">§5: the validate-before-LLM rule</a>).</p>
+<p><strong>How <code>read_resume_pdf</code> processes a file — every step in order:</strong></p>
+<div class="flow-steps">
+  <div class="flow-step">
+    <div class="flow-step-num">1</div>
+    <p>Open file with <code>pypdf.PdfReader</code> — raise <code>ValueError</code> if not found</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">2</div>
+    <p>Warn to <code>stderr</code> if résumé is &gt; 2 pages</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">3</div>
+    <p>Extract and join all page text with <code>"\n\n"</code></p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">4</div>
+    <p>Collapse 3+ blank lines to 2 with <code>re.sub</code></p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">5</div>
+    <p>Raise <code>ValueError</code> if result &lt; 200 chars (image-only PDF)</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">6</div>
+    <p>Truncate to 24 000 chars if very long; return clean text</p>
+  </div>
+</div>
+
+<p>You need to implement two functions:</p>
+<pre><code class="language-python hljs" data-highlighted="yes"><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_resume_pdf</span>(<span class="hljs-params">path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>: ...
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">read_jd_text</span>(<span class="hljs-params">path: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>: ...
+</code></pre>
+<blockquote>
+<p><strong>Open <code>parse.py</code> in your editor.</strong> You are <strong>creating this file</strong> in Task 1.
+The starter includes docstrings and function signatures — implement the two function bodies below.</p>
+</blockquote>
+<p>Open <code>parse.py</code>. The functions have full docstrings — implement them directly.</p>
+<p><strong><code>read_resume_pdf(path)</code> requirements:</strong></p>
+<ol>
+<li>Open the file with <code>pypdf.PdfReader(path)</code>; raise <code>ValueError</code> with a helpful message
+   if the file is not found or cannot be opened.</li>
+<li>If the résumé has more than 2 pages, print a warning to <code>sys.stderr</code> (ATS typically
+   expects a one-page résumé).</li>
+<li>Extract text from each page with <code>page.extract_text() or ""</code>, then join pages with <code>"\n\n"</code>.</li>
+<li>Collapse runs of 3+ blank lines to 2 with <code>re.sub(r"\n{3,}", "\n\n", text)</code>.</li>
+<li>Raise <code>ValueError</code> if the result has fewer than 200 characters (likely an image-only PDF).</li>
+<li>Truncate to 24 000 characters if very long (with a warning to <code>sys.stderr</code>).</li>
+</ol>
+<p><strong><code>read_jd_text(path)</code> requirements:</strong></p>
+<ol>
+<li>Open the file with <code>open(path, encoding="utf-8")</code>.</li>
+<li>Raise <code>ValueError</code> with a helpful message if the file is not found.</li>
+<li>Raise <code>ValueError</code> if the stripped content has fewer than 100 characters.</li>
+</ol>
+<h3>✅ Checkpoint</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"
+from parse import read_resume_pdf
+text = read_resume_pdf('inputs/strong_resume.pdf')
+print(f'Extracted {len(text)} chars')
+print(text[:200])
+"</span>
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li>Character count above 200</li>
+<li>The candidate's name visible in the first 200 characters of output</li>
+</ul>
+<p><strong>Also test the error case:</strong></p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"
+from parse import read_resume_pdf
+read_resume_pdf('inputs/does_not_exist.pdf')
+"</span> 2&gt;&amp;1
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li>A <code>ValueError</code> with a message like <code>Résumé file not found: inputs/does_not_exist.pdf</code></li>
+</ul>
+<hr>
+<h2 id="task-2">Task 2: The LLM Layer — Read and Run</h2>
+<blockquote>
+<p><strong>Study material:</strong> <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-imperfect-output">§8 Handling Imperfect AI Output</a></p>
+</blockquote>
+<p><strong>What this task is:</strong> <code>llm.py</code> is pre-provided. You are <strong>not</strong> building it — you are
+reading and verifying it. You need to understand what <code>ask_json()</code> does before you use
+it in the next two tasks, because the quality of your prompts (and your descriptions to
+Claude) depends on knowing what the layer beneath them does.</p>
+<p><strong>Trace how <code>ask_json</code> moves a prompt through the stack:</strong></p>
+<div class="flow-animation" data-steps="[
+    {&quot;highlight&quot;:&quot;flow-yourcode&quot;, &quot;label&quot;:&quot;Your analyzer function calls ask_json(RESUME_PROFILE_PROMPT, resume_text, max_tokens=2000)&quot;},
+    {&quot;highlight&quot;:&quot;flow-askjson&quot;,  &quot;label&quot;:&quot;ask_json wraps the two strings into messages=[{\&quot;role\&quot;:\&quot;system\&quot;,...},{\&quot;role\&quot;:\&quot;user\&quot;,...}]&quot;},
+    {&quot;highlight&quot;:&quot;flow-litellm&quot;,  &quot;label&quot;:&quot;litellm.completion(model=..., messages=...) routes the request to the provider configured in MODEL=&quot;},
+    {&quot;highlight&quot;:&quot;flow-api&quot;,      &quot;label&quot;:&quot;The API returns choices[0].message.content — a JSON string, possibly wrapped in ```json fences&quot;},
+    {&quot;highlight&quot;:&quot;flow-askjson&quot;,  &quot;label&quot;:&quot;_strip_fence() removes markdown fences; raw_decode() finds the JSON even when the model adds a preamble sentence&quot;},
+    {&quot;highlight&quot;:&quot;flow-yourcode&quot;, &quot;label&quot;:&quot;Your function receives a clean Python dict — no JSON parsing code needed in your module&quot;}
+  ]" data-initial-label="Click Next Step to trace how ask_json processes a single prompt">
+  <div class="flow-actors">
+    <div class="flow-actor" id="flow-yourcode">
+      <div class="flow-actor-icon">🐍</div>
+      <span>Your Code</span>
+    </div>
+    <div class="flow-actor" id="flow-askjson">
+      <div class="flow-actor-icon">🔌</div>
+      <span>ask_json()</span>
+    </div>
+    <div class="flow-actor" id="flow-litellm">
+      <div class="flow-actor-icon">🔀</div>
+      <span>LiteLLM</span>
+    </div>
+    <div class="flow-actor" id="flow-api">
+      <div class="flow-actor-icon">☁️</div>
+      <span>API / Ollama</span>
+    </div>
+  </div>
+  <div class="flow-step-label">Click "Next Step" to trace how ask_json processes a single prompt</div>
+  <div class="flow-controls">
+    <button>Next Step</button>
+    <button>Restart</button>
+    <span class="flow-progress">Step 0 / 6</span>
+  </div>
+</div>
+
+<blockquote>
+<p><strong>Open <code>llm.py</code> in your editor.</strong> This file is <strong>pre-provided — do not modify it.</strong>
+Read through it to understand <code>ask_json()</code> before you call it in Tasks 3 and 4.</p>
+</blockquote>
+<p>Skim <code>llm.py</code> and answer these three questions in your head before continuing:</p>
+<ol>
+<li><em>Which private function strips markdown fences (<code>```json</code>) from the LLM's response?</em></li>
+<li><em>What does <code>json.JSONDecoder().raw_decode(text, start)</code> do that <code>json.loads(text)</code> does not?
+   Why does this matter when a model adds a preamble sentence before the JSON?</em></li>
+<li><em>What is <code>_check_no_rewrite()</code> and what does it detect?</em></li>
+</ol>
+<h3>✅ Checkpoint</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"
+from llm import ask_json
+result = ask_json('Return {\"status\": \"ok\"} and nothing else.', 'go')
+print(result)
+"</span>
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li><code>{'status': 'ok'}</code> printed to the terminal</li>
+<li>One complete round-trip worked: the model returned valid JSON and <code>ask_json</code> parsed it cleanly</li>
+</ul>
+<p>If you see an API error, recheck your <code>.env</code> file and API key.</p>
+<hr>
+<h2 id="task-3">Task 3: Write the Prompts</h2>
+<blockquote>
+<p><strong>Study material:</strong> <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-schema-first">§3.3 Schema-First Prompt Design</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-extraction-prompts">§6.1 Extraction Prompts</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-evaluation-prompts">§6.2 Evaluation Prompts</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-feedback-only">§6.3 Feedback-Only Principle</a></p>
+</blockquote>
+<p>This is the conceptual heart of the lab. Writing these system prompts applies the ICCO
+framework — Instruction, Context, Constraints, Output — to automated résumé analysis
+instead of a back-and-forth chat conversation. The same four components structure every
+effective prompt here.</p>
+<p><strong>The eight prompts fall into three categories — each calls a different approach:</strong></p>
+<div class="pattern-cards stagger-children">
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-2); --stagger-index: 0;">
+    <div class="pattern-icon" style="background: #d4edda">🔍</div>
+    <h4 class="pattern-title">Extraction (2 prompts)</h4>
+    <p class="pattern-desc"><code>RESUME_PROFILE_PROMPT</code>, <code>JD_PROFILE_PROMPT</code> — copy what is literally present; never invent or paraphrase. Temperature: 0.0–0.1.</p>
+  </div>
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-3); --stagger-index: 1;">
+    <div class="pattern-icon" style="background: #ede7f6">⚖️</div>
+    <h4 class="pattern-title">Evaluation (5 prompts)</h4>
+    <p class="pattern-desc"><code>KEYWORD_MATCH_PROMPT</code>, <code>BULLET_QUALITY_PROMPT</code>, <code>JARGON_AUDIT_PROMPT</code>, <code>STRUCTURE_AUDIT_PROMPT</code>, <code>BACKGROUND_FIT_PROMPT</code> — compare résumé and JD content directly; return scores and diagnostic flags only. Temperature: 0.2–0.3.</p>
+  </div>
+  <div class="pattern-card animate-in visible" style="border-top: 3px solid var(--color-actor-4); --stagger-index: 2;">
+    <div class="pattern-icon" style="background: #fff8e1">✍️</div>
+    <h4 class="pattern-title">Synthesis (1 prompt)</h4>
+    <p class="pattern-desc"><code>OVERALL_SUMMARY_PROMPT</code> — returns plain Markdown bullets (not JSON). Calls <code>ask_text()</code> instead of <code>ask_json()</code>.</p>
+  </div>
+</div>
+
+<p>The eight prompt constants you need to write:</p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Type</th>
+<th>Purpose</th>
+<th>Key output field(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RESUME_PROFILE_PROMPT</code></td>
+<td>Extraction</td>
+<td>Candidate profile from résumé text</td>
+<td><code>name</code>, <code>skills</code>, <code>projects</code>, <code>experience</code></td>
+</tr>
+<tr>
+<td><code>JD_PROFILE_PROMPT</code></td>
+<td>Extraction</td>
+<td>Role requirements from JD text</td>
+<td><code>required_skills</code>, <code>preferred_skills</code></td>
+</tr>
+<tr>
+<td><code>KEYWORD_MATCH_PROMPT</code></td>
+<td>Evaluation</td>
+<td>Compare résumé keywords vs JD keywords</td>
+<td><code>keyword_match_score</code>, <code>missing</code></td>
+</tr>
+<tr>
+<td><code>BULLET_QUALITY_PROMPT</code></td>
+<td>Evaluation</td>
+<td>Score each bullet on ATI rubric</td>
+<td><code>bullet_quality_avg</code>, <code>bullets</code></td>
+</tr>
+<tr>
+<td><code>JARGON_AUDIT_PROMPT</code></td>
+<td>Evaluation</td>
+<td>Flag résumé/JD terminology mismatches</td>
+<td><code>jargon_score</code>, <code>flags</code></td>
+</tr>
+<tr>
+<td><code>STRUCTURE_AUDIT_PROMPT</code></td>
+<td>Evaluation</td>
+<td>Check ATS-parseability formatting</td>
+<td><code>structure_score</code></td>
+</tr>
+<tr>
+<td><code>BACKGROUND_FIT_PROMPT</code></td>
+<td>Evaluation</td>
+<td>Candidate background fit for the role</td>
+<td><code>background_fit_score</code></td>
+</tr>
+<tr>
+<td><code>OVERALL_SUMMARY_PROMPT</code></td>
+<td>Synthesis</td>
+<td>3-bullet executive summary</td>
+<td>plain text (not JSON)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Every prompt must:</strong>
+- Follow ICCO structure (Instruction → Context → Constraints → Output)
+- Embed the exact JSON schema in the Output section (except <code>OVERALL_SUMMARY_PROMPT</code>)
+- End with this exact line: <code>"Output ONLY a valid JSON object matching the schema above. No prose. No markdown fences. No commentary. Never rewrite or generate résumé content."</code>
+- Use temperature <code>0.0</code>–<code>0.1</code> for extraction prompts, <code>0.2</code>–<code>0.3</code> for evaluation prompts</p>
+<blockquote>
+<p><strong>Open <code>prompts.py</code> in your editor.</strong> You are <strong>creating this file</strong> in Task 3.
+Add the eight string constants described below. Each becomes a system prompt fed to <code>ask_json()</code>.</p>
+</blockquote>
+<p><strong>Important — no placeholders in the prompt constants.</strong> All eight constants are plain static strings — no f-strings, no <code>.format()</code>, no <code>{variable}</code> slots. The <code>{</code> and <code>}</code> characters you see inside the prompts are <strong>literal JSON schema syntax</strong>, not Python format placeholders. Dynamic data (the résumé text, JD text, degree code) is never embedded in the system prompt; <code>analyzer.py</code> passes it as the second argument to <code>ask_json()</code> — the user message. Your job in this task is only to write the static instruction text.</p>
+<p>Open <code>prompts.py</code>. The schema comments show the expected JSON structure for each constant.
+Write the full ICCO-structured string for each one.</p>
+<p><strong>For the extraction prompts</strong> (<code>RESUME_PROFILE_PROMPT</code>, <code>JD_PROFILE_PROMPT</code>): the
+Instruction says "extract only what is literally present — never invent". The Output
+section embeds the full JSON schema verbatim.</p>
+<p><strong>For the evaluation prompts</strong> (<code>BULLET_QUALITY_PROMPT</code>, <code>JARGON_AUDIT_PROMPT</code>,
+<code>STRUCTURE_AUDIT_PROMPT</code>, <code>BACKGROUND_FIT_PROMPT</code>): the Context section grounds the
+model in well-known, general résumé/ATS conventions — no external reference document
+is needed. The Constraints section must state that <code>what_is_missing</code>,
+<code>suggested_translation</code>, and similar diagnostic fields must never become rewrites.</p>
+<p>Key rubrics to write from first principles:
+- <strong><code>BULLET_QUALITY_PROMPT</code></strong> — the Action → Technology → Impact rubric: a strong bullet
+  names the action taken, the specific technology/tool used, and a measurable impact.
+  Define L1 (action only), L2 (action + technology), L3 (action + technology + impact).
+- <strong><code>JARGON_AUDIT_PROMPT</code></strong> — no static table: instruct the model to dynamically compare
+  résumé terminology against JD terminology and flag likely-equivalent-but-differently-
+  worded terms, plus the severity scoring rules
+  (<code>jargon_score = max(0, 100 - 10*high - 5*medium - 2*low)</code>)
+- <strong><code>STRUCTURE_AUDIT_PROMPT</code></strong> — general ATS-parseability rules: single-column layout,
+  standard section headers, reverse-chronological order, appropriate length, contact
+  info placement, no images/graphics
+- <strong><code>BACKGROUND_FIT_PROMPT</code></strong> — judge alignment using only <code>resume_profile</code>'s education/
+  experience fields and <code>jd_profile</code>'s requirements — no external degree code or table</p>
+<p><code>OVERALL_SUMMARY_PROMPT</code> returns plain Markdown bullets, not JSON — omit the JSON
+Output constraint for this one.</p>
+<h3>✅ Checkpoint — Résumé Extraction</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"
+from parse import read_resume_pdf
+from llm import ask_json
+from prompts import RESUME_PROFILE_PROMPT
+text = read_resume_pdf('inputs/strong_resume.pdf')
+result = ask_json(RESUME_PROFILE_PROMPT, f'RÉSUMÉ TEXT:\n\n{text}', max_tokens=2000)
+print('Name:', result.get('name'))
+print('Languages:', result.get('skills', {}).get('languages', []))
+"</span>
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li>The candidate's real name printed</li>
+<li>A non-empty list of programming languages extracted from the résumé</li>
+</ul>
+<p><strong>If you see empty fields:</strong> review the extraction constraints in <code>RESUME_PROFILE_PROMPT</code>.
+The "If a field is absent, return empty array" rule sometimes causes models to return
+empty arrays even when data is present — tighten the extraction instruction.</p>
+<h3>✅ Checkpoint — Keyword Match</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"
+from parse import read_resume_pdf, read_jd_text
+from llm import ask_json
+from prompts import RESUME_PROFILE_PROMPT, JD_PROFILE_PROMPT, KEYWORD_MATCH_PROMPT
+import json
+resume = read_resume_pdf('inputs/strong_resume.pdf')
+jd = read_jd_text('inputs/job_rtis_systems_engineer.txt')
+rp = ask_json(RESUME_PROFILE_PROMPT, f'RÉSUMÉ TEXT:\n\n{resume}', max_tokens=2000)
+jp = ask_json(JD_PROFILE_PROMPT, f'JOB DESCRIPTION TEXT:\n\n{jd}', max_tokens=1500)
+km = ask_json(KEYWORD_MATCH_PROMPT,
+    f'RÉSUMÉ PROFILE:\n{json.dumps(rp, indent=2)}\n\nJD PROFILE:\n{json.dumps(jp, indent=2)}',
+    max_tokens=3000)
+print('Score:', km.get('keyword_match_score'))
+print('Missing (first 3):', km.get('missing', [])[:3])
+"</span>
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li>A score between 0 and 100</li>
+<li>A list of missing keywords (can be empty if your résumé is a strong match)</li>
+</ul>
+<hr>
+<h2 id="task-4">Task 4: Build the Analysis Pipeline</h2>
+<blockquote>
+<p><strong>Study material:</strong> <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-pipeline">§4 The Multi-Stage Pipeline</a> · <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-weighted-aggregation">§7.2 Weighted Aggregation</a></p>
+</blockquote>
+<p><strong>What this module does:</strong> <code>analyzer.py</code> contains 8 analysis functions that each wrap
+exactly one LLM call, plus one pure-Python scoring function (<code>compute_overall_score</code>)
+with no LLM call at all.</p>
+<p>The <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-stage-independence">study material §4.2</a> says: <em>smoke-test each layer; integrate after each layer is
+verified.</em> This task practices that rule — the Checkpoint tests a subset of functions
+without requiring the rest to exist yet.</p>
+<p><strong>All eight functions — in the order <code>main.py</code> calls them:</strong></p>
+<div class="flow-steps">
+  <div class="flow-step">
+    <div class="flow-step-num">1</div>
+    <p>extract_resume_profile()</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">2</div>
+    <p>extract_jd_profile()</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">3</div>
+    <p>analyse_keyword_match()</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">4</div>
+    <p>analyse_bullets()</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">5–7</div>
+    <p>analyse_jargon() + analyse_structure() + analyse_background_fit()</p>
+  </div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step">
+    <div class="flow-step-num">8</div>
+    <p>summarise_overall() then compute_overall_score()</p>
+  </div>
+</div>
+
+<blockquote>
+<p><strong>Open <code>analyzer.py</code> in your editor.</strong> You are <strong>creating this file</strong> in Task 4.
+Function signatures and docstrings are already present in the starter — implement each function body below.</p>
+</blockquote>
+<p>Open <code>analyzer.py</code>. Function signatures and docstrings are provided; implement each one.</p>
+<p><strong>Key implementation notes:</strong></p>
+<ul>
+<li><code>ask_json(system, user, max_tokens=N)</code> — the system is the prompt constant; the user
+  is the formatted input data (JSON-dumped where needed).</li>
+<li><code>analyse_jargon()</code> takes two positional arguments: <code>resume_profile</code>, <code>jd_profile</code>.</li>
+<li><code>summarise_overall()</code> uses <code>ask_text()</code>, not <code>ask_json()</code> — it returns a plain string.</li>
+<li><code>compute_overall_score()</code> must use these exact weights (no LLM call):</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Field in <code>report</code></th>
+<th>Key</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>report['keyword_match']['keyword_match_score']</code></td>
+<td>keyword match</td>
+<td>0.40</td>
+</tr>
+<tr>
+<td><code>report['bullets']['bullet_quality_avg']</code></td>
+<td>bullet quality</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td><code>report['structure']['structure_score']</code></td>
+<td>structure</td>
+<td>0.15</td>
+</tr>
+<tr>
+<td><code>report['jargon']['jargon_score']</code></td>
+<td>jargon</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td><code>report['background_fit']['background_fit_score']</code></td>
+<td>background fit</td>
+<td>0.10</td>
+</tr>
+</tbody>
+</table>
+<p>Return <code>int(round(total))</code>.</p>
+<h3>✅ Checkpoint</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python -c <span class="hljs-string">"
+from parse import read_resume_pdf, read_jd_text
+from analyzer import extract_resume_profile, extract_jd_profile, analyse_keyword_match, compute_overall_score
+import json
+resume = read_resume_pdf('inputs/strong_resume.pdf')
+jd = read_jd_text('inputs/job_rtis_systems_engineer.txt')
+rp = extract_resume_profile(resume)
+jp = extract_jd_profile(jd)
+km = analyse_keyword_match(rp, jp)
+fake_report = {
+    'keyword_match': km,
+    'bullets': {'bullet_quality_avg': 60},
+    'structure': {'structure_score': 70},
+    'jargon': {'jargon_score': 90},
+    'background_fit': {'background_fit_score': 80},
+}
+print('Composite score:', compute_overall_score(fake_report))
+"</span>
+</code></pre>
+<p>What success looks like:</p>
+<ul>
+<li>Terminal prints <code>Composite score:</code> followed by a number between 0 and 100 (e.g. <code>Composite score: 63</code>)</li>
+<li>No traceback — this exercises <code>extract_resume_profile</code>, <code>extract_jd_profile</code>, <code>analyse_keyword_match</code>, and <code>compute_overall_score</code> without requiring the remaining functions yet</li>
+</ul>
+<hr>
+<h2 id="task-5">Task 5: Wire the Pipeline</h2>
+<blockquote>
+<p><strong>Study material:</strong> <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26041/mod_resource/content/4/day4_study_material.html#ch4-data-flow">§4.3 Data Flow Between Stages</a></p>
+<p><strong>Open <code>main.py</code> in your editor.</strong> You are <strong>implementing the <code>main()</code> function</strong> in Task 5.
+The <code>parse_args()</code> helper is already present — write the <code>main()</code> function body below it.</p>
+</blockquote>
+<p><strong>What to implement:</strong> The pipeline must:</p>
+<ol>
+<li>Call <code>parse_args(sys.argv)</code> to get <code>resume_path</code>, <code>job_path</code>.</li>
+<li>Print <code>Using model: {model}</code> where <code>model</code> comes from the <code>MODEL</code> env var.</li>
+<li>Call <code>read_resume_pdf()</code> and <code>read_jd_text()</code> with <code>try/except ValueError</code> — print
+   the error to <code>sys.stderr</code> and return <code>1</code> on failure.</li>
+<li>Call all 8 analysis functions in sequence. For each step print <code>[N/8] &lt;description&gt;</code>.
+   Wrap the LLM calls in <code>try/except RuntimeError</code> — print and return <code>1</code> on failure.</li>
+<li>Build the <code>report</code> dict with keys: <code>meta</code>, <code>resume_profile</code>, <code>jd_profile</code>,
+   <code>keyword_match</code>, <code>bullets</code>, <code>jargon</code>, <code>structure</code>, <code>background_fit</code>.</li>
+<li>Call <code>compute_overall_score(report)</code> and set <code>report["passes_ats_threshold"]</code>.</li>
+<li>Call <code>summarise_overall(report)</code> and set <code>report["summary"]</code>.</li>
+<li>Write <code>outputs/match_report_{timestamp}.json</code> (use <code>json.dumps</code>) and
+   <code>outputs/match_report_{timestamp}.md</code> (use <code>render_markdown(report, out_path=md_path)</code> — import it from <code>report.py</code> with <code>from report import render_markdown</code>).</li>
+<li>Print the final score, verdict, file paths, and summary bullets.</li>
+</ol>
+<h3>✅ Checkpoint</h3>
+<p>Run:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">python main.py inputs/strong_resume.pdf inputs/job_rtis_systems_engineer.txt
+</code></pre>
+<p>What success looks like:</p>
+<pre><code data-highlighted="yes" class="hljs language-bash">Using model: ollama/gemma4:e2b
+[1/8] Parsing ré<span class="hljs-built_in">sum</span>é: inputs/strong_resume.pdf
+[2/8] Reading JD: inputs/job_rtis_systems_engineer.txt
+[3/8] Extracting ré<span class="hljs-built_in">sum</span>é profile (LLM)...
+[4/8] Extracting JD profile (LLM)...
+[5/8] Keyword match (LLM)...
+[6/8] Bullet audit (LLM)...
+[7/8] Jargon, structure, background fit (LLM x3)...
+[8/8] Final summary (LLM)...
+
+Score: XX/100  (PASS 60% ATS threshold)
+JSON:  outputs/match_report_YYYYMMDD_HHMMSS.json
+MD:    outputs/match_report_YYYYMMDD_HHMMSS.md
+
+• &lt;executive summary bullet 1&gt;
+• &lt;executive summary bullet 2&gt;
+• &lt;executive summary bullet 3&gt;
+</code></pre>
+<p>Score below 60 shows <code>FAIL</code> instead of <code>PASS</code>. Two report files should appear in
+<code>outputs/</code>.</p>
+<hr>
+<h2 id="final-verification">Final Verification — All Four Combinations</h2>
+<p><strong>You have built a working AI analysis pipeline.</strong> These four runs are a designed experiment: each combination holds one variable constant while changing the other. Your goal is not to hit a score target — it is to watch your tool produce different outputs from the same code and understand <em>why</em>.</p>
+<p>There is no grading and no submission. Open the <code>.md</code> report from <code>outputs/</code> after each run and read what your system produced.</p>
+<pre><code class="language-bash hljs" data-highlighted="yes"><span class="hljs-comment"># Run 1 — Best case: strong résumé, relevant job</span>
+python main.py inputs/strong_resume.pdf inputs/job_rtis_systems_engineer.txt
+
+<span class="hljs-comment"># Run 2 — Weak résumé, same relevant job (isolates résumé quality)</span>
+python main.py inputs/weak_resume.pdf inputs/job_rtis_systems_engineer.txt
+
+<span class="hljs-comment"># Run 3 — Strong résumé, wrong job (isolates job fit)</span>
+python main.py inputs/strong_resume.pdf inputs/job_unrelated.txt
+
+<span class="hljs-comment"># Run 4 — Worst case: both variables fail</span>
+python main.py inputs/weak_resume.pdf inputs/job_unrelated.txt
+</code></pre>
+<p>After each run, open the <code>.md</code> report and check the <strong>Score Breakdown</strong> table at the bottom — it shows exactly which of the five components pulled the total up or down.</p>
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>Expected verdict</th>
+<th>What to look for in the <code>.md</code> report</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1: strong + relevant job</td>
+<td>PASS (65+)</td>
+<td>High <code>keyword_match_score</code>; long "present" keyword list; few or no terminology flags</td>
+</tr>
+<tr>
+<td>2: weak + relevant job</td>
+<td>FAIL (35–55)</td>
+<td>Long <code>missing</code> keyword list with many <code>required</code> items; Bullet Quality Audit shows mostly L1/L2; compare Score Breakdown with Run 1 row by row</td>
+</tr>
+<tr>
+<td>3: strong + unrelated</td>
+<td>FAIL (20–45)</td>
+<td><code>keyword_match_score</code> collapses; <code>bullet_quality_avg</code> is nearly identical to Run 1 — only one thing changed</td>
+</tr>
+<tr>
+<td>4: weak + unrelated</td>
+<td>FAIL (10–30)</td>
+<td>Every Score Breakdown row is low; this is the floor — use it as a reference when reading Runs 1–3</td>
+</tr>
+</tbody>
+</table>
+<h3>Reflection</h3>
+<p>These are not graded questions. They are prompts for your own reasoning — worth thinking through now, before you extend this project further.</p>
+<p><strong>1. Quality versus relevance</strong></p>
+<p>Place the Score Breakdown tables from Run 1 and Run 3 side by side (open both <code>.md</code> reports). The résumé is identical in both runs.</p>
+<ul>
+<li>Which rows in the breakdown changed between the two?</li>
+<li>Which rows stayed the same?</li>
+<li>The score difference between Run 1 and Run 3 is driven almost entirely by one component. Which one, and what does that tell you about what an ATS actually measures?</li>
+</ul>
+<p><strong>2. What the weak résumé is missing</strong></p>
+<p>Open the Run 2 <code>.md</code> report (weak résumé + relevant job). In the Keyword Match section, find the first three <code>required</code> keywords listed under "missing."</p>
+<ul>
+<li>Are those skills the candidate never learned — or skills they likely have but did not name in the résumé?</li>
+<li>If it is the latter, what does that imply about the value of keyword visibility versus actual skill level?</li>
+</ul>
+<p><strong>3. Inside a bullet</strong></p>
+<p>Open the Bullet Quality Audit in any run. Find one bullet rated L1 or L2. Read its <code>what_is_missing</code> field.</p>
+<ul>
+<li>Which of the three ingredients (Action, Technology, Impact) is absent?</li>
+<li>Without rewriting the bullet text, describe in one sentence what specific information would push it to L3.</li>
+</ul>
+<p><strong>4. The 40% weight</strong></p>
+<p><code>keyword_match_score</code> carries 40% of the total — the largest single weight. Your Run 3 shows a strong résumé failing because of keyword mismatch alone.</p>
+<ul>
+<li>Why might a real ATS weight keyword density so heavily relative to writing quality?</li>
+<li>Is that weighting fair to a candidate with strong work who is switching industries?</li>
+<li>If you were redesigning the weights for a design-focused role (e.g. UX/UI design) rather than a systems-engineering role, what would you change?</li>
+</ul>
+<hr>
+<h2>What You Built</h2>
+<p>Your pipeline ran on all four combinations and produced eight report files. You implemented:</p>
+<ul>
+<li>A PDF parser that validates inputs before any LLM call</li>
+<li>Eight prompt constants grounding evaluation in well-known, general résumé/ATS and hiring conventions</li>
+<li>An eight-call LLM pipeline with structured JSON output at every stage</li>
+<li>A weighted scoring formula and a human-readable Markdown report</li>
+</ul>
+<p>The <code>.md</code> reports in <code>outputs/</code> are real, grounded screening feedback — produced by the system you wrote, in the same shape a company's own applicant-screening pipeline would produce.</p>
+
+<script src="./Résumé × JD Analyser — Lab Guide — Track A_files/highlight.min.js.download"></script>
+<script>hljs.highlightAll();</script>
+<script>
+
+(function() {
+  'use strict';
+
+  // Helper: typeset any MathJax content that was just injected into the DOM.
+  function typesetMath(el) {
+    if (window.MathJax && MathJax.typesetPromise) {
+      MathJax.typesetPromise([el]).catch(function(){});
+    }
+  }
+
+  // Helper: read explain HTML from a <template class="sc-explain-tpl">.
+  function getExplainHtml(root) {
+    var tpl = root.querySelector('.sc-explain-tpl');
+    return tpl ? tpl.innerHTML : '';
+  }
+
+  // Helper: find the next sibling <template> (used for trace / fill).
+  function siblingTemplate(el) {
+    var sib = el.nextElementSibling;
+    while (sib) {
+      if (sib.tagName === 'TEMPLATE') return sib;
+      sib = sib.nextElementSibling;
+    }
+    return null;
+  }
+
+  // ── Multiple Choice ──────────────────────────────────────────────────
+  document.querySelectorAll('.sc-mc-check').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var form = btn.closest('.sc-mc-form');
+      var selected = form.querySelector('input[type="radio"]:checked');
+      if (!selected) return;
+      var label = selected.closest('.sc-mc-choice');
+      var isCorrect = label.dataset.correct === 'true';
+
+      // Reset all
+      form.querySelectorAll('.sc-mc-choice').forEach(function(c) {
+        c.classList.remove('sc-correct', 'sc-wrong');
+      });
+      label.classList.add(isCorrect ? 'sc-correct' : 'sc-wrong');
+
+      // Also highlight the correct one if wrong
+      if (!isCorrect) {
+        form.querySelectorAll('.sc-mc-choice').forEach(function(c) {
+          if (c.dataset.correct === 'true') c.classList.add('sc-correct');
+        });
+      }
+
+      var fb = form.querySelector('.sc-feedback');
+      fb.hidden = false;
+      fb.className = 'sc-feedback ' + (isCorrect ? 'sc-fb-correct' : 'sc-fb-wrong');
+      fb.innerHTML = getExplainHtml(label);
+      typesetMath(fb);
+    });
+  });
+
+  // ── Reveal buttons (predict-output, spot-the-error, short-answer) ───
+  document.querySelectorAll('.sc-reveal-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      // Walk siblings to find the .sc-reveal
+      var sib = btn.nextElementSibling;
+      while (sib && !sib.classList.contains('sc-reveal')) sib = sib.nextElementSibling;
+      if (sib) {
+        sib.hidden = !sib.hidden;
+        btn.textContent = sib.hidden ? 'Show Answer' : 'Hide Answer';
+        if (!sib.hidden) typesetMath(sib);
+        // For spot-the-error, highlight the line
+        var spotCode = btn.parentElement.querySelector('.sc-spot-code');
+        if (spotCode) {
+          var ansLine = parseInt(spotCode.dataset.answerLine);
+          spotCode.querySelectorAll('.sc-spot-line').forEach(function(tr) {
+            if (parseInt(tr.dataset.line) === ansLine) {
+              tr.style.background = sib.hidden ? '' : '#f8d7da';
+            }
+          });
+        }
+      }
+    });
+  });
+
+  // ── Trace-the-flow (drag & drop) ────────────────────────────────────
+  document.querySelectorAll('.sc-trace-list').forEach(function(list) {
+    // Shuffle on load
+    var arr = Array.from(list.children);
+    for (var j = arr.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      list.insertBefore(arr[k], arr[j]);
+      arr = Array.from(list.children);
+    }
+
+    var dragged = null;
+    list.addEventListener('dragstart', function(e) {
+      dragged = e.target.closest('.sc-trace-item');
+      if (dragged) dragged.style.opacity = '0.5';
+    });
+    list.addEventListener('dragend', function(e) {
+      if (dragged) dragged.style.opacity = '';
+      dragged = null;
+      list.querySelectorAll('.sc-trace-item').forEach(function(it) {
+        it.classList.remove('sc-drag-over');
+      });
+    });
+    list.addEventListener('dragover', function(e) { e.preventDefault(); });
+    list.addEventListener('drop', function(e) {
+      e.preventDefault();
+      var target = e.target.closest('.sc-trace-item');
+      if (target && dragged && target !== dragged) {
+        var allItems = Array.from(list.children);
+        var dragIdx = allItems.indexOf(dragged);
+        var dropIdx = allItems.indexOf(target);
+        if (dragIdx < dropIdx) {
+          list.insertBefore(dragged, target.nextSibling);
+        } else {
+          list.insertBefore(dragged, target);
+        }
+      }
+    });
+    list.addEventListener('dragenter', function(e) {
+      var target = e.target.closest('.sc-trace-item');
+      if (target) target.classList.add('sc-drag-over');
+    });
+    list.addEventListener('dragleave', function(e) {
+      var target = e.target.closest('.sc-trace-item');
+      if (target) target.classList.remove('sc-drag-over');
+    });
+  });
+
+  document.querySelectorAll('.sc-trace-check').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var list = btn.previousElementSibling;
+      while (list && !list.classList.contains('sc-trace-list')) list = list.previousElementSibling;
+      if (!list) return;
+      var correct = list.dataset.correct.split(',').map(Number);
+      var items = Array.from(list.children);
+      var allCorrect = true;
+      items.forEach(function(item, i) {
+        var idx = parseInt(item.dataset.idx);
+        if (idx === correct[i]) {
+          item.classList.add('sc-correct');
+          item.classList.remove('sc-wrong');
+        } else {
+          item.classList.add('sc-wrong');
+          item.classList.remove('sc-correct');
+          allCorrect = false;
+        }
+      });
+      var fb = btn.nextElementSibling;
+      while (fb && !fb.classList.contains('sc-feedback')) fb = fb.nextElementSibling;
+      if (fb) {
+        fb.hidden = false;
+        fb.className = 'sc-feedback ' + (allCorrect ? 'sc-fb-correct' : 'sc-fb-wrong');
+        var tpl = siblingTemplate(fb);
+        var explainHtml = tpl ? tpl.innerHTML : '';
+        fb.innerHTML = (allCorrect ? 'Correct! ' : 'Not quite — try reordering. ') + explainHtml;
+        typesetMath(fb);
+      }
+    });
+  });
+
+  // ── Match concepts ──────────────────────────────────────────────────
+  (function() {
+    function closeAll(except) {
+      document.querySelectorAll('.sc-match-select[aria-expanded="true"]').forEach(function(dd) {
+        if (dd !== except) {
+          dd.setAttribute('aria-expanded', 'false');
+          var ul = dd.querySelector('.sc-match-opts');
+          if (ul) ul.hidden = true;
+        }
+      });
+    }
+
+    document.querySelectorAll('.sc-match-grid').forEach(function(grid) {
+      var defsInput = grid.querySelector('.sc-match-defs');
+      var defs = defsInput.value.split('|');
+      var shuffled = defs.slice().sort(function() { return Math.random() - 0.5; });
+      grid.querySelectorAll('.sc-match-select').forEach(function(dd) {
+        var ul = dd.querySelector('.sc-match-opts');
+        var textSpan = dd.querySelector('.sc-match-sel-text');
+        shuffled.forEach(function(d) {
+          var li = document.createElement('li');
+          li.className = 'sc-match-opt';
+          li.textContent = d;
+          li.setAttribute('role', 'option');
+          li.setAttribute('aria-selected', 'false');
+          ul.appendChild(li);
+        });
+        dd.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isOpen = dd.getAttribute('aria-expanded') === 'true';
+          closeAll(dd);
+          dd.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          ul.hidden = isOpen;
+        });
+        ul.addEventListener('click', function(e) {
+          var li = e.target.closest('.sc-match-opt');
+          if (!li) return;
+          ul.querySelectorAll('.sc-match-opt').forEach(function(o) { o.setAttribute('aria-selected', 'false'); });
+          li.setAttribute('aria-selected', 'true');
+          textSpan.textContent = li.textContent;
+          dd.dataset.selected = li.textContent;
+          dd.setAttribute('aria-expanded', 'false');
+          ul.hidden = true;
+        });
+        dd.addEventListener('keydown', function(e) {
+          var isOpen = dd.getAttribute('aria-expanded') === 'true';
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            dd.click();
+          } else if (e.key === 'Escape') {
+            dd.setAttribute('aria-expanded', 'false'); ul.hidden = true;
+          } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (!isOpen) { dd.setAttribute('aria-expanded', 'true'); ul.hidden = false; }
+            var opts = Array.from(ul.querySelectorAll('.sc-match-opt'));
+            var cur = opts.findIndex(function(o) { return o.getAttribute('aria-selected') === 'true'; });
+            var next = e.key === 'ArrowDown' ? Math.min(cur + 1, opts.length - 1) : Math.max(cur - 1, 0);
+            opts.forEach(function(o, i) { o.setAttribute('aria-selected', i === next ? 'true' : 'false'); });
+            if (opts[next]) opts[next].scrollIntoView({ block: 'nearest' });
+          }
+        });
+      });
+    });
+
+    document.addEventListener('click', function() { closeAll(); });
+  })();
+
+  document.querySelectorAll('.sc-match-check').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var grid = btn.previousElementSibling;
+      while (grid && !grid.classList.contains('sc-match-grid')) grid = grid.previousElementSibling;
+      if (!grid) return;
+      var defsInput = grid.querySelector('.sc-match-defs');
+      var defs = defsInput.value.split('|');
+      var allCorrect = true;
+      grid.querySelectorAll('.sc-match-row').forEach(function(row) {
+        var correctIdx = parseInt(row.dataset.correct);
+        var dd = row.querySelector('.sc-match-select');
+        var selectedText = dd ? (dd.dataset.selected || '') : '';
+        if (selectedText === defs[correctIdx]) {
+          row.classList.add('sc-correct');
+          row.classList.remove('sc-wrong');
+        } else {
+          row.classList.add('sc-wrong');
+          row.classList.remove('sc-correct');
+          allCorrect = false;
+        }
+      });
+      var fb = btn.nextElementSibling;
+      if (fb) {
+        fb.hidden = false;
+        fb.className = 'sc-feedback ' + (allCorrect ? 'sc-fb-correct' : 'sc-fb-wrong');
+        fb.textContent = allCorrect ? 'All correct!' : 'Some matches are wrong — try again.';
+      }
+    });
+  });
+
+  // ── Fill-in-the-blank ───────────────────────────────────────────────
+  document.querySelectorAll('.sc-fill-check').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var card = btn.closest('.sc-card');
+      var input = card.querySelector('.sc-fill-input');
+      var answers = input.dataset.answers.split('|').map(function(a) { return a.trim().toLowerCase(); });
+      var userVal = input.value.trim().toLowerCase();
+      var correct = answers.indexOf(userVal) >= 0;
+      var fb = card.querySelector('.sc-feedback');
+      if (fb) {
+        fb.hidden = false;
+        fb.className = 'sc-feedback ' + (correct ? 'sc-fb-correct' : 'sc-fb-wrong');
+        var tpl = siblingTemplate(fb);
+        var explainHtml = tpl ? tpl.innerHTML : '';
+        fb.innerHTML = correct
+          ? 'Correct! ' + explainHtml
+          : 'Not quite. Expected: ' + answers[0] + '. ' + explainHtml;
+        typesetMath(fb);
+      }
+      input.style.borderColor = correct ? '#28a745' : '#dc3545';
+    });
+  });
+
+  // ── Spot-the-error syntax highlighting ─────────────────────────────
+  if (window.hljs) {
+    document.querySelectorAll('.sc-code-table .sc-line-code code').forEach(function(el) {
+      hljs.highlightElement(el);
+    });
+  }
+
+})();
+
+</script>
+<script>
+
+(function() {
+  'use strict';
+
+  var tooltip = null;
+
+  function showTooltip(anchor, content) {
+    hideTooltip();
+    tooltip = document.createElement('div');
+    tooltip.className = 'ref-hover-tooltip';
+    tooltip.innerHTML = content;
+    document.body.appendChild(tooltip);
+
+    var rect = anchor.getBoundingClientRect();
+    var ttRect = tooltip.getBoundingClientRect();
+    var top = rect.top - ttRect.height - 8;
+    if (top < 8) top = rect.bottom + 8;
+    var left = rect.left + (rect.width / 2) - (ttRect.width / 2);
+    left = Math.max(8, Math.min(left, window.innerWidth - ttRect.width - 8));
+
+    tooltip.style.top = top + 'px';
+    tooltip.style.left = left + 'px';
+  }
+
+  function hideTooltip() {
+    if (tooltip) { tooltip.remove(); tooltip = null; }
+  }
+
+  // ── Figure hover previews ───────────────────────────────────────────
+  document.querySelectorAll('.ref-hover[data-ref-type="figure"]').forEach(function(a) {
+    a.addEventListener('mouseenter', function() {
+      var target = a.dataset.refTarget;
+      var figs = document.querySelectorAll('figure');
+      for (var i = 0; i < figs.length; i++) {
+        var caption = figs[i].querySelector('figcaption');
+        if (caption && caption.textContent.indexOf(target) >= 0) {
+          var img = figs[i].querySelector('img');
+          if (img) {
+            showTooltip(a, '<img src="' + img.src + '"><div style="margin-top:0.25rem;font-size:0.85rem;color:#666">' + caption.textContent.trim() + '</div>');
+            a.href = '#' + (figs[i].id || '');
+          }
+          break;
+        }
+      }
+    });
+    a.addEventListener('mouseleave', hideTooltip);
+  });
+
+  // ── Section hover previews ──────────────────────────────────────────
+  document.querySelectorAll('.ref-hover[data-ref-type="section"]').forEach(function(a) {
+    a.addEventListener('mouseenter', function() {
+      var target = a.dataset.refTarget;  // e.g. "§3.1"
+      var headings = document.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      for (var i = 0; i < headings.length; i++) {
+        var h = headings[i];
+        var idx = h.textContent.indexOf(target);
+        if (idx < 0) continue;
+        // Ensure exact match: char after target must not be a digit or period
+        var after = h.textContent[idx + target.length];
+        if (after && /[\d.]/.test(after)) continue;
+        if (h.id) a.href = '#' + h.id;
+        showTooltip(a, '<div style="font-weight:600;font-size:0.9rem;color:#222">'
+          + h.textContent.trim() + '</div>');
+        break;
+      }
+    });
+    a.addEventListener('mouseleave', hideTooltip);
+  });
+
+  // ── Equation hover previews ─────────────────────────────────────────
+  // Event delegation (capture phase) covers \eqref links present on page
+  // load AND links created later by typesetMath() — e.g. inside selfcheck
+  // feedback injected from <template> elements. Cursor styling is handled
+  // via CSS (a[href^="#mjx-eqn"]) so no per-element registration is needed.
+
+  document.addEventListener('mouseenter', function(e) {
+    var a = e.target.closest && e.target.closest('a[href^="#mjx-eqn"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href) return;
+    var targetId = decodeURIComponent(href.replace('#', ''));
+    var target = document.getElementById(targetId)
+              || document.querySelector('[id="' + CSS.escape(targetId) + '"]');
+    if (!target) return;
+    var mathBlock = target.closest('.math-block')
+                 || target.closest('mjx-container')
+                 || target.parentElement;
+    if (!mathBlock) return;
+    showTooltip(a, '<div class="math-block" style="text-align:center;padding:0.5rem 0">'
+                 + mathBlock.innerHTML + '</div>');
+  }, true);
+
+  document.addEventListener('mouseleave', function(e) {
+    var a = e.target.closest && e.target.closest('a[href^="#mjx-eqn"]');
+    if (!a) return;
+    hideTooltip();
+  }, true);
+
+})();
+
+</script>
+<script>
+
+(function() {
+  'use strict';
+
+  var overlay = null;
+  var overlayImg = null;
+
+  function buildOverlay() {
+    overlay = document.createElement('div');
+    overlay.className = 'img-lightbox';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Image viewer');
+
+    overlayImg = document.createElement('img');
+    overlayImg.addEventListener('click', function(e) { e.stopPropagation(); });
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'img-lightbox-close';
+    closeBtn.innerHTML = '×';
+    closeBtn.setAttribute('aria-label', 'Close image viewer');
+    closeBtn.addEventListener('click', function(e) { e.stopPropagation(); close(); });
+
+    overlay.appendChild(overlayImg);
+    overlay.appendChild(closeBtn);
+    overlay.addEventListener('click', close);
+    document.body.appendChild(overlay);
+  }
+
+  function open(src, alt) {
+    if (!overlay) buildOverlay();
+    overlayImg.src = src;
+    overlayImg.alt = alt || '';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    overlay.focus();
+  }
+
+  function close() {
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') close();
+  });
+
+  document.querySelectorAll('figure img').forEach(function(img) {
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('aria-label', 'Click to enlarge');
+    img.addEventListener('click', function() { open(img.src, img.alt); });
+    img.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img.src, img.alt); }
+    });
+  });
+
+})();
+
+</script>
+<script>
+
+(function() {
+  'use strict';
+
+  // ── Scroll-reveal (.animate-in + .stagger-children) ──────────────────
+  document.querySelectorAll('.stagger-children').forEach(function(parent) {
+    Array.from(parent.children).forEach(function(child, i) {
+      child.style.setProperty('--stagger-index', i);
+    });
+  });
+  if (window.IntersectionObserver) {
+    var ro = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    document.querySelectorAll('.animate-in').forEach(function(el) { ro.observe(el); });
+  } else {
+    document.querySelectorAll('.animate-in').forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // ── Glossary tooltips (.term[data-definition]) ────────────────────────
+  // Uses position:fixed so tooltips are never clipped by overflow:hidden ancestors.
+  var activeTip = null;
+  function posTip(term, tip) {
+    document.body.appendChild(tip);
+    var r = term.getBoundingClientRect(), tw = 300;
+    var left = Math.max(8, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - 8));
+    var th = tip.offsetHeight;
+    tip.style.left = left + 'px';
+    tip.style.top  = (r.top - th - 8 < 0 ? r.bottom + 8 : r.top - th - 8) + 'px';
+  }
+  document.querySelectorAll('.term[data-definition]').forEach(function(term) {
+    var tip = document.createElement('span');
+    tip.className = 'term-tooltip';
+    tip.textContent = term.dataset.definition;
+    function show() {
+      if (activeTip && activeTip !== tip) { activeTip.classList.remove('visible'); activeTip.remove(); }
+      posTip(term, tip);
+      requestAnimationFrame(function() { tip.classList.add('visible'); });
+      activeTip = tip;
+    }
+    function hide() {
+      tip.classList.remove('visible');
+      setTimeout(function() { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
+      activeTip = null;
+    }
+    term.addEventListener('mouseenter', show);
+    term.addEventListener('mouseleave', hide);
+    term.addEventListener('click', function(e) {
+      e.stopPropagation();
+      tip.classList.contains('visible') ? hide() : show();
+    });
+  });
+  document.addEventListener('click', function() {
+    if (activeTip) { activeTip.classList.remove('visible'); activeTip.remove(); activeTip = null; }
+  });
+
+  // ── Bug challenge (.bug-challenge) ────────────────────────────────────
+  window.checkBugLine = function(el, isCorrect) {
+    var fb = el.closest('.bug-challenge').querySelector('.bug-feedback');
+    if (!fb) return;
+    if (isCorrect) {
+      el.classList.add('correct');
+      fb.innerHTML = '<strong>Found it!</strong> ' + (el.dataset.explain || '');
+      fb.className = 'bug-feedback show success';
+    } else {
+      el.classList.add('incorrect');
+      fb.textContent = 'Not this line — keep looking…';
+      fb.className = 'bug-feedback show error';
+      setTimeout(function() { el.classList.remove('incorrect'); fb.className = 'bug-feedback'; }, 2000);
+    }
+  };
+
+  // ── Quiz container (.quiz-container) ─────────────────────────────────
+  window.selectOption = function(btn) {
+    var block = btn.closest('.quiz-question-block');
+    if (!block) return;
+    block.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+    btn.classList.add('selected');
+  };
+  window.checkQuiz = function(sectionId) {
+    var root = sectionId ? document.getElementById(sectionId) : null;
+    var container = (root || document).querySelector('.quiz-container');
+    if (!container) return;
+    var questions = container.querySelectorAll('.quiz-question-block');
+    var score = 0;
+    questions.forEach(function(q) {
+      var sel = q.querySelector('.quiz-option.selected');
+      var fb  = q.querySelector('.quiz-feedback');
+      var ok  = q.dataset.correct;
+      var okEl = q.querySelector('[data-value="' + ok + '"]');
+      if (!sel) { if (fb) { fb.textContent = 'Pick an answer first!'; fb.className = 'quiz-feedback show warning'; } return; }
+      q.querySelectorAll('.quiz-option').forEach(function(o) { o.disabled = true; });
+      if (sel.dataset.value === ok) {
+        score++; sel.classList.add('correct');
+        if (fb) { fb.innerHTML = '<strong>Correct!</strong> ' + (okEl && okEl.dataset.explain || q.dataset.explain || ''); fb.className = 'quiz-feedback show success'; }
+      } else {
+        sel.classList.add('incorrect');
+        if (okEl) okEl.classList.add('correct');
+        if (fb) { fb.innerHTML = '<strong>Not quite.</strong> ' + (okEl && okEl.dataset.explain || q.dataset.explain || ''); fb.className = 'quiz-feedback show error'; }
+      }
+    });
+    var overall = container.querySelector('.quiz-overall-feedback');
+    if (overall) overall.textContent = score + ' / ' + questions.length + ' correct' + (score === questions.length ? ' — Perfect!' : '');
+  };
+  window.resetQuiz = function(sectionId) {
+    var root = sectionId ? document.getElementById(sectionId) : null;
+    var container = (root || document).querySelector('.quiz-container');
+    if (!container) return;
+    container.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected', 'correct', 'incorrect'); o.disabled = false; });
+    container.querySelectorAll('.quiz-feedback').forEach(function(fb) { fb.className = 'quiz-feedback'; fb.textContent = ''; });
+    var overall = container.querySelector('.quiz-overall-feedback');
+    if (overall) overall.textContent = '';
+  };
+
+  // ── Drag-and-drop matching (.dnd-container) ───────────────────────────
+  document.querySelectorAll('.dnd-container').forEach(function(container) {
+    var chips = container.querySelectorAll('.dnd-chip');
+    var zones = container.querySelectorAll('.dnd-zone');
+    function placeTo(tg, chip) {
+      if (tg.dataset.placed) { var prev = container.querySelector('[data-answer="' + tg.dataset.placed + '"]'); if (prev) prev.classList.remove('placed'); }
+      tg.textContent = chip.textContent; tg.dataset.placed = chip.dataset.answer; chip.classList.add('placed');
+    }
+    chips.forEach(function(chip) {
+      chip.addEventListener('dragstart', function(e) { e.dataTransfer.setData('text/plain', chip.dataset.answer); chip.classList.add('dragging'); });
+      chip.addEventListener('dragend', function() { chip.classList.remove('dragging'); });
+      chip.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        var t = e.touches[0], clone = chip.cloneNode(true);
+        clone.classList.add('touch-ghost');
+        clone.style.cssText = 'position:fixed;z-index:1000;pointer-events:none;left:' + (t.clientX - 40) + 'px;top:' + (t.clientY - 20) + 'px;';
+        document.body.appendChild(clone); chip._ghost = clone;
+      }, { passive: false });
+      chip.addEventListener('touchmove', function(e) {
+        e.preventDefault(); var t = e.touches[0];
+        if (chip._ghost) { chip._ghost.style.left = (t.clientX - 40) + 'px'; chip._ghost.style.top = (t.clientY - 20) + 'px'; }
+        zones.forEach(function(z) { var tg = z.querySelector('.dnd-zone-target'); if (tg) tg.classList.remove('drag-over'); });
+        var el = document.elementFromPoint(t.clientX, t.clientY);
+        if (el && el.closest('.dnd-zone-target')) el.closest('.dnd-zone-target').classList.add('drag-over');
+      }, { passive: false });
+      chip.addEventListener('touchend', function(e) {
+        if (chip._ghost) { chip._ghost.remove(); chip._ghost = null; }
+        var t = e.changedTouches[0], el = document.elementFromPoint(t.clientX, t.clientY);
+        if (el && el.closest('.dnd-zone-target')) { el.closest('.dnd-zone-target').classList.remove('drag-over'); placeTo(el.closest('.dnd-zone-target'), chip); }
+      });
+    });
+    zones.forEach(function(zone) {
+      var tg = zone.querySelector('.dnd-zone-target'); if (!tg) return;
+      tg.addEventListener('dragover', function(e) { e.preventDefault(); tg.classList.add('drag-over'); });
+      tg.addEventListener('dragleave', function() { tg.classList.remove('drag-over'); });
+      tg.addEventListener('drop', function(e) {
+        e.preventDefault(); tg.classList.remove('drag-over');
+        var chip = container.querySelector('[data-answer="' + e.dataTransfer.getData('text/plain') + '"]');
+        if (chip) placeTo(tg, chip);
+      });
+    });
+  });
+  window.checkDnD = function(btn) {
+    var c = btn ? btn.closest('.dnd-container') : document.querySelector('.dnd-container'); if (!c) return;
+    c.querySelectorAll('.dnd-zone').forEach(function(zone) {
+      var tg = zone.querySelector('.dnd-zone-target'); if (!tg || !tg.dataset.placed) return;
+      tg.classList.remove('correct', 'incorrect');
+      tg.classList.add(tg.dataset.placed === zone.dataset.correct ? 'correct' : 'incorrect');
+    });
+  };
+  window.resetDnD = function(btn) {
+    var c = btn ? btn.closest('.dnd-container') : document.querySelector('.dnd-container'); if (!c) return;
+    c.querySelectorAll('.dnd-zone-target').forEach(function(tg) { tg.textContent = 'Drop here'; tg.dataset.placed = ''; tg.classList.remove('correct', 'incorrect', 'drag-over'); });
+    c.querySelectorAll('.dnd-chip').forEach(function(ch) { ch.classList.remove('placed', 'dragging'); });
+  };
+
+  // ── Chat window (.chat-window) ────────────────────────────────────────
+  document.querySelectorAll('.chat-window').forEach(function(win) {
+    var msgs = win.querySelectorAll('.chat-messages .chat-message');
+    var typing = win.querySelector('.chat-typing');
+    var typAvatar = typing && typing.querySelector('.chat-avatar');
+    var progress = win.querySelector('.chat-progress');
+    var idx = [0];
+    var actorMap = { 'actor-a': { i: 'A', c: 'var(--color-actor-1)' }, 'actor-b': { i: 'B', c: 'var(--color-actor-2)' },
+                     'actor-c': { i: 'C', c: 'var(--color-actor-3)' }, 'actor-d': { i: 'D', c: 'var(--color-actor-4)' },
+                     'actor-e': { i: 'E', c: 'var(--color-actor-5)' } };
+    function upProg() { if (progress) progress.textContent = idx[0] + ' / ' + msgs.length + ' messages'; }
+    function playNext() {
+      if (idx[0] >= msgs.length) return;
+      var msg = msgs[idx[0]], actor = actorMap[msg.dataset.sender] || { i: '?', c: 'var(--color-actor-1)' };
+      if (typing) { if (typAvatar) { typAvatar.textContent = actor.i; typAvatar.style.background = actor.c; } typing.style.display = 'flex'; }
+      setTimeout(function() {
+        if (typing) typing.style.display = 'none';
+        msg.style.display = 'flex'; msg.style.animation = 'fadeSlideUp .3s var(--ease-out)';
+        idx[0]++; upProg();
+      }, 800);
+    }
+    function playAll() { var iv = setInterval(function() { if (idx[0] >= msgs.length) { clearInterval(iv); return; } playNext(); }, 1200); }
+    function resetW() { idx[0] = 0; msgs.forEach(function(m) { m.style.display = 'none'; m.style.animation = ''; }); if (typing) typing.style.display = 'none'; upProg(); }
+    upProg();
+    win.querySelectorAll('button').forEach(function(btn) {
+      var oc = btn.getAttribute('onclick') || '';
+      if (/playChatNext/.test(oc)) { btn.removeAttribute('onclick'); btn.addEventListener('click', playNext); }
+      if (/playChatAll/.test(oc))  { btn.removeAttribute('onclick'); btn.addEventListener('click', playAll); }
+      if (/resetChat/.test(oc))    { btn.removeAttribute('onclick'); btn.addEventListener('click', resetW); }
+    });
+  });
+  if (!window.playChatNext) window.playChatNext = function() {};
+  if (!window.playChatAll)  window.playChatAll  = function() {};
+  if (!window.resetChat)    window.resetChat    = function() {};
+
+  // ── Flow animation (.flow-animation) ─────────────────────────────────
+  // Steps come from data-steps JSON attribute or global window.flowSteps.
+  document.querySelectorAll('.flow-animation').forEach(function(win) {
+    var actorEls = win.querySelectorAll('.flow-actor');
+    var label = win.querySelector('.flow-step-label');
+    var progress = win.querySelector('.flow-progress');
+    var steps = [];
+    try { steps = JSON.parse(win.dataset.steps || '[]'); } catch(e) {}
+    if (!steps.length && window.flowSteps) steps = window.flowSteps;
+    var idx = [0];
+    function upProg() { if (progress) progress.textContent = 'Step ' + idx[0] + ' / ' + steps.length; }
+    function flowNext() {
+      if (!steps.length || idx[0] >= steps.length) return;
+      var step = steps[idx[0]];
+      actorEls.forEach(function(a) { a.classList.remove('active'); });
+      if (step.highlight) {
+        var target = win.querySelector('#flow-' + step.highlight + ',[data-actor="' + step.highlight + '"]');
+        if (target) target.classList.add('active');
+      }
+      if (label) label.textContent = step.label || '';
+      idx[0]++; upProg();
+    }
+    function flowReset() {
+      idx[0] = 0; actorEls.forEach(function(a) { a.classList.remove('active'); });
+      if (label) label.textContent = win.dataset.initialLabel || 'Click "Next Step" to begin';
+      upProg();
+    }
+    upProg();
+    win.querySelectorAll('button').forEach(function(btn) {
+      var oc = btn.getAttribute('onclick') || '';
+      if (/flowNext/.test(oc))  { btn.removeAttribute('onclick'); btn.addEventListener('click', flowNext); }
+      if (/flowReset/.test(oc)) { btn.removeAttribute('onclick'); btn.addEventListener('click', flowReset); }
+    });
+  });
+  if (!window.flowNext)  window.flowNext  = function() {};
+  if (!window.flowReset) window.flowReset = function() {};
+
+  // ── Architecture diagram (.arch-diagram) ─────────────────────────────
+  window.showArchDesc = function(el) {
+    var diagram = el.closest('.arch-diagram'); if (!diagram) return;
+    diagram.querySelectorAll('.arch-component').forEach(function(c) { c.classList.remove('active'); });
+    el.classList.add('active');
+    var desc = diagram.querySelector('#arch-desc, .arch-description');
+    if (desc) desc.textContent = el.dataset.desc || '';
+  };
+
+  // ── Layer toggle demo (.layer-demo) ──────────────────────────────────
+  function _showLayerIn(demo, name, activeTab) {
+    demo.querySelectorAll('.layer').forEach(function(l) { l.style.display = 'none'; });
+    var target = demo.querySelector('#layer-' + name); if (target) target.style.display = '';
+    demo.querySelectorAll('.layer-tab').forEach(function(t) { t.classList.remove('active'); });
+    activeTab.classList.add('active');
+    var descEl = demo.querySelector('#layer-desc, .layer-description');
+    if (descEl && activeTab.dataset.desc) descEl.textContent = activeTab.dataset.desc;
+  }
+  document.querySelectorAll('.layer-demo').forEach(function(demo) {
+    demo.querySelectorAll('.layer-tab').forEach(function(tab) {
+      var m = (tab.getAttribute('onclick') || '').match(/showLayer\(['"]([^'"]+)['"]\)/);
+      var name = tab.dataset.layer || (m && m[1]);
+      tab.removeAttribute('onclick');
+      if (name) tab.addEventListener('click', function() { _showLayerIn(demo, name, tab); });
+    });
+  });
+  window.showLayer = function(name) {
+    var demo = document.querySelector('.layer-demo'); if (!demo) return;
+    var tab = demo.querySelector('[data-layer="' + name + '"]') || demo.querySelector('.layer-tab');
+    _showLayerIn(demo, name, tab);
+  };
+
+})();
+
+</script>
+
+
+</body></html>

@@ -1,5 +1,5 @@
 from litellm import completion
-import config
+import day7.lecture.config as config
 
 def get_ai_response_stream(messages):
     """

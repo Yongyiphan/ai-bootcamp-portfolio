@@ -1,6 +1,6 @@
 from google import genai
 from google.genai import types
-import config
+import day7.lecture.config as config
 
 _client = None
 _client_api_key = None

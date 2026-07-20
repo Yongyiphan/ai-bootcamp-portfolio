@@ -1,5 +1,5 @@
 from litellm import completion
-import config
+import day7.lecture.config as config
 
 def get_ollama_stream(model_name, conversation_history, fresh_prompt):
     payload = conversation_history + [{"role": "user", "content": fresh_prompt}]
