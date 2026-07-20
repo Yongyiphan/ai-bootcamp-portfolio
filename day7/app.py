@@ -37,8 +37,9 @@ with st.sidebar:
 
     st.divider()
     providers = ["ollama", "gemini"]
+    provider_setting = config.get_setting("DEFAULT_PROVIDER", "ollama").lower()
     default_provider = (
-        config.DEFAULT_PROVIDER if config.DEFAULT_PROVIDER in providers else "ollama"
+        provider_setting if provider_setting in providers else "ollama"
     )
     provider = st.selectbox(
         "AI Provider",
@@ -48,11 +49,13 @@ with st.sidebar:
     )
 
     if provider == "ollama":
-        model_name = st.text_input("Ollama Model", value=config.DEFAULT_MODEL)
+        default_model = config.get_setting("DEFAULT_MODEL", "llama3.2:3b")
+        model_name = st.text_input("Ollama Model", value=default_model)
         st.caption("Ollama requires access to your local Ollama server.")
     else:
+        live_gemini_model = config.get_setting("GEMINI_MODEL", "gemini-3.5-flash")
         model_source = config.SETTING_SOURCES.get("GEMINI_MODEL", "unknown")
-        st.caption(f"Gemini model: {config.GEMINI_MODEL}")
+        st.caption(f"Gemini model: {live_gemini_model}")
         st.caption(f"Model setting source: {model_source}")
 
     with st.expander("Configuration debug"):
@@ -63,7 +66,8 @@ with st.sidebar:
                 [
                     f"st.secrets GEMINI_MODEL: {secret_model}",
                     f"os.getenv GEMINI_MODEL: {environment_model}",
-                    f"config.GEMINI_MODEL: {config.GEMINI_MODEL}",
+                    f"live resolved model: {config.get_setting('GEMINI_MODEL', 'gemini-3.5-flash')}",
+                    f"import-time config.GEMINI_MODEL: {config.GEMINI_MODEL}",
                     f"config source: {config.SETTING_SOURCES.get('GEMINI_MODEL', 'unknown')}",
                 ]
             )
