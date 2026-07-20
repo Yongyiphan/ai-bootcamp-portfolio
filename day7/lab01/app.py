@@ -20,6 +20,7 @@ load_dotenv(APP_DIR / ".env")
 try:
     for key in (
         "MODEL",
+        "GEMINI_MODEL",
         "OLLAMA_API_BASE",
         "OPENAI_API_KEY",
         "ANTHROPIC_API_KEY",
@@ -29,6 +30,16 @@ try:
             os.environ[key] = str(st.secrets[key]).strip()
 except (FileNotFoundError, KeyError):
     pass
+
+# Accept the same Gemini secret naming used by Lab 2. LiteLLM needs the
+# provider-prefixed model name, while Streamlit users commonly store the bare
+# model name as GEMINI_MODEL.
+if not os.getenv("MODEL") and os.getenv("GEMINI_MODEL"):
+    gemini_model = os.getenv("GEMINI_MODEL", "").strip()
+    os.environ["MODEL"] = (
+        gemini_model if gemini_model.startswith("gemini/")
+        else f"gemini/{gemini_model}"
+    )
 
 from analyzer import (  # noqa: E402
     analyse_degree_alignment,
