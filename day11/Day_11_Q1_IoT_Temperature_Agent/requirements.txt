@@ -1,0 +1,4 @@
+# The lab uses the FastMCP API provided by MCP 1.x.
+mcp[cli]>=1.0,<2
+requests
+anthropic
