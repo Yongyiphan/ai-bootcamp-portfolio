@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<!-- saved from url=(0119)https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Day 10 Handout: Local AI — Running Your Own LLM</title>
+<meta name="author" content="AI Bootcamp Faculty">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Day 10 Handout_ Local AI — Running Your Own LLM_files/css2" rel="stylesheet">
+<style>
+:root{
+  --primary:#0f3460;--accent:#16213e;--teal:#0b6e72;--teal-light:#e6f4f4;
+  --amber:#d4770a;--amber-bg:#fff8ed;--red:#b91c1c;--red-bg:#fef2f2;
+  --green:#15803d;--green-bg:#f0fdf4;--blue:#2563eb;--blue-soft:#eff6ff;
+  --purple:#6d28d9;--purple-bg:#f5f3ff;--bg:#f8f9fc;--surface:#fff;
+  --border:#dde3ed;--text:#1a202c;--muted:#64748b;--code-bg:#1e2433;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07);--shadow-md:0 4px 16px rgba(0,0,0,.09);
+  --radius:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;font-size:15.5px;line-height:1.72;color:var(--text);background:var(--bg);max-width:980px;margin:0 auto;padding:2rem 1.4rem 5rem}
+h1{font-family:'DM Sans',Georgia,serif;font-size:2.25rem;color:var(--primary);line-height:1.16;margin-bottom:.35rem}
+h2{font-family:'DM Sans',Georgia,serif;font-size:1.65rem;color:var(--primary);margin:2.8rem 0 .9rem;padding-bottom:.4rem;border-bottom:2.5px solid var(--border)}
+h3{font-size:1.13rem;font-weight:700;color:var(--accent);margin:1.6rem 0 .55rem}
+h4{font-size:1rem;font-weight:700;color:var(--teal);margin:1rem 0 .35rem}
+p{margin-bottom:.75rem} ul,ol{margin:.5rem 0 .9rem 1.4rem} li{margin-bottom:.35rem}
+a{color:var(--teal);text-decoration:none} a:hover{text-decoration:underline} sup{font-size:.72rem} sup a{font-weight:700;color:var(--teal)} strong{font-weight:700}
+.page-header{background:linear-gradient(135deg,var(--primary) 0%,#1a4a7a 60%,var(--teal) 100%);color:#fff;border-radius:14px;padding:2.2rem 2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;box-shadow:var(--shadow-md)}
+.page-header::after{content:'';position:absolute;top:-45px;right:-45px;width:210px;height:210px;background:rgba(255,255,255,.065);border-radius:50%}
+.page-header h1{color:#fff}.page-header .subtitle{color:rgba(255,255,255,.82);font-size:.98rem;margin-top:.3rem}
+.header-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}.header-tag{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:.18rem .75rem;font-size:.82rem;font-weight:500}
+.callout{border-left:4px solid var(--teal);background:var(--teal-light);border-radius:0 var(--radius) var(--radius) 0;padding:.9rem 1.1rem;margin:1.1rem 0}
+.callout.tip{border-color:var(--green);background:var(--green-bg)}.callout.warn{border-color:var(--amber);background:var(--amber-bg)}.callout.danger{border-color:var(--red);background:var(--red-bg)}.callout.info{border-color:var(--blue);background:var(--blue-soft)}.callout.purple{border-color:var(--purple);background:var(--purple-bg)}
+.callout-title{font-weight:800;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem;display:flex;gap:.4rem;align-items:center}.tip .callout-title{color:var(--green)}.warn .callout-title{color:var(--amber)}.danger .callout-title{color:var(--red)}.info .callout-title{color:var(--blue)}.purple .callout-title{color:var(--purple)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem;margin:.8rem 0;box-shadow:var(--shadow-sm)}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1rem 0}.compare .panel{margin:0}
+.mini{font-size:.91rem;color:var(--muted)}
+.table-wrap{overflow-x:auto;margin:1rem 0 1.3rem;border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;font-size:.93rem}thead th{background:var(--primary);color:#fff;text-align:left;padding:.65rem .85rem;font-weight:700;font-size:.9rem}
+td{border:1px solid var(--border);padding:.58rem .85rem;vertical-align:top;background:var(--surface)}tr:nth-child(even) td{background:#f8fafc}
+code{font-family:'JetBrains Mono','Courier New',monospace;font-size:.85em;background:#eef2f8;padding:.12rem .38rem;border-radius:4px;color:#0f3460}
+pre{background:var(--code-bg);color:#e2e8f0;border-radius:10px;padding:1.1rem 1.2rem;overflow-x:auto;margin:.8rem 0 1.1rem;font-size:.83rem;line-height:1.65;box-shadow:0 4px 20px rgba(0,0,0,.18)}
+pre code{background:transparent;color:inherit;padding:0;font-size:inherit}.code-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;color:var(--muted);margin:.85rem 0 .3rem;display:flex;align-items:center;gap:.4rem}.dot{width:10px;height:10px;border-radius:50%;display:inline-block}.dot.py{background:#3b82f6}.dot.bash{background:#22c55e}.dot.env{background:#f59e0b}.dot.note{background:#8b5cf6}
+.term{color:var(--teal);border-bottom:1.5px dashed var(--teal);cursor:help;font-weight:600}.tooltip{position:fixed;z-index:9999;max-width:360px;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.16);padding:.8rem 1rem;font-size:.88rem;line-height:1.5;pointer-events:none;display:none}.tooltip .tt-label{font-weight:800;color:var(--teal);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.pipeline-diagram{display:flex;flex-wrap:wrap;align-items:stretch;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:1.3rem 0;box-shadow:var(--shadow-md)}
+.pipeline-step{flex:1;min-width:118px;padding:1rem .75rem;text-align:center;border-right:1px solid var(--border);cursor:pointer;transition:.18s}.pipeline-step:hover{background:var(--teal-light)}.pipeline-step:last-child{border-right:0}.step-icon{font-size:1.8rem;display:block}.step-name{font-weight:800;color:var(--primary);font-size:.85rem}.step-lib{font-family:'JetBrains Mono';font-size:.71rem;color:var(--muted)}.pipeline-info{display:none;width:100%;padding:1rem 1.2rem;background:#f0f7f7;border-top:1px solid var(--border);font-size:.9rem}
+.approach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0}.approach-card{background:#fff;border:1.5px solid var(--border);border-top:5px solid var(--teal);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm)}.approach-card h4{margin-top:0}.approach-card.ollama{border-top-color:#16a34a}.approach-card.hf{border-top-color:#f59e0b}.approach-card.llama{border-top-color:#64748b}.approach-card.vllm{border-top-color:#7c3aed}.approach-card.localai{border-top-color:#0ea5e9}.approach-card.gui{border-top-color:#d4770a}
+.badge{display:inline-block;border-radius:999px;padding:.12rem .55rem;font-size:.75rem;font-weight:800;margin:.1rem .12rem}.b-green{background:#dcfce7;color:#15803d}.b-blue{background:#dbeafe;color:#1d4ed8}.b-amber{background:#fef3c7;color:#b45309}.b-purple{background:#ede9fe;color:#6d28d9}.b-red{background:#fee2e2;color:#b91c1c}.b-slate{background:#f1f5f9;color:#475569}
+.decision-widget{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;margin:1.2rem 0;box-shadow:var(--shadow-sm)}
+.decision-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:.8rem;margin:.8rem 0}.decision-controls label{font-weight:700;font-size:.88rem}.decision-controls select{width:100%;margin-top:.25rem;padding:.5rem;border:1px solid var(--border);border-radius:7px;background:#fff;font-family:inherit}.decision-result{border-left:4px solid var(--teal);background:var(--teal-light);border-radius:0 8px 8px 0;padding:.9rem 1rem;margin-top:.8rem}
+.bar-chart{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;margin:1.1rem 0}.bar-row{display:grid;grid-template-columns:140px 1fr 90px;gap:.7rem;align-items:center;margin:.55rem 0;font-size:.9rem}.bar-track{height:14px;background:#eef2f8;border-radius:999px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),#43a7a4);border-radius:999px}
+.flow-vertical{display:grid;grid-template-columns:1fr;gap:.65rem;margin:1rem 0}
+.flow-card{background:#fff;border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:8px;padding:.75rem 1rem;cursor:pointer;transition:.15s}
+.flow-card:hover{background:var(--teal-light)}
+.flow-card-header{display:flex;align-items:center;gap:.75rem}
+.flow-card .file{font-family:'JetBrains Mono';font-weight:800;color:var(--primary);font-size:.88rem}
+.flow-card .out{font-size:.88rem;color:var(--muted);margin-top:.25rem}
+.flow-card .step-detail{display:none;margin-top:.9rem;border-top:1px solid var(--border);padding-top:.9rem}
+.flow-card.open .step-detail{display:block}
+.flow-card .toggle-icon{margin-left:auto;color:var(--muted);font-size:.9rem;transition:.2s}
+.flow-card.open .toggle-icon{transform:rotate(180deg)}
+.quiz-section{background:#fff;border:1px solid var(--border);border-top:4px solid var(--primary);border-radius:var(--radius);padding:1.35rem;margin:1.5rem 0}.quiz-card{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;margin:1rem 0}.quiz-q{font-weight:700;margin-bottom:.7rem}.quiz-options{display:flex;flex-direction:column;gap:.45rem}.quiz-options label{border:1px solid var(--border);border-radius:7px;padding:.5rem .8rem;background:#fff;cursor:pointer;display:flex;gap:.6rem}.quiz-btn{margin-top:.7rem;padding:.4rem .9rem;background:var(--teal);color:#fff;border:0;border-radius:6px;font-weight:700;cursor:pointer}.quiz-feedback{display:none;margin-top:.75rem;padding:.7rem .9rem;border-radius:7px;font-size:.92rem}.quiz-feedback.correct{display:block;background:var(--green-bg);border:1px solid #86efac;color:var(--green)}.quiz-feedback.wrong{display:block;background:var(--red-bg);border:1px solid #fca5a5;color:var(--red)}
+.refs ol{counter-reset:refs;list-style:none;margin-left:0;padding:0}.refs li{counter-increment:refs;display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.6rem}.refs li::before{content:"[" counter(refs) "]";color:var(--teal);font-weight:800;min-width:30px}
+/* VRAM calculator */
+.vram-widget{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;margin:1.2rem 0;box-shadow:var(--shadow-sm)}
+.vram-controls{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin:.8rem 0}
+.vram-controls label{font-weight:700;font-size:.88rem;display:flex;flex-direction:column;gap:.25rem}
+.vram-controls input,.vram-controls select{padding:.45rem .65rem;border:1px solid var(--border);border-radius:7px;font-family:inherit;font-size:.9rem;background:#fff;width:110px}
+.vram-result{border-left:4px solid var(--teal);background:var(--teal-light);border-radius:0 8px 8px 0;padding:.9rem 1rem;margin-top:.8rem;font-size:.95rem}
+.vram-formula{font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--muted);margin-bottom:.5rem}
+.toc-panel{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--teal);border-radius:var(--radius);padding:1.5rem 1.7rem;margin:1.3rem 0 1.8rem;box-shadow:var(--shadow-sm)}
+.toc-panel h2{margin:0 0 1.1rem;padding-bottom:0;border-bottom:none;font-size:1.55rem;color:var(--teal)}
+.toc-list{margin:0;padding-left:1.4rem}
+.toc-list li{margin-bottom:.7rem;line-height:1.55}
+.toc-list li::marker{font-weight:600;color:var(--text)}
+.toc-list a{font-weight:700}
+@media print{body{max-width:100%;background:#fff;padding:1rem}.page-header{background:var(--primary)!important;-webkit-print-color-adjust:exact}.callout,table,pre,.panel,.quiz-section,.pipeline-diagram{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="tooltip" class="tooltip"><div class="tt-label" id="tt-label">Term</div><div id="tt-body"></div></div>
+
+<div class="page-header">
+  <h1>Day 10 Handout: Local AI — Running Your Own LLM</h1>
+  <p class="subtitle">AI Application Development Bootcamp · Local inference, model runners, hardware trade-offs, and offline document Q&amp;A</p>
+  <div class="header-tags">
+    <span class="header-tag">Local vs Cloud AI</span>
+    <span class="header-tag">Ollama</span>
+    <span class="header-tag">Quantization &amp; VRAM</span>
+    <span class="header-tag">Qwen / DeepSeek</span>
+    <span class="header-tag">llama.cpp / GGUF</span>
+    <span class="header-tag">vLLM / LocalAI</span>
+    <span class="header-tag">Offline RAG</span>
+  </div>
+</div>
+
+<div class="toc-panel">
+<h2 id="toc">Contents</h2>
+<ol class="toc-list">
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s1">Why Local AI Matters Now</a> — privacy, offline use, cost at scale, reproducibility</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s2">Local vs Cloud AI: The Real Trade-offs</a> — trade-off table + the RAG pipeline, mapped</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s3">Model Architecture Refresher</a> — transformers, tokens, KV cache, temperature</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s4">Local AI Tool Landscape</a> — Ollama vs Transformers vs llama.cpp vs vLLM vs LocalAI</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s5">Hardware Reality: RAM, VRAM, Quantization</a> — quantization explained + the VRAM calculator</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s6">Choosing a Model</a> — Qwen 3, DeepSeek-R1, and Llama 3.x compared</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s7">Ollama API</a> — REST endpoints, <code>/api/chat</code>, <code>/api/embed</code></li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s8">Practice Project</a> — 6 scripts: load → chunk → embed → retrieve → answer → UI</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s9">Benchmarking</a> — latency, grounding, refusal, resource use</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s10">Security and Privacy</a> — where does the prompt actually go?</li>
+  <li><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s11">Lab Deliverable</a></li>
+</ol>
+</div>
+
+<div class="callout info">
+  <div class="callout-title">📁 Practice Code Files</div>
+  <p>Download <strong>code snippets ZIP file</strong> from Moodle and extract it. This handout shows only the key ideas and important fragments from each file, not the full code. When you are ready to run the practices, go to <a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#s8">Section 8 - Practice Project</a>. Run each script in order; each one produces a visible result before you continue. Everything runs completely offline once setup is done.</p>
+</div>
+
+<h2 id="s1">1. Why Local AI Matters Now</h2>
+<p>
+In earlier sessions you used a cloud inference provider such as
+<span class="term" data-term="Groq" data-definition="Groq is a cloud inference provider. In this bootcamp it let you call hosted LLMs quickly through an API without running a model on your own machine. Fast and developer-friendly — but your prompts still travel to Groq&#39;s servers.">Groq</span>
+to call a hosted LLM from Python. That was a good starting point because it let you focus on prompting, memory, and RAG without worrying about local hardware. Day 10 changes the question: instead of "How do I call an LLM API?", we ask "Can I run the model myself, on my own computer or private server?"
+</p>
+<p>
+Local AI means the model weights are stored on your own machine or infrastructure and inference happens there. This is not automatically better than cloud AI, but for a growing set of real-world situations, it is the only viable option.
+</p>
+
+<h3>Real-world situations where local inference is not optional</h3>
+
+<h4>Data privacy and legal compliance</h4>
+<p>
+When Samsung engineers used ChatGPT to help debug proprietary chip source code in 2023, the code was uploaded to OpenAI's servers as training data, a breach that led Samsung to ban generative AI tools internally.<sup><a href="https://www.forbes.com/sites/siladityaray/2023/05/02/samsung-bans-chatgpt-and-other-chatbots-for-employees-after-sensitive-code-leak/">[*]</a></sup> This pattern repeats across industries. A hospital cannot send patient records to a cloud LLM without violating HIPAA. A law firm cannot paste client contracts into ChatGPT without breaching attorney-client privilege. A bank cannot let trading strategies leave its network. A government agency operating under GDPR cannot use a US-based cloud provider for sensitive citizen data without careful legal structuring. In all these cases, local inference is not a performance choice, it is a compliance requirement.
+</p>
+
+<h4>Air-gapped and offline environments</h4>
+<p>
+Many real deployment environments have no reliable internet access: factory floors, offshore platforms, field research stations, military and government systems, and rural healthcare facilities. An AI assistant that requires a cloud API is useless in these settings. A locally-running model on a laptop or edge server works without any network connection after the initial setup — which is exactly what this session's practice project demonstrates.
+</p>
+
+<h4>Cost at scale</h4>
+<p>
+Cloud API pricing is designed for moderate usage. At high volume, processing thousands of documents per day, running continuous analysis pipelines, or serving many internal users, the per-token cost accumulates rapidly. A team running 10 million tokens per day at typical GPT-4o-class pricing (roughly $2.50 per million input tokens, $10 per million output tokens — check current provider pricing, as it changes often) would spend somewhere in the region of $2,000–$4,000 per month, and that scales linearly: a larger org-wide deployment at 10× the volume easily lands in five figures monthly. The same workload on a local 7B model running on a single GPU server costs electricity. Once the hardware is paid off, marginal inference cost approaches zero.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r11">[11]</a></sup>
+</p>
+
+<h4>Reproducibility and model pinning</h4>
+<p>
+Cloud providers silently update their models. Code that worked correctly against GPT-4 in January may produce different outputs in July because the underlying model changed. For scientific research, regulatory submissions, audit trails, or any application where consistent outputs matter, this is a serious problem. A locally-pinned <span class="term" data-term="GGUF" data-definition="A file format developed for llama.cpp that packages quantized model weights in a single binary file. GGUF files include all metadata needed to run the model. Ollama downloads and uses GGUF files internally.">GGUF</span> model file produces identical output every time, the model does not change unless you explicitly pull a new version.
+</p>
+
+<h4>Latency-sensitive applications</h4>
+<p>
+Every cloud API call involves a network round-trip to a data centre, queuing behind other users, and the return journey. For interactive applications that need sub-second response times — real-time code completion, live document annotation, on-device voice assistants — this latency is unacceptable. A small local model (1–3B parameters) can respond in under a second on consumer hardware with no network dependency.
+</p>
+
+<div class="compare">
+  <div class="panel">
+    <h4>☁️ Cloud-first AI</h4>
+    <p class="mini">Example: Groq, OpenAI API, Anthropic API, Gemini API. The model runs on provider infrastructure. You send prompts and receive responses through an API.</p>
+    <p><strong>Good when:</strong> you need frontier-quality reasoning, managed infrastructure, rapid prototyping, or the data is not sensitive.</p>
+  </div>
+  <div class="panel">
+    <h4>💻 Local / self-hosted AI</h4>
+    <p class="mini">Example: Ollama on a laptop, Transformers on a workstation, vLLM on a GPU server, llama.cpp on edge hardware.</p>
+    <p><strong>Good when:</strong> data is sensitive or regulated, internet is unavailable, volume is high, or reproducibility is required.</p>
+  </div>
+</div>
+
+<div class="callout purple">
+  <div class="callout-title">🧭 Main idea</div>
+  <p>There is no single "best" local AI tool. Ollama is the fastest path to a working local app. Transformers gives full model control. llama.cpp is strongest for CPU/edge inference. vLLM is for production-scale GPU serving. The right choice depends entirely on the project. This handout covers all of them — the lab focuses on Ollama because it gets you running in minutes.</p>
+</div>
+
+<h2 id="s2">2. Local vs Cloud AI: The Real Trade-offs</h2>
+<p>
+A local model is not simply a free version of a cloud model, it changes the application architecture. With cloud inference, your app sends text to a remote provider. With local inference, the model server may be on <code>localhost</code>, a private lab machine, or a company GPU server. This can reduce data exposure, but it transfers responsibility to you: model selection, updates, memory management, hardware, and monitoring.
+</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Factor</th><th>Cloud AI</th><th>Local / Self-hosted AI</th><th>Real-world interpretation</th></tr></thead>
+<tbody>
+<tr><td><strong>Privacy</strong></td><td>Prompts leave your system</td><td>Prompts stay inside your machine or network</td><td>Local is essential for confidential documents, source code, client contracts, medical/legal content, and internal SOPs</td></tr>
+<tr><td><strong>Cost</strong></td><td>Pay per token/request</td><td>Pay for hardware, electricity, maintenance</td><td>Cloud is simpler for prototypes. Local wins when usage is repeated and high-volume</td></tr>
+<tr><td><strong>Quality</strong></td><td>Usually strongest frontier models</td><td>Depends on model size and hardware</td><td>Small local models are useful but not always comparable to frontier cloud models at complex tasks</td></tr>
+<tr><td><strong>Latency</strong></td><td>Network + provider queue + model time</td><td>No internet round-trip, but hardware may be slower</td><td>Local can feel fast for small models; large local models can be slow on weak hardware</td></tr>
+<tr><td><strong>Offline use</strong></td><td>Usually impossible</td><td>Possible after models and packages are installed</td><td>Important for classrooms with unreliable internet, air-gapped labs, ships, field sites</td></tr>
+<tr><td><strong>Reproducibility</strong></td><td>Model versions can change silently</td><td>Pinned model version, deterministic</td><td>Useful when your application must behave consistently across time</td></tr>
+<tr><td><strong>Maintenance</strong></td><td>Provider handles model serving</td><td>You manage models, runtime, versions, resources</td><td>Local gives control but also operational burden</td></tr>
+</tbody>
+</table>
+</div>
+
+
+<p>
+The AI application pattern stays the same. You still design prompts, build memory, perform retrieval, and evaluate answers. What changes is the final generation step. Earlier, the generator was a cloud API call. Today, the generator can be <code>http://localhost:11434</code> through Ollama, or any other local endpoint. 
+</p>
+
+<div class="pipeline-diagram">
+  <div class="pipeline-step" onclick="showPipe(&#39;p1&#39;)"><span class="step-icon">📄</span><span class="step-name">Documents</span><br><span class="step-lib">PDF/TXT/DOCX</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;p2&#39;)"><span class="step-icon">✂️</span><span class="step-name">Chunk</span><br><span class="step-lib">split text</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;p3&#39;)"><span class="step-icon">🔢</span><span class="step-name">Embed</span><br><span class="step-lib">nomic-embed-text</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;p4&#39;)"><span class="step-icon">🔎</span><span class="step-name">Retrieve</span><br><span class="step-lib">cosine similarity</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;p5&#39;)"><span class="step-icon">🤖</span><span class="step-name">Generate</span><br><span class="step-lib">local LLM</span></div>
+  <div class="pipeline-info" id="p1"><strong>Documents stay on your machine.</strong> The practice project supports .txt, .md, .py, .csv, .html, .pdf, and .docx. All parsing happens locally using <code>pypdf</code> and <code>python-docx</code> — no upload to any external service.</div>
+  <div class="pipeline-info" id="p2"><strong>Chunking splits long documents into overlapping pieces</strong> so retrieval can find relevant sections without sending the whole document to the model. Default: 900 characters per chunk, 150 overlap. The Streamlit app (practice 6) lets you tune these live.</div>
+  <div class="pipeline-info" id="p3"><strong>A dedicated local embedding model converts text chunks into vectors.</strong> We use <code>nomic-embed-text</code> through Ollama. This is a small model (~274 MB) optimised purely for embeddings — much faster than using a chat model for the same task. Vectors are saved to a local JSON file.</div>
+  <div class="pipeline-info" id="p4"><strong>Retrieval compares your question's vector to every stored chunk vector using cosine similarity.</strong> The top-k most semantically similar chunks are returned. Practice 4 lets you inspect these chunks before attaching the LLM, so you can verify retrieval is working correctly.</div>
+  <div class="pipeline-info" id="p5"><strong>Generation: Ollama reads the retrieved chunks and writes a grounded answer.</strong> The system prompt instructs the model to use only the provided context and to say "I could not find this" when the answer is not present. This replaces the cloud LLM call from earlier sessions.</div>
+</div>
+
+<h2 id="s3">3. Model Architecture Refresher: What Runs Locally?</h2>
+<p>
+Most modern text-generation LLMs are based on the
+<span class="term" data-term="Transformer" data-definition="A neural network architecture introduced in the 2017 paper &#39;Attention Is All You Need&#39; (Vaswani et al.). Transformers use attention mechanisms to process relationships between all tokens in the context window. They became the foundation of modern LLMs including GPT, LLaMA, Qwen, and DeepSeek.">Transformer</span>
+architecture.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r1">[1]</a></sup> You do not need to derive the mathematics, but understanding what happens inside the model during inference explains two practical questions that come up constantly in local AI work: <strong>why does RAM/VRAM matter so much?</strong> and <strong>why does a longer conversation or bigger document slow things down and use more memory?</strong>
+</p>
+<p>
+The short answers: every model parameter has to live in memory during inference (hence VRAM), and the model needs to keep track of every previous token in the conversation to attend to it (hence the memory cost of long contexts). Click each step below for more detail.
+</p>
+
+<div class="pipeline-diagram">
+  <div class="pipeline-step" onclick="showPipe(&#39;l1&#39;)"><span class="step-icon">📝</span><span class="step-name">Prompt</span><br><span class="step-lib">raw text</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;l2&#39;)"><span class="step-icon">🔤</span><span class="step-name">Tokenizer</span><br><span class="step-lib">text → token IDs</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;l3&#39;)"><span class="step-icon">🔢</span><span class="step-name">Embeddings</span><br><span class="step-lib">IDs → vectors</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;l4&#39;)"><span class="step-icon">🔁</span><span class="step-name">Transformer Blocks</span><br><span class="step-lib">attention + FFN</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;l5&#39;)"><span class="step-icon">🎯</span><span class="step-name">Logits</span><br><span class="step-lib">token scores</span></div>
+  <div class="pipeline-step" onclick="showPipe(&#39;l6&#39;)"><span class="step-icon">➕</span><span class="step-name">Next Token</span><br><span class="step-lib">repeat loop</span></div>
+  <div class="pipeline-info" id="l1"><strong>Prompt:</strong> The input includes the user instruction, system instruction, retrieved document chunks, and previous conversation turns if used. Everything that goes into context consumes tokens.</div>
+  <div class="pipeline-info" id="l2"><strong>Tokenizer:</strong> Text is split into tokens — subword pieces, not exactly words or characters. "tokenisation" might become ["token", "isation"]. The context window limit (e.g. 4K, 8K, 128K tokens) is measured in these pieces.</div>
+  <div class="pipeline-info" id="l3"><strong>Embeddings:</strong> Token IDs become vectors so the model can process relationships numerically. These model-internal embeddings are different from the document embeddings used for retrieval.</div>
+  <div class="pipeline-info" id="l4"><strong>Transformer blocks:</strong> Attention lets each token look at every other token in the context to decide what is relevant — this is what makes LLMs context-aware. The KV cache stores these attention states to avoid recomputation, and it grows with context length, which is why long contexts need more VRAM.</div>
+  <div class="pipeline-info" id="l5"><strong>Logits:</strong> The model produces a score for every possible next token. Temperature controls how "peaked" this distribution is: low temperature → the top token is almost always chosen; high temperature → more randomness.</div>
+  <div class="pipeline-info" id="l6"><strong>Autoregressive loop:</strong> The selected token is appended to the context, then the model repeats the whole process to generate the next one. This continues until an end-of-sequence token or the max-length limit is reached.</div>
+</div>
+
+<h3>Other generative model families</h3>
+<p>
+LLMs are not the only generative AI architecture. A
+<span class="term" data-term="GAN" data-definition="Generative Adversarial Network — a generative model with two competing networks: a generator that creates samples and a discriminator that tries to detect fakes. Historically important for image generation, but not the main architecture for today&#39;s text LLMs.">GAN</span>
+uses a generator and discriminator competing with each other. A
+<span class="term" data-term="VAE" data-definition="Variational Autoencoder — a generative model that learns a compressed latent representation and samples from it to generate new data. Useful conceptually, but not the architecture behind modern conversational LLMs.">VAE</span>
+learns a compressed latent representation. Diffusion models are common in image generation (Stable Diffusion, FLUX). For this session, we focus on Transformer-based LLMs because they are the models you will run through Ollama, llama.cpp, vLLM, or LocalAI.
+</p>
+
+<h3>Key concepts for local inference</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Concept</th><th>What it means</th><th>Why it matters for local AI</th></tr></thead>
+<tbody>
+<tr><td><span class="term" data-term="Context window" data-definition="The maximum number of tokens a model can process at once — both input and output. A 4K context window means the combined prompt + response cannot exceed ~4,000 tokens (~3,000 words). Larger contexts need more VRAM because the KV cache grows.">Context window</span></td><td>Max tokens processed at once</td><td>Determines how much document text you can include in one prompt. Chunking in practice 3 is designed around this limit.</td></tr>
+<tr><td><span class="term" data-term="KV cache" data-definition="Key-value cache — stores the attention computations for tokens already processed, so the model doesn&#39;t recompute them on every generation step. Speeds up inference but adds memory overhead proportional to context length.">KV cache</span></td><td>Cached attention states for speed</td><td>Adds ~20% memory overhead on top of model weights. Rule of thumb: multiply your VRAM estimate by 1.2.</td></tr>
+<tr><td><span class="term" data-term="Temperature" data-definition="A parameter that controls the randomness of token selection. Temperature 0 = always pick the most likely next token (deterministic). Temperature 1 = sample proportionally from the distribution. Higher values produce more creative, less predictable output.">Temperature</span></td><td>Controls output randomness</td><td>Use 0.1–0.2 for document Q&amp;A (factual, grounded). Use 0.7+ for creative tasks.</td></tr>
+<tr><td><span class="term" data-term="GGUF" data-definition="A file format developed for llama.cpp that packages quantized model weights in a single binary file. GGUF files include all metadata needed to run the model. Ollama downloads and uses GGUF files internally.">GGUF</span></td><td>Quantized model file format</td><td>The format Ollama pulls and stores. When you run `ollama pull qwen2.5:1.5b`, you get a GGUF file.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s4">4. Local AI Tool Landscape: Which Tool for Which Project?</h2>
+<p>
+The local AI ecosystem has several layers: model runners, Python frameworks, inference engines, and production serving systems. Comparing them as if they are the same kind of tool causes confusion. The better question is: <strong>what problem are you solving?</strong>
+</p>
+
+<div class="approach-grid">
+  <div class="approach-card ollama">
+    <h4>Ollama</h4>
+    <p><span class="badge b-green">Best for local app integration</span></p>
+    <p class="mini">Simple CLI and REST API for running and calling local models.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r2">[2]</a></sup> Runs on <code>localhost:11434</code>, no authentication needed for local access.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r3">[3]</a></sup> Handles model downloading, GPU/CPU selection, and serving automatically. Under the hood it wraps llama.cpp.</p>
+    <p><strong>Use when:</strong> you want a private chatbot, internal document assistant, classroom lab, quick prototype, or a drop-in replacement for a cloud API call — with minimal setup.</p>
+  </div>
+  <div class="approach-card hf">
+    <h4>Hugging Face Transformers</h4>
+    <p><span class="badge b-amber">Best for control and customisation</span></p>
+    <p class="mini">Provides model classes, tokenizers, generation settings, and loading utilities such as AutoClasses and <code>from_pretrained()</code>.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r4">[4]</a></sup></p>
+    <p><strong>Use when:</strong> you need fine-tuning, LoRA/PEFT adapters, custom generation, research experiments, attention/logit inspection, or full control over model internals. Not covered in today's lab — important for when you move beyond using models as-is.</p>
+  </div>
+  <div class="approach-card llama">
+    <h4>llama.cpp / GGUF</h4>
+    <p><span class="badge b-slate">Best for lightweight inference</span></p>
+    <p class="mini">C++ inference engine with minimal setup. Ollama uses it internally. Also usable directly for maximum performance and fine-grained control.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r5">[5]</a></sup></p>
+    <p><strong>Use when:</strong> you need CPU-first deployment, quantised GGUF models, embedded/edge hardware, or the absolute lowest overhead. If you outgrow Ollama's defaults, go here.</p>
+  </div>
+  <div class="approach-card vllm">
+    <h4>vLLM</h4>
+    <p><span class="badge b-purple">Best for production serving</span></p>
+    <p class="mini">High-throughput serving with PagedAttention, multiple decoding algorithms, streaming, distributed inference, and an OpenAI-compatible API.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r6">[6]</a></sup></p>
+    <p><strong>Use when:</strong> many users call the model simultaneously and you need batching, GPU efficiency, and production deployment. Best supported on Linux + NVIDIA GPU, though AMD ROCm and other backends are increasingly supported. Not needed for single-developer or classroom use.</p>
+  </div>
+  <div class="approach-card localai">
+    <h4>LocalAI</h4>
+    <p><span class="badge b-blue">Best for self-hosted OpenAI-compatible API</span></p>
+    <p class="mini">Free, open-source alternative to OpenAI-style APIs for local or on-prem inference, supporting LLMs, images, audio, and multiple model families.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r7">[7]</a></sup></p>
+    <p><strong>Use when:</strong> you want a private API server that existing OpenAI-style clients can call with minimal code changes — and you want to keep it fully self-hosted in a company network.</p>
+  </div>
+  <div class="approach-card gui">
+    <h4>LM Studio / Jan</h4>
+    <p><span class="badge b-amber">Best for GUI testing</span></p>
+    <p class="mini">LM Studio serves local LLMs through a local API server and compatibility endpoints.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r8">[8]</a></sup> Jan is an open-source ChatGPT-style desktop app for local or cloud models.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r9">[9]</a></sup></p>
+    <p><strong>Use when:</strong> you want no-code local testing, model comparison, or a personal assistant UI before building an app. Both LM Studio and Jan now run on Windows, Mac, and Linux.</p>
+  </div>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">📌 For today's practice: we use Ollama</div>
+  <p>All six practice scripts use Ollama. Not because it is the most powerful option, but because it gives you the shortest path from zero to a working local LLM: one install command, one pull command, and your Python code barely changes from the Groq calls you already know. Once you understand the pattern, swapping to llama.cpp or vLLM for a real project is straightforward.</p>
+</div>
+
+<div class="callout warn">
+  <div class="callout-title">⚠️ "Installed locally" does not mean fully private</div>
+  <p>A tool being installed on your computer does not automatically mean inference is local. Some desktop AI tools use a local UI but send prompts to a cloud model. For sensitive work, always verify the actual data path: where does the prompt go during inference? Check privacy settings, telemetry, and model provider configuration for any tool you use.</p>
+</div>
+
+<h3>Choose by project requirement</h3>
+<p class="mini">A simplified decision guide based on the tool purposes described in official documentation. Treat it as a starting point, not an absolute rule.</p>
+<div class="decision-widget">
+  <div class="decision-controls">
+    <label>Project goal
+      <select id="goal" onchange="chooseTool()">
+        <option value="private-app">Private local app / document assistant</option>
+        <option value="research">Research / model internals / fine-tuning</option>
+        <option value="edge">CPU / edge / constrained hardware</option>
+        <option value="production">Production multi-user serving</option>
+        <option value="openai-compatible">Self-hosted OpenAI-compatible API</option>
+        <option value="gui">GUI testing / non-coding exploration</option>
+      </select>
+    </label>
+    <label>Primary constraint
+      <select id="constraint" onchange="chooseTool()">
+        <option value="simplicity">Simplicity</option>
+        <option value="control">Control</option>
+        <option value="throughput">Throughput</option>
+        <option value="offline">Offline / privacy</option>
+      </select>
+    </label>
+  </div>
+  <div class="decision-result" id="decision-result"><strong>Recommended starting point:</strong> Ollama + local JSON vector store (today's approach)<br><span class="mini">Shortest path to a working private document assistant. Simple API, no extra services, easy to debug on a laptop.</span></div>
+</div>
+
+<h2 id="s5">5. Hardware Reality: RAM, VRAM, and Quantization</h2>
+<p>
+The biggest practical barrier to running local LLMs is memory. Every parameter in a model has to live in RAM (CPU) or VRAM (GPU) during inference. A 7B parameter model stored at FP16 — the precision most open-weight models actually ship in — would need around 14 GB. True full precision (FP32) would need close to 28 GB, more than any consumer GPU. This is where
+<span class="term" data-term="Quantization" data-definition="A compression technique that reduces the number of bits used to store each model weight. True full precision (FP32) uses 32 bits per weight; most released models ship at FP16 (16 bits) instead, already half that size. Quantizing FP16 down to 4 bits (INT4 / Q4) shrinks the model to roughly one-quarter of its FP16 size — about one-eighth of true FP32 — with a small but usually acceptable quality trade-off. Ollama downloads and runs Q4 GGUF models by default.">quantization</span>
+comes in.
+</p>
+
+<h3>What is quantization — and why does it matter?</h3>
+<p>
+<strong>Quantization</strong> compresses each weight into fewer bits, typically 8 or 4. The model becomes much smaller and loads faster, at the cost of a small reduction in numerical precision.<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r10">[10]</a></sup> For most text generation tasks, the quality difference between FP16 and Q4 is noticeable but often acceptable, especially at 7B+ parameter scales.
+</p>
+<p>
+<strong>This is the reason you can run a "7B model" on a laptop.</strong> Without quantization, a 7B model at FP16 would need ~14 GB of VRAM. The same model at Q4 needs ~4.2 GB.
+</p>
+
+<div class="bar-chart">
+  <h4>Conceptual memory shrinkage by precision format</h4>
+  <div class="bar-row"><span>FP32</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#0b6e72,#15b5b0)"></div></div><span>largest</span></div>
+  <div class="bar-row"><span>FP16 / BF16</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:linear-gradient(90deg,#15803d,#4ade80)"></div></div><span>½ size</span></div>
+  <div class="bar-row"><span>INT8 / Q8</span><div class="bar-track"><div class="bar-fill" style="width:25%;background:linear-gradient(90deg,#d4770a,#fbbf24)"></div></div><span>¼ size</span></div>
+  <div class="bar-row"><span>INT4 / Q4</span><div class="bar-track"><div class="bar-fill" style="width:12.5%;background:linear-gradient(90deg,#6d28d9,#a78bfa)"></div></div><span>smallest</span></div>
+  <p class="mini" style="margin-top:.6rem">Actual memory also includes the KV cache, runtime overhead, and context length. Use the formula below for estimates.</p>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">✅ When llama.cpp / GGUF is the better real-world choice</div>
+  <p>
+  <span class="term" data-term="llama.cpp" data-definition="An efficient C/C++ inference engine for running LLMs across a wide range of hardware. It is the engine that Ollama wraps internally. Many local AI tools share the same GGUF model ecosystem. Use llama.cpp directly when you need maximum performance, fine-grained GPU offloading control, or CPU-first deployment.">llama.cpp</span>
+  is an efficient C/C++ inference engine, it is also what Ollama uses internally. Many local AI tools share the same GGUF model ecosystem. Use llama.cpp directly (without Ollama) when the deployment target is constrained: CPU-only workstation, edge device, embedded system, or a place where Python/ML infrastructure is too heavy. It is not a training framework, it is an inference workhorse. Models from <a href="https://huggingface.co/models?apps=llama.cpp&amp;sort=trending" target="_blank">HuggingFace GGUF models</a> run with it directly.</p>
+</div>
+
+<h3>Memory pressure by model size (Q4 quantized)</h3>
+<div class="bar-chart">
+  <h4>Approximate VRAM needed — typical laptop, Q4 quantized</h4>
+  <div class="bar-row"><span>0.5B–1.5B</span><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div><span>~0.5–1 GB</span></div>
+  <div class="bar-row"><span>3B–4B</span><div class="bar-track"><div class="bar-fill" style="width:32%"></div></div><span>~2–2.5 GB</span></div>
+  <div class="bar-row"><span>7B–8B</span><div class="bar-track"><div class="bar-fill" style="width:56%"></div></div><span>~4.5–5 GB</span></div>
+  <div class="bar-row"><span>13B–14B</span><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><span>~8–9 GB</span></div>
+  <div class="bar-row"><span>30B+</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>server-class</span></div>
+</div>
+
+<h3>The VRAM formula</h3>
+<p>A useful rule of thumb from <a href="https://modal.com/blog/how-much-vram-need-inference" target="_blank">Modal's inference guide</a>:<sup><a href="https://distance3.sg.digipen.edu/2026sg-summer/pluginfile.php/26281/mod_resource/content/4/Day10_Local_AI__Handout.html#r11">[11]</a></sup></p>
+<div class="vram-widget">
+  <div class="vram-formula">M = (P × Q/8) × 1.2 &nbsp;&nbsp; where M = VRAM (GB), P = parameters (B), Q = bits per weight, 1.2 = KV cache overhead</div>
+  <div class="vram-controls">
+    <label>Parameters (B)
+      <input type="number" id="vp" value="7" min="0.1" step="0.1" oninput="calcVRAM()">
+    </label>
+    <label>Quantization
+      <select id="vq" onchange="calcVRAM()">
+        <option value="16">FP16 (16-bit)</option>
+        <option value="8">INT8 (8-bit)</option>
+        <option value="4" selected="">Q4 — Ollama default</option>
+        <option value="3">Q3 (aggressive)</option>
+      </select>
+    </label>
+  </div>
+  <div class="vram-result" id="vram-result"><strong>≈ 4.2 GB VRAM needed</strong> for a 7B model at 4-bit quantization (including KV cache overhead)</div>
+</div>
+
+<h3>Quantization formats</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Format</th><th>Bits/weight</th><th>Quality</th><th>Memory vs FP16</th><th>Typical use</th></tr></thead>
+<tbody>
+<tr><td><strong>FP16 / BF16</strong></td><td>16</td><td><span class="badge b-green">Excellent</span></td><td>Baseline</td><td>GPU servers, research, fine-tuning</td></tr>
+<tr><td><strong>INT8 / Q8</strong></td><td>8</td><td><span class="badge b-green">Very good</span></td><td>~50% less</td><td>Efficient inference when quality matters</td></tr>
+<tr><td><strong>Q4 (GGUF)</strong></td><td>4</td><td><span class="badge b-blue">Good</span></td><td>~75% less</td><td><strong>Ollama default - best choice for laptops</strong></td></tr>
+<tr><td><strong>Q2 / Q3</strong></td><td>2–3</td><td><span class="badge b-red">Noticeable loss</span></td><td>~85% less</td><td>Only when hardware is very tight</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout info">
+  <div class="callout-title">💡 Unified memory vs separate VRAM — what this means for your laptop</div>
+  <p>Most PC laptops have a discrete GPU with its own fixed VRAM pool (typically 4–8 GB), separate from the main system RAM. If a model needs 5 GB and your GPU only has 4 GB, it either fails or falls back to slow CPU inference. </p>
+  <p><strong>Apple M-series chips</strong> and some <strong>AMD APU laptops</strong> use <em>unified memory</em>, the CPU and GPU share one memory pool. A 16 GB M2 Mac can give ~12–14 GB to a model. A 16 GB AMD APU laptop works similarly.</p>
+  <p><strong>On Windows or Linux with a discrete NVIDIA/AMD GPU, Ollama will use your VRAM first</strong>, and if the model is too large for VRAM, it offloads layers to RAM automatically (slower, but it still runs). The VRAM formula tells you what will fit at full GPU speed.</p>
+</div>
+
+<h2 id="s6">6. Choosing a Model: Families, Sizes, and Hardware</h2>
+<p>
+There are dozens of open-source model families available on Ollama. Three are highlighted here because they cover the main use cases for this session and are well-supported on most laptop hardware. <strong>Llama</strong> (Meta) is the most widely adopted open-source family — it has the largest fine-tuning ecosystem and is the backbone of many specialised variants. <strong>Qwen 3</strong> (Alibaba) is the best all-rounder for small sizes and multilingual tasks. <strong>DeepSeek-R1</strong> is specialised for reasoning and math. Other families worth knowing exist (Mistral, Phi, Gemma) but are not covered today.
+</p>
+
+<div class="approach-grid">
+  <div class="approach-card ollama">
+    <h4>Qwen 3 — Alibaba Cloud</h4>
+    <p class="mini">Dense: 0.6B → 32B | MoE: 30B-A3B, 235B-A22B</p>
+    <ul class="mini">
+      <li>Best all-rounder for typical laptop hardware</li>
+      <li>100+ languages and dialects, with strong multilingual instruction following and translation</li>
+      <li><strong>Thinking mode:</strong> add <code>/think</code> prefix for chain-of-thought</li>
+      <li>128K context window on larger variants</li>
+      <li>MoE models: large model quality, small compute cost</li>
+      <li>Top scores on coding benchmarks at each size class</li>
+    </ul>
+    <div class="code-label"><span class="dot bash"></span></div>
+    <code>ollama run qwen3:4b</code>
+  </div>
+  <div class="approach-card vllm">
+    <h4>DeepSeek-R1 — DeepSeek AI</h4>
+    <p class="mini">1.5B → 671B (distilled from 671B)</p>
+    <ul class="mini">
+      <li>Specialised for reasoning and math</li>
+      <li>Shows full <code>&lt;think&gt;</code> reasoning trace before answering</li>
+      <li>Rivals GPT-o1 on math benchmarks</li>
+      <li>Distilled versions: quality of the 671B model in small packages</li>
+      <li>Best for: calculus, proofs, multi-step logic</li>
+      <li>Transparent chain-of-thought you can read and verify</li>
+    </ul>
+    <div class="code-label"><span class="dot bash"></span></div>
+    <code>ollama run deepseek-r1:7b</code>
+  </div>
+  <div class="approach-card hf">
+    <h4>Llama 3.x — Meta AI</h4>
+    <p class="mini">1B → 405B</p>
+    <ul class="mini">
+      <li>Most battle-tested open model family — largest community</li>
+      <li>Largest fine-tuning and specialised variant ecosystem</li>
+      <li>Strong English instruction following</li>
+      <li>Great for RAG applications</li>
+      <li>Many specialised variants: coding, medical, legal, etc.</li>
+      <li>Best for tool calling and agent workflows</li>
+    </ul>
+    <div class="code-label"><span class="dot bash"></span></div>
+    <code>ollama run llama3.2:3b</code>
+  </div>
+</div>
+
+<h3>Hardware recommendation — which size to pull</h3>
+<p>
+The table below shows approximate speeds and minimum RAM for each model size. Token-per-second figures are rough estimates — actual speed depends on your GPU, quantization format, and context length. Use this to pick a model that fits your machine, then pull it once before going offline.
+</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Model</th><th>Params</th><th>Min RAM</th><th>Speed (CPU)</th><th>Speed (GPU)</th><th>Recommendation</th></tr></thead>
+<tbody>
+<tr><td><code>qwen3:0.6b</code></td><td>0.6B</td><td>4 GB</td><td>~12 tok/s</td><td>~70 tok/s</td><td>Any laptop, fast demos</td></tr>
+<tr><td><code>qwen3:1.7b</code></td><td>1.7B</td><td>6 GB</td><td>~7 tok/s</td><td>~55 tok/s</td><td>Lightweight tasks</td></tr>
+<tr style="background:#f0fdf4;font-weight:600"><td><code>qwen3:4b</code> ⭐</td><td>4B</td><td>8 GB</td><td>~5 tok/s</td><td>~35 tok/s</td><td style="color:#15803d">RECOMMENDED: 8GB RAM+</td></tr>
+<tr><td><code>qwen3:8b</code></td><td>8B</td><td>12 GB</td><td>~3 tok/s</td><td>~25 tok/s</td><td>Good quality, 8GB VRAM+</td></tr>
+<tr><td><code>llama3.2:1b</code></td><td>1B</td><td>4 GB</td><td>~10 tok/s</td><td>~60 tok/s</td><td>Lightweight, good English instruction</td></tr>
+<tr><td><code>llama3.2:3b</code></td><td>3B</td><td>6 GB</td><td>~6 tok/s</td><td>~40 tok/s</td><td>Best for RAG and tool calling at small size</td></tr>
+<tr><td><code>llama3.1:8b</code></td><td>8B</td><td>12 GB</td><td>~3 tok/s</td><td>~24 tok/s</td><td>Strong all-round quality, 8GB VRAM+</td></tr>
+<tr><td><code>deepseek-r1:7b</code></td><td>7B</td><td>10 GB</td><td>~3 tok/s</td><td>~28 tok/s</td><td>Reasoning tasks</td></tr>
+<tr><td><code>deepseek-r1:14b</code></td><td>14B</td><td>16 GB</td><td>~1.5 tok/s</td><td>~15 tok/s</td><td>Best quality (16GB+)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="callout-title">⚠️ If your laptop has less than 8 GB RAM</div>
+  <p>Use <code>qwen3:0.6b</code>, <code>qwen3:1.7b</code>, or <code>llama3.2:1b</code>. They are smaller but still capable — you will still complete all practice exercises. For the embedding model, <code>nomic-embed-text</code> is only 274 MB and works on any machine.</p>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">✅ For this session</div>
+  <p>Use <code>qwen2.5:1.5b</code> as your primary model for the practices, it is already pulled and works on any laptop. If you have 8+ GB RAM and want better quality answers during the session, try <code>qwen3:4b</code>. It has excellent multilingual support (including for Singapore's multilingual context), runs on 8 GB RAM, and has a 32K context window.</p>
+</div>
+
+<h2 id="s7">7. Ollama API: Using Local Models Programmatically</h2>
+<p>
+When Ollama is running, it acts as a local web server at <code>http://localhost:11434</code>. Your Python code talks to it by sending HTTP requests, the same protocol your browser uses to load web pages, but from code instead. All practice files use Python's <code>requests</code> library to do this. No special Ollama SDK is needed.
+</p>
+<p>
+HTTP requests come in different types called <strong>methods</strong>. The two you will see here are: </p><p><strong>GET</strong> — ask the server for information without sending any data (like loading a webpage); and </p><p><strong>POST</strong> — send data to the server and get a response back (like submitting a form, or sending a prompt and receiving an answer). </p><p>The API shape is close to OpenAI's, so if you later want to switch back to a cloud model, the code change is one line.
+</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Endpoint</th><th>Type</th><th>What it does</th><th>Used in</th></tr></thead>
+<tbody>
+<tr><td><code>/api/tags</code></td><td><span class="badge b-blue">GET</span></td><td>Ask Ollama which models are installed — used as a health check</td><td>practice_01</td></tr>
+<tr><td><code>/api/chat</code></td><td><span class="badge b-green">POST</span></td><td>Send a conversation (system + user messages) and get a reply</td><td>practice_01, 05, 06</td></tr>
+<tr><td><code>/api/embed</code></td><td><span class="badge b-green">POST</span></td><td>Send text, receive a vector of numbers representing its meaning</td><td>practice_01, 03, 04</td></tr>
+<tr><td><code>/v1/chat/completions</code></td><td><span class="badge b-green">POST</span></td><td>Same as <code>/api/chat</code> but in OpenAI's exact format — swap one line to replace a cloud call</td><td>drop-in replacement</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Key API pattern: the local LLM call</h3>
+<p>This is the core replacement for the earlier Groq/cloud call. The full implementation is in <code>practice_05_local_doc_qa_cli.py</code>.</p>
+<div class="code-label"><span class="dot py"></span> Key fragment — chat endpoint</div>
+<pre><code>response = requests.post(
+    "http://localhost:11434/api/chat",
+    json={
+        "model": "qwen2.5:1.5b",
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user",   "content": user_prompt}
+        ],
+        "stream": False,
+        "options": {"temperature": 0.2}   # low = factual, grounded
+    },
+    timeout=120
+)
+answer = response.json()["message"]["content"]</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">✅ OpenAI compatibility</div>
+  <p>Ollama also exposes <code>/v1/chat/completions</code> — the same endpoint format as OpenAI's API. If you have existing code using the <code>openai</code> Python library, you can point it at Ollama by changing only one line: <code>base_url="http://localhost:11434/v1"</code>. The rest of the code stays identical.</p>
+</div>
+
+<h2 id="s8">8. Practice Project: Offline Multi-file Document Q&amp;A</h2>
+<p>
+Six scripts that build a local document Q&amp;A chatbot step by step. Run each in order, each one produces a visible result before you move to the next.
+</p>
+
+<h3>Before you run anything: understand the design choices</h3>
+
+<h4>Why Qwen 2.5 for the practices?</h4>
+<p>
+The practice scripts default to <code>qwen2.5:1.5b</code> simply because it is small enough to run on any laptop and was pulled during setup. It is a reasonable choice for a first local model — not the only one, and not necessarily the best for your use case. <code>llama3.2:1b</code> or <code>llama3.2:3b</code> are equally valid alternatives and worth trying. To switch, change the model name in the environment variable before running any script:
+</p>
+<div class="code-label"><span class="dot env"></span> for example to swap to a different model without editing code</div>
+<pre><code># macOS / Linux
+export LOCAL_LLM_MODEL=llama3.2:3b
+
+# Windows CMD
+set LOCAL_LLM_MODEL=llama3.2:3b</code></pre>
+<p class="mini">The practices use <code>qwen2.5:1.5b</code> as the default. DeepSeek-R1 is an alternative if you want to see the model's reasoning chain before the answer. It's slower, but more transparent about how it reached a conclusion.</p>
+
+<h4>No LangChain</h4>
+<p>
+Previous sessions used LangChain to connect document loaders, embedders, retrievers, and the LLM. These practices deliberately skip it. When you are learning how a local RAG pipeline works, LangChain abstractions hide exactly the steps you need to understand. Here you write each part yourself — file loading, chunking, embedding, retrieval, prompt building — so you can see where things can go wrong and fix them. Once you understand the pipeline, wrapping it back in LangChain is straightforward.
+</p>
+
+<h4>No ChromaDB — plain JSON instead</h4>
+<p>
+Earlier RAG sessions used ChromaDB as the vector store. That remains a valid production choice. For this practice the vector store is a plain JSON file. At classroom scale (a few hundred chunks), brute-force cosine similarity takes under 50ms, fast enough that ChromaDB adds no benefit and only adds a dependency. The JSON file is also human-readable: open it and see every chunk and its embedding. When you scale to thousands of documents, swap in ChromaDB, FAISS, or Qdrant.
+</p>
+
+<h4>nomic-embed-text instead of all-MiniLM-L6-v2</h4>
+<p>
+<code>all-MiniLM-L6-v2</code> through <code>sentence-transformers</code> is a perfectly good embedding model. But for today's practices, <code>nomic-embed-text</code> through Ollama is simpler: same <code>/api/embed</code> call pattern as the chat model, no extra library, fully offline after the initial pull. If you want to switch: <code>pip install sentence-transformers</code> and replace the embed call with <code>SentenceTransformer("all-MiniLM-L6-v2").encode(text)</code>.
+</p>
+
+<div class="callout warn">
+  <div class="callout-title">⚠️ One rule: never use a chat model for embeddings</div>
+  <p>Chat models like Qwen can technically return a vector — but they are 5–10× larger, slower, and not trained for semantic similarity. Always use a dedicated embedding model for any RAG pipeline. <code>nomic-embed-text</code> at 274 MB does this job better than a 1.5B chat model.</p>
+</div>
+
+<div class="callout warn">
+  <div class="callout-title">📡 Do this before going offline</div>
+  <p>Run <code>pip install -r requirements_day10_local_ai.txt</code>, then pull both models. After that, everything runs locally with no internet.</p>
+  <div class="code-label"><span class="dot bash"></span> one-time setup (requires internet)</div>
+  <pre><code>ollama pull qwen2.5:1.5b
+ollama pull nomic-embed-text</code></pre>
+</div>
+
+<div class="flow-vertical">
+
+  <!-- PRACTICE 01 -->
+  <div class="flow-card" onclick="toggleFlow(this)">
+    <div class="flow-card-header">
+      <div>
+        <div class="file">practice_01_check_ollama.py</div>
+        <div class="out">Confirm Ollama is running and both models are installed before touching anything else.</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="step-detail">
+      <p>Every later script depends on Ollama being alive and the right models being installed. If anything is missing, the errors are confusing. This script catches it immediately with a clear message.</p>
+      <p>It checks three things: the server responds to <code>GET /api/tags</code>, the chat model answers a short prompt, and the embedding model returns a vector. The vector length check is important — chunk embeddings and query embeddings <em>must</em> come from the same model. Mismatched dimensions cause retrieval to silently return wrong results without any error.</p>
+      <div class="code-label"><span class="dot py"></span> confirming the embedding model is correct</div>
+      <pre><code>embeddings = response.json().get("embeddings", [])
+print(f"Vector length: {len(embeddings[0])}")   # must be 768 for nomic-embed-text</code></pre>
+      <div class="code-label"><span class="dot bash"></span> run</div>
+      <pre><code>python practice_01_check_ollama.py</code></pre>
+      <p class="mini"><strong>Expected:</strong> ✅ server running · ✅ chat model responds · ✅ vector length: 768. If you see ❌, run <code>ollama serve</code> in a separate terminal first.</p>
+    </div>
+  </div>
+
+  <!-- PRACTICE 02 -->
+  <div class="flow-card" onclick="toggleFlow(this)">
+    <div class="flow-card-header">
+      <div>
+        <div class="file">practice_02_load_many_files.py</div>
+        <div class="out">Parse .txt, .md, .py, .csv, .html, .pdf, .docx from a <code>docs/</code> folder into plain Python strings.</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="step-detail">
+      <p>Before any chunking or embedding can happen, documents need to be in plain text. Every format needs its own parser. This script normalises everything into a plain Python string so the rest of the pipeline never needs to know what format a file originally was.</p>
+
+      <h4>What reads what — and why these libraries and not LangChain loaders</h4>
+      <p>LangChain has document loaders for all these formats. We use raw libraries here so you can see exactly what text comes out — LangChain loaders add metadata wrapping that is helpful in production but obscures what is happening during learning.</p>
+      <ul>
+        <li><strong>.txt / .md / .py / .csv / .html</strong> — plain <code>Path.read_text()</code>. Already UTF-8 text, no library needed. <code>errors="ignore"</code> skips invalid bytes common in Windows-exported CSV files.</li>
+        <li><strong>.pdf</strong> — <code>pypdf</code>. Pure Python, no C compiler, works offline. Extracts the text layer page by page. Only works on digital PDFs — scanned PDFs are images of text, <code>pypdf</code> returns empty strings for those.</li>
+        <li><strong>.docx</strong> — <code>python-docx</code>. Reads Word document XML. Extracts paragraph text; tables and images are ignored today.</li>
+      </ul>
+      <div class="code-label"><span class="dot py"></span> one dispatcher handles all formats</div>
+      <pre><code>if suffix in {".txt", ".md", ".py", ".csv", ".html"}:
+    text = path.read_text(encoding="utf-8", errors="ignore")
+elif suffix == ".pdf":
+    text = read_pdf_file(path)    # pypdf: page by page
+elif suffix == ".docx":
+    text = read_docx_file(path)   # python-docx: paragraph text</code></pre>
+      <div class="code-label"><span class="dot bash"></span> put test files in <code>docs/</code> then run</div>
+      <pre><code>python practice_02_load_many_files.py</code></pre>
+    </div>
+  </div>
+
+  <!-- PRACTICE 03 -->
+  <div class="flow-card" onclick="toggleFlow(this)">
+    <div class="flow-card-header">
+      <div>
+        <div class="file">practice_03_chunk_embed_store.py</div>
+        <div class="out">Split text into overlapping chunks → embed each chunk locally → save to a JSON vector store.</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="step-detail">
+      <p>You cannot paste a full document into a local LLM — it would exceed the context window, and even if it fit, the model would struggle to focus on anything specific. Documents are split into small pieces that can be individually embedded and retrieved. Run this once; practices 4 and 5 reuse the output without re-embedding.</p>
+
+      <h4>Chunking with overlap — why the step is smaller than the chunk size</h4>
+      <p>A hard split at fixed intervals risks cutting a sentence in two, putting half the answer in each chunk so neither chunk alone scores highly on retrieval. Overlap (default: 150 characters) means consecutive chunks share text. Any answer near a boundary is covered by at least one complete chunk.</p>
+      <div class="code-label"><span class="dot py"></span> sliding window — step is 750, chunk is 900</div>
+      <pre><code>while start &lt; len(clean):
+    chunk = clean[start : start + chunk_size]   # 900 chars
+    chunks.append(chunk)
+    start += chunk_size - overlap               # advance 750, overlap = 150</code></pre>
+
+      <h4>Embedding via Ollama — slow once, reused forever</h4>
+      <p>Each chunk is sent to <code>nomic-embed-text</code> via <code>/api/embed</code> and returns 768 floats. About 0.3s per chunk — slow, but it only happens once. Everything is saved to <code>local_vector_store.json</code> and reused in practices 4 and 5.</p>
+      <div class="code-label"><span class="dot py"></span> what each record looks like in the JSON file</div>
+      <pre><code>{
+    "id":          "report.pdf::chunk_0003",
+    "filename":    "report.pdf",
+    "chunk_index": 3,
+    "text":        "...the chunk text...",
+    "embedding":   [0.052, -0.120, 0.334, ...]   # 768 floats
+}</code></pre>
+      <div class="code-label"><span class="dot bash"></span> run — takes 30–90 seconds depending on document size</div>
+      <pre><code>python practice_03_chunk_embed_store.py</code></pre>
+    </div>
+  </div>
+
+  <!-- PRACTICE 04 -->
+  <div class="flow-card" onclick="toggleFlow(this)">
+    <div class="flow-card-header">
+      <div>
+        <div class="file">practice_04_retrieve_test.py</div>
+        <div class="out">Test retrieval on its own — confirm the right chunks surface for your questions before adding the LLM.</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="step-detail">
+      <p>If you skip straight to "ask a question and get an answer," a bad answer could come from bad retrieval or a bad model response — you cannot tell which. Testing retrieval separately means you can confirm the right text surfaces before any LLM is involved, and fix problems in the right layer.</p>
+
+      <h4>How semantic retrieval works</h4>
+      <p>Your question is embedded into a 768-dimensional vector using the same <code>nomic-embed-text</code> that embedded the chunks. Then cosine similarity is computed between the question vector and every stored chunk vector. The top-k highest-scoring chunks are returned. No keyword matching — semantically similar text scores high even if it uses different words.</p>
+      <div class="code-label"><span class="dot py"></span> cosine similarity — pure Python, no NumPy needed</div>
+      <pre><code>def cosine_similarity(a, b):
+    dot    = sum(x * y for x, y in zip(a, b))
+    norm_a = math.sqrt(sum(x * x for x in a))
+    norm_b = math.sqrt(sum(y * y for y in b))
+    return dot / (norm_a * norm_b) if norm_a and norm_b else 0.0</code></pre>
+      <p class="mini">Cosine measures angle between vectors, not distance. Embedding vectors encode meaning in direction, not length — a short and a long chunk on the same topic point in the same direction. Euclidean distance would penalise length differences that have nothing to do with meaning.</p>
+
+      <h4>Reading the scores</h4>
+      <ul>
+        <li><strong>0.80+</strong> — strong match, this chunk almost certainly contains the answer</li>
+        <li><strong>0.60–0.80</strong> — relevant, probably useful context</li>
+        <li><strong>below 0.50</strong> — weak match; the answer may not be in your documents</li>
+      </ul>
+      <div class="code-label"><span class="dot bash"></span> run — interactive, type a question and inspect the top chunks</div>
+      <pre><code>python practice_04_retrieve_test.py</code></pre>
+    </div>
+  </div>
+
+  <!-- PRACTICE 05 -->
+  <div class="flow-card" onclick="toggleFlow(this)">
+    <div class="flow-card-header">
+      <div>
+        <div class="file">practice_05_local_doc_qa_cli.py</div>
+        <div class="out">First complete answer: retrieve chunks → grounded prompt → local Ollama → answer with citations.</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="step-detail">
+      <p>This is the same RAG pattern from previous sessions — the only change is the generator. Instead of sending the prompt to Groq, it goes to <code>http://localhost:11434/api/chat</code>. Retrieval gives you the relevant text; the local LLM turns it into a coherent answer.</p>
+
+      <h4>Why the system prompt is critical for small local models</h4>
+      <p>Without an explicit grounding instruction, sub-3B models blend their training knowledge with the retrieved context and may confidently give answers that are not in your documents. This instruction prevents that:</p>
+      <div class="code-label"><span class="dot note"></span> grounded prompt pattern</div>
+      <pre><code>system = (
+    "You are a careful local document assistant. "
+    "Answer using ONLY the provided sources. "
+    "If the answer is not in the sources, say: "
+    "'I could not find this in the provided documents.' "
+    "Cite sources using [Source 1], [Source 2], etc."
+)</code></pre>
+      <p class="mini">Temperature 0.2 — low enough for factual, consistent answers; not so low the model becomes rigid. For document Q&amp;A, focused beats creative.</p>
+
+      <h4>The full pipeline in three lines</h4>
+      <div class="code-label"><span class="dot py"></span> same RAG pattern — only the model endpoint changes from Groq</div>
+      <pre><code>chunks   = retrieve(question, top_k=4)             # cosine similarity on JSON store
+messages = build_grounded_prompt(question, chunks)  # inject chunks as [Source N]
+answer   = ask_ollama(messages)                    # POST to localhost:11434/api/chat</code></pre>
+      <div class="code-label"><span class="dot bash"></span> run — interactive loop, type 'exit' to stop</div>
+      <pre><code>python practice_05_local_doc_qa_cli.py</code></pre>
+    </div>
+  </div>
+
+  <!-- PRACTICE 06 -->
+  <div class="flow-card" onclick="toggleFlow(this)">
+    <div class="flow-card-header">
+      <div>
+        <div class="file">practice_06_final_streamlit_local_doc_chatbot.py</div>
+        <div class="out">The same pipeline in a local web UI — upload files, tune chunk settings with sliders, ask questions in a browser.</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="step-detail">
+      <p>All the logic is identical to practice 5 — the only addition is a UI. This practice uses Streamlit. Gradio also works offline. Gradio suits single-function demos; Streamlit handles multi-step workflows with sidebar controls better, which is why it fits this pipeline. Either is fine for the lab.</p>
+
+      <h4>The key Streamlit concept: session state</h4>
+      <p>Streamlit re-runs the entire script on every user interaction — every button click, every keystroke. Without session state, the vector index would be rebuilt and all documents re-embedded on every action. <code>st.session_state</code> keeps objects alive across reruns:</p>
+      <div class="code-label"><span class="dot py"></span> persist the index across interactions</div>
+      <pre><code>if "records" not in st.session_state:
+    st.session_state.records = []
+
+if uploaded_files and st.button("Build local index"):
+    st.session_state.records = build_index(uploaded_files, chunk_size, overlap)
+    # index now survives until the user clicks the button again</code></pre>
+
+      <h4>Strict mode toggle</h4>
+      <p>A checkbox switches the system prompt between "answer only from documents" and "use documents but also general knowledge if needed." Try both on the same question — this is a real design decision in any document assistant, not just an exercise.</p>
+      <div class="code-label"><span class="dot bash"></span> run — opens a tab at localhost:8501, nothing leaves your machine</div>
+      <pre><code>streamlit run practice_06_final_streamlit_local_doc_chatbot.py</code></pre>
+    </div>
+  </div>
+
+</div>
+
+<h2 id="s9">9. Benchmarking: What Should You Measure?</h2>
+<p>
+Benchmarking should not be only "which answer sounds better?" A useful local AI comparison includes speed, memory pressure, answer grounding, and refusal behaviour. For this bootcamp, keep the benchmark simple: same question, same retrieved chunks, compare response time and a short human quality score.
+</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>How to measure</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td><strong>Latency</strong></td><td>Seconds from request to complete response (<code>time.perf_counter()</code>)</td><td>Shows whether the model is usable interactively</td></tr>
+<tr><td><strong>Answer grounding</strong></td><td>Does it cite and use the provided chunks?</td><td>Critical for document Q&amp;A reliability</td></tr>
+<tr><td><strong>Refusal behaviour</strong></td><td>Ask a question not in the document</td><td>Checks whether the model invents unsupported answers</td></tr>
+<tr><td><strong>Completeness</strong></td><td>Does it include the important details?</td><td>Small models may omit key points</td></tr>
+<tr><td><strong>Resource usage</strong></td><td>Task Manager / Activity Monitor / <code>nvidia-smi</code></td><td>Shows hardware feasibility for production</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout tip">
+  <div class="callout-title">✅ Good benchmark question set</div>
+  <p>Use one factual question clearly answered in the document, one summary question, one comparison question, and one question that is not answered in the documents. This tests speed, grounding, and refusal behaviour, not just surface fluency. Compare at least two model sizes if your hardware allows (e.g. <code>qwen2.5:1.5b</code> vs <code>qwen2.5:3b</code>).</p>
+</div>
+
+<h2 id="s10">10. Security and Privacy: Data Path Matters</h2>
+<p>
+"Installed locally" does not mean all AI processing is local. Some desktop AI tools use a local UI but send prompts to a cloud model. For sensitive work, the key question is not "Did I install something?" but <strong>"Where does the prompt go during inference?"</strong>
+</p>
+<ul>
+  <li><strong>Fully local path:</strong> document → local embedding model → local vector store → local LLM endpoint → local answer. This is what practices 01–06 build.</li>
+  <li><strong>Cloud-assisted path:</strong> document or prompt is sent to a hosted model or external API, even if the UI is local.</li>
+  <li><strong>Hybrid path:</strong> retrieval is local, but generation is cloud-based, or vice versa.</li>
+</ul>
+<p>
+For coding assistants and AI IDEs, check privacy settings, telemetry toggles, and whether code snippets are sent to external providers. This is not the same as saying any specific tool is unsafe, the professional framing is that cloud-connected tools may create a data-governance risk depending on your project and jurisdiction (GDPR, HIPAA, internal policy).
+</p>
+
+<div class="compare">
+  <div class="panel">
+    <h4>✅ What "fully local" means in this project</h4>
+    <ul>
+      <li>Documents never leave your machine</li>
+      <li>Embeddings computed locally via Ollama</li>
+      <li>Vector store saved to local JSON file</li>
+      <li>LLM inference on <code>localhost:11434</code></li>
+      <li>Works with no internet after setup</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h4>⚠️ Things that would break local privacy</h4>
+    <ul>
+      <li>Switching model to an OpenAI API key</li>
+      <li>Using a cloud embedding service</li>
+      <li>Storing vectors in a cloud vector DB</li>
+      <li>Sending documents to a hosted OCR service</li>
+      <li>Logging prompts/responses to a remote server</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="s11">11. Lab Deliverable</h2>
+<p>
+The lab session uses <strong>Lab A: Local AI Developer Assistant</strong> (<code>day10_lab_local_developer_assistant.ipynb</code>). This is distinct from the practices: instead of a document Q&amp;A pipeline, you build a coding assistant — explaining code, debugging errors, generating test cases — using a local model via Ollama. The document assistant (practices 01–06) is the guided warmup; the lab is your own build.
+</p>
+
+<div class="compare">
+  <div class="panel">
+    <h4>Minimum deliverable</h4>
+    <ul>
+      <li>Ollama running locally with a chosen model</li>
+      <li>At least 3 developer task prompt templates (explain / debug / test)</li>
+      <li>At least 3 example prompts with local model responses</li>
+      <li>Benchmark table (response time, model, prompt length)</li>
+      <li>Written reflection (150–250 words)</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h4>Extension options</h4>
+    <ul>
+      <li>Streamlit or Gradio UI for the assistant</li>
+      <li>Model comparison: 0.5B vs 1.5B vs 3B on the same prompts</li>
+      <li>Agent-like workflow: classify request type → choose prompt template automatically</li>
+      <li>Conversation memory using message history</li>
+      <li>Combine with the document pipeline for a code-aware doc assistant</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout purple">
+  <div class="callout-title">💭 Reflection questions</div>
+  <p>Which tasks did the local model handle well vs poorly?</p><p>When would you still prefer a cloud model? </p>
+</div>
+
+
+<h2 id="refs">References</h2>
+<div class="refs">
+<ol>
+  <li id="r1">Vaswani et al. "Attention Is All You Need." NeurIPS, 2017. <a href="https://arxiv.org/abs/1706.03762" target="_blank">https://arxiv.org/abs/1706.03762</a></li>
+  <li id="r2">Ollama API documentation. <a href="https://docs.ollama.com/api/introduction" target="_blank">https://docs.ollama.com/api/introduction</a></li>
+  <li id="r3">Ollama authentication and local API access. <a href="https://docs.ollama.com/api/authentication" target="_blank">https://docs.ollama.com/api/authentication</a></li>
+  <li id="r4">Hugging Face Transformers AutoClasses documentation. <a href="https://huggingface.co/docs/transformers/en/model_doc/auto" target="_blank">https://huggingface.co/docs/transformers/en/model_doc/auto</a></li>
+  <li id="r5">llama.cpp repository. <a href="https://github.com/ggml-org/llama.cpp" target="_blank">https://github.com/ggml-org/llama.cpp</a></li>
+  <li id="r6">vLLM documentation. <a href="https://docs.vllm.ai/en/latest/" target="_blank">https://docs.vllm.ai/en/latest/</a></li>
+  <li id="r7">LocalAI getting started. <a href="https://localai.io/basics/getting_started/index.html" target="_blank">https://localai.io/basics/getting_started/index.html</a></li>
+  <li id="r8">LM Studio developer documentation. <a href="https://lmstudio.ai/docs/developer/core/server" target="_blank">https://lmstudio.ai/docs/developer/core/server</a></li>
+  <li id="r9">Jan official documentation. <a href="https://jan.ai/" target="_blank">https://jan.ai/</a></li>
+  <li id="r10">Grootendorst, M. "A Visual Guide to Quantization." 2024. <a href="https://www.maartengrootendorst.com/blog/quantization/" target="_blank">https://www.maartengrootendorst.com/blog/quantization/</a></li>
+  <li id="r11">Modal. "How much VRAM do I need for LLM inference?" 2024. <a href="https://modal.com/blog/how-much-vram-need-inference" target="_blank">https://modal.com/blog/how-much-vram-need-inference</a></li>
+</ol>
+</div>
+
+<script>
+function showPipe(id){
+  document.querySelectorAll('.pipeline-info').forEach(x=>x.style.display='none');
+  const el=document.getElementById(id);
+  if(el) el.style.display='block';
+}
+function toggleFlow(card){
+  card.classList.toggle('open');
+}
+function checkMC(group,correct,msg){
+  const chosen=document.querySelector('input[name="'+group+'"]:checked');
+  const fb=document.getElementById(group+'-fb');
+  if(!chosen){fb.className='quiz-feedback wrong';fb.textContent='Please choose an answer first.';return;}
+  if(chosen.value===correct){fb.className='quiz-feedback correct';fb.textContent=msg;}
+  else{fb.className='quiz-feedback wrong';fb.textContent='Not quite — try again, then discuss why the other option is stronger.';}
+}
+function chooseTool(){
+  const goal=document.getElementById('goal').value;
+  const constraint=document.getElementById('constraint').value;
+  const data={
+    'private-app':['Ollama + local JSON vector store (today\'s approach)','Shortest path to a working private document assistant. Simple API, no extra services, easy to debug on a laptop.'],
+    'research':['Hugging Face Transformers','You need model-level control: fine-tuning, LoRA/PEFT, custom generation, logit inspection, or adapter layers.'],
+    'edge':['llama.cpp + GGUF directly','Designed for minimal-overhead inference on CPU-first, low-resource, or embedded hardware.'],
+    'production':['vLLM','High-throughput serving with PagedAttention, batching, streaming, and distributed inference. Requires Linux + NVIDIA GPU.'],
+    'openai-compatible':['LocalAI or vLLM OpenAI-compatible server','Both expose an OpenAI-compatible endpoint so existing client code needs minimal changes.'],
+    'gui':['LM Studio or Jan (both run on Windows, Mac, and Linux)','GUI workflow for visual model testing before writing any application code.']
+  };
+  let [tool,why]=data[goal];
+  if(constraint==='control'&&goal==='private-app'){tool='Ollama for prototype → Transformers if customisation becomes important';}
+  if(constraint==='throughput'&&goal!=='production'){tool+=' — but evaluate vLLM if many concurrent users are expected';}
+  document.getElementById('decision-result').innerHTML='<strong>Recommended starting point:</strong> '+tool+'<br><span class="mini">'+why+'</span>';
+}
+chooseTool();
+function calcVRAM(){
+  const P=parseFloat(document.getElementById('vp').value)||7;
+  const Q=parseInt(document.getElementById('vq').value)||4;
+  const gb=(P*(Q/8)*1.2).toFixed(1);
+  document.getElementById('vram-result').innerHTML='<strong>≈ '+gb+' GB VRAM needed</strong> for a '+P+'B model at '+Q+'-bit quantization (including KV cache overhead)';
+}
+calcVRAM();
+// Tooltip
+const tooltip=document.getElementById('tooltip'),label=document.getElementById('tt-label'),body=document.getElementById('tt-body');
+document.querySelectorAll('.term').forEach(t=>{
+  t.addEventListener('mouseenter',e=>{label.textContent=t.dataset.term;body.textContent=t.dataset.definition;tooltip.style.display='block';});
+  t.addEventListener('mousemove',e=>{tooltip.style.left=Math.min(e.clientX+14,window.innerWidth-380)+'px';tooltip.style.top=(e.clientY+14)+'px';});
+  t.addEventListener('mouseleave',()=>{tooltip.style.display='none';});
+});
+</script>
+
+
+</body></html>
