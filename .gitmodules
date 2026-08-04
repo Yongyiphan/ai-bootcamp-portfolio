@@ -1,0 +1,3 @@
+[submodule "capstone/SolveGuide"]
+	path = capstone/SolveGuide
+	url = https://github.com/Yongyiphan/solveguide.git
