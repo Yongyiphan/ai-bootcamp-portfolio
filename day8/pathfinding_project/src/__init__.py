@@ -1,0 +1,1 @@
+"""Pathfinding application components."""

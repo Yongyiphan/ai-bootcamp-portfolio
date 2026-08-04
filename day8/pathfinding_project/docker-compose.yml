@@ -1,0 +1,24 @@
+services:
+  pathfinding-app:
+    build: .
+    ports:
+      - "60003:5000"
+    environment:
+      EDITOR_PASSWORD: ${EDITOR_PASSWORD:-day8-editor}
+      SECRET_KEY: ${SECRET_KEY:-replace-this-for-non-lab-use}
+    volumes:
+      - ./data:/app/data
+
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    ports:
+      - "60004:8080"
+      - "50001:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - .:/workspace
+
+volumes:
+  jenkins_home:

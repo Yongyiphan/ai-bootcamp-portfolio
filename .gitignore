@@ -15,3 +15,6 @@ __pycache__/
 *.db
 __pycache__/
 .streamlit/
+
+# Ignore operating-system metadata
+.DS_Store

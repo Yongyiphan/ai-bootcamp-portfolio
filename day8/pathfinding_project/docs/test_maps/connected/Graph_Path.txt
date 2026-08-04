@@ -1,0 +1,4 @@
+# Two routes; direct geometric distance is not the edge cost
+0 0 1 7
+1 1 2 8
+2 0 2 20

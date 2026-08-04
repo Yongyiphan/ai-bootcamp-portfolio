@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.pytest_cache
+**/.pytest_cache
+__pycache__
+**/__pycache__
+*.py[cod]
+.ci-venv
+.venv
+venv
+test-results.xml
+docs/screenshots
+docs/evidence

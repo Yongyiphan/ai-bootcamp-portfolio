@@ -1,0 +1,28 @@
+Day 8 Lab V2 direct container verification
+Date: 22 July 2026
+
+Command:
+docker compose exec faculty-training-app ls -l /app/multiply
+
+Result:
+-rwxr-xr-x 1 1000 1000 16656 Jul 22 07:49 /app/multiply
+
+Command:
+docker compose exec faculty-training-app /app/multiply 3 4
+
+Result:
+12
+
+Command:
+docker compose exec faculty-training-app python /app/python/check_multiply.py
+
+Result:
+3 * 4 = 12
+0 * 0 = 0
+-3 * 4 = -12
+-3 * -4 = 12
+7 * 0 = 0
+123 * 1 = 123
+5 * -6 = -30
+1000 * 1000 = 1000000
+ALL TESTS PASSED

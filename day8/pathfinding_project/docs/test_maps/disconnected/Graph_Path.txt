@@ -1,0 +1,2 @@
+# Only nodes 0 and 1 are connected
+0 0 1 10

@@ -1,0 +1,4 @@
+# Small connected graph
+0 0 0 0 School_A
+1 10 0 1 Shop_A
+2 20 0 4 Park_A

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Singapore Route Explorer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div><span class="eyebrow">DAY 8 · AI REVIEW LAB</span><h1>Singapore Route Explorer</h1></div>
+    <button id="editor-toggle" class="secondary">Editor login</button>
+  </header>
+  <main>
+    <section class="controls card">
+      <div><label for="start">Starting point</label><select id="start"></select></div>
+      <span class="arrow">→</span>
+      <div><label for="end">Destination</label><select id="end"></select></div>
+      <button id="find">Find shortest route</button>
+    </section>
+    <section class="result card" id="result" aria-live="polite">Choose two locations to begin.</section>
+    <section class="map-card card">
+      <div class="map-heading"><div><h2>Community map</h2><p>Edge labels show travel distance.</p></div><div id="legend"></div></div>
+      <svg id="map" viewBox="0 0 1000 650" role="img" aria-label="Pathfinding map"></svg>
+    </section>
+    <section id="editor" class="card hidden">
+      <div class="editor-heading"><div><span class="eyebrow">AUTHORISED ACCESS</span><h2>Map editor</h2></div><button id="logout" class="secondary">Log out</button></div>
+      <p>Use an existing ID to update it, or a new ID to add it. Deleting a node also removes connected paths.</p>
+      <div class="editor-grid">
+        <form id="node-form"><h3>Add or update node</h3>
+          <label>ID<input name="id" type="number" required></label>
+          <label>X<input name="x" type="number" step="any" required></label>
+          <label>Y<input name="y" type="number" step="any" required></label>
+          <label>Type<select name="type_id"><option value="0">School</option><option value="1">Shop</option><option value="2">Mall</option><option value="3">HDB</option><option value="4">Park</option></select></label>
+          <label>Name (no spaces)<input name="name" required pattern="\S+"></label>
+          <div><button type="submit">Save node</button><button type="button" class="danger" data-delete="node">Delete</button></div>
+        </form>
+        <form id="edge-form"><h3>Add or update path</h3>
+          <label>ID<input name="id" type="number" required></label>
+          <label>Node A<input name="node_a" type="number" required></label>
+          <label>Node B<input name="node_b" type="number" required></label>
+          <label>Distance<input name="distance" type="number" step="any" min="0" required></label>
+          <div><button type="submit">Save path</button><button type="button" class="danger" data-delete="edge">Delete</button></div>
+        </form>
+      </div>
+      <p id="editor-message" aria-live="polite"></p>
+    </section>
+  </main>
+  <dialog id="login-dialog"><form id="login-form"><h2>Editor login</h2><p>Editing is protected; public pathfinding remains available.</p><label>Password<input name="password" type="password" required autofocus></label><p id="login-error" class="error"></p><div><button type="button" id="cancel-login" class="secondary">Cancel</button><button type="submit">Log in</button></div></form></dialog>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Diamond graph with equal-cost routes from 0 to 3
+0 0 0 0 School_A
+1 10 10 1 Shop_A
+2 10 -10 4 Park_A
+3 20 0 2 Mall_A

@@ -1,0 +1,4 @@
+# Node 2 is isolated
+0 0 0 0 School_A
+1 10 0 1 Shop_A
+2 30 0 2 Mall_A
