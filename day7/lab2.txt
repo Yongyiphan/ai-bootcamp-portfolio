@@ -1,0 +1,9 @@
+============================================================
+STUDENT NAME : [Yong Yip Han, Edgar]
+LAB ASSIGNMENT : Lab 02
+============================================================
+[GITHUB REPOSITORY LINK]
+https://github.com/Yongyiphan/ai-bootcamp-portfolio/tree/main/day7/lab02
+[STREAMLIT LIVE APPLICATION LINK]
+https://ai-bootcamp-portfolio-gjcvjh6j8ubjwibhdhgmhc.streamlit.app/
+============================================================
